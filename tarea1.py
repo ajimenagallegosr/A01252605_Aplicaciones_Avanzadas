@@ -65,7 +65,7 @@ class HashTable:
         sum_of_chars = 0
         for char in key:
             sum_of_chars += ord(char)
-        return sum_of_chars % self.capacity
+        return sum_of_chars % 10 
 
     def add(self, element):
         index = self.hash_func(element)
@@ -111,6 +111,9 @@ print("Mi stack despues del pop: ",myStack)
 #Mostrar el tamaño actual del stack
 print("El tamaño de mi stack: ",myStack.size())
 
+#Mostrar si el stack esta vacio
+print("Mi stack esta vacio? ", myStack.isEmpty())
+
 # Test cases realizados QUEUE
 # Inicializar Queue
 print("\n QUEUE:")
@@ -132,9 +135,12 @@ print("Mi queue despues del dequeue: ",myQueue)
 #Mostrar el tamaño actual del queue
 print("El tamaño de mi queue: ",myQueue.size())
 
+#Mostrar si mi queue esta vacio
+print("Mi queue esta vacio?: ",myQueue.isEmpty())
+
 # Test cases realizados HASH TABLE
 # Inicializar Hash Table
-print("HASH TABLE: ")
+print("\n HASH TABLE: ")
 myHashTable = HashTable()
 
 # Agregar 3 elementos a la Hash table e imprimir hash
@@ -146,11 +152,10 @@ print(myHashTable) # Las hash table guardan los elementos en posiciones hash
 #Eliminar un elemento que no existe
 myHashTable.remove("Maria")
 
-#Agregar un elemento, Eliminar un elemento que si existe e imprimir la hash table
-myHashTable.add("Victor")
+#Eliminar un elemento que si existe e imprimir la hash table
 myHashTable.remove("Regina")
 print(myHashTable)
 
 #Revisar si la hash table contiene un elemento
-print("La hash table contiene Victor? : ", myHashTable.contains("Victor"))
+print("La hash table contiene Jimena? : ", myHashTable.contains("Jimena"))
 print("\n")
