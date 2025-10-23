@@ -1,4 +1,4 @@
-from Avance1 import lexer
+from LexerPatito import lexer
 
 test_cases = [
     # 1. reservadas
