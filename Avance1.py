@@ -13,7 +13,9 @@ reserved = {
     'do' : 'DO',
     'if' : 'IF',
     'else' : 'ELSE',
-    'print' : 'PRINT'
+    'print' : 'PRINT',
+    'int': 'INT_TYPE',
+    'float': 'FLOAT_TYPE'
 }
 
 #tokens sin regex
@@ -64,7 +66,7 @@ t_COMMA = r','
 # Regex rule with some action code
 
 def t_ID(t):
-    r'[a-zA-Z][a-zA-Z0-9_]*'
+    r'[a-zA-Z_][a-zA-Z0-9_]*'
     t.type = reserved.get(t.value, 'ID')
     return t
 
