@@ -52,14 +52,4 @@ t_plus = r'\+'
 t_minus = r'-'
 t_times = r'\*'
 t_divide = r'/'
-t_greater =
-t_less =
-t_different =
-t_rparentesis =
-t_lparentesis =
-t_rbrackets =
-t_lbrackets = 
-t_colon =
-t_semicolon =
-t_comma = 
 

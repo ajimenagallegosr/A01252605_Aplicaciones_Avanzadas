@@ -1,0 +1,10 @@
+.DS_Store
+
+*.zip
+*.pyc
+__pycache__/
+
+Tarea1_A01252605/
+
+Avanze1.py
+Tarea01_A01252605.py
