@@ -112,8 +112,29 @@ def p_part_else_vacia(p):
     print("🪫 ELSE vacío")
     pass
 
-def p_expresion_placeholder(p):
-    'expresion : ID'
+def p_expresion(p):
+    'expresion : exp comparacion'
+    pass
+
+def p_comparacion_mayor(p):
+    'comparacion : GREATER exp'
+    pass
+
+def p_comparacion_menor(p):
+    'comparacion : LESS exp'
+    pass
+
+def p_comparacion_diferente(p):
+    'comparacion : DIFFERENT exp'
+    pass
+
+def p_comparacion_vacia(p):
+    'comparacion : '
+    pass
+
+
+def p_exp_placeholder(p):
+    'exp : '
     print(f"🧮 EXPRESIÓN detectada (ID): {p[1]}")
     pass
 
