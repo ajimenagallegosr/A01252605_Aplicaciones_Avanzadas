@@ -164,6 +164,45 @@ def p_mult_div_vacio(p):
     'mult_div : '
     pass
 
+def p_factor_agrupacion(p):
+    'factor : agrupacion'
+    pass
+
+def p_factor_signo(p):
+    'factor : signo_unario'
+    pass
+
+def p_factor_valor(p):
+    'factor : valor'
+    pass
+
+def p_agrupacion(p):
+    'agrupacion : LPARENTESIS expresion RPARENTESIS'
+    pass
+
+def p_signo_unario_suma(p):
+    'signo_unario : PLUS valor'
+    pass
+
+def p_signo_unario_resta(p):
+    'signo_unario : MINUS valor'
+    pass
+
+def p_valor_id(p):
+    'valor : ID'
+    pass
+
+def p_valor_cte(p):
+    'valor : cte'
+    pass
+
+def p_cte_int(p):
+    'cte : CTE_INT'
+    pass
+
+def p_cte_float(p):
+    'cte : CTE_FLOAT'
+
 def p_f_call_placeholder(p):
     'f_call : '
     print("📞 FCALL placeholder")
