@@ -236,9 +236,24 @@ def p_bloque_funcion_body(p):
     'bloque_funcion : body'
     pass
 
-def p_f_call_placeholder(p):
-    'f_call : '
-    print("📞 FCALL placeholder")
+def p_f_call(p):
+    'f_call : LPARENTESIS argumentos RPARENTESIS SEMICOLON'
+    pass
+
+def p_argumentos_lista(p):
+    'argumentos : expresion lista_argumentos'
+    pass
+
+def p_argumentos_vacia(p):
+    'argumentos : '
+    pass
+
+def p_lista_argumentos_lista(p):
+    'lista_argumentos : COMMA expresion lista_argumentos'
+    pass
+
+def p_lista_argumentos_vacia(p):
+    'lista_argumentos : '
     pass
 
 def p_error(p):
