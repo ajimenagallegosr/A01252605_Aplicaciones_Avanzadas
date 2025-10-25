@@ -202,6 +202,39 @@ def p_cte_int(p):
 
 def p_cte_float(p):
     'cte : CTE_FLOAT'
+    pass
+
+def p_funcs(p):
+    'funcs : VOID ID LPARENTESIS parametros RPARENTESIS LBRACKETS bloque_funcion RBRACKETS SEMICOLON'
+    pass
+
+def p_parametros_recursivo(p):
+    'parametros : parametro lista_parametros'
+    pass
+
+def p_parametros_vacio(p):
+    'parametros : '
+    pass
+
+def p_parametro(p):
+    'parametro : ID COLON type'
+    pass
+
+def p_lista_parametros_recursivo(p):
+    'lista_parametro : COMMA parametro lista_parametros'
+    pass
+
+def p_lista_parametros_vacia(p):
+    'lista_parametro : '
+    pass
+
+def p_bloque_funcion_variables(p):
+    'bloque_funcion : vars body'
+    pass
+
+def p_bloque_funcion_body(p):
+    'bloque_funcion : body'
+    pass
 
 def p_f_call_placeholder(p):
     'f_call : '
