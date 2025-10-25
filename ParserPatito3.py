@@ -2,10 +2,49 @@ import ply.yacc as yacc
 from LexerPatito import tokens
 
 
+def p_program(p):
+    'program : PROGRAM ID SEMICOLON declaraciones funciones MAIN body END'
+    print("programa valido")
 
-def p_prueba(p):
-    'prueba : body'
-    print("biennn")
+def p_declaraciones_vars(p):
+    'declaraciones : vars'
+    pass
+
+def p_declaraciones_vacias(p):
+    'declaraciones : '
+    pass
+
+def p_funciones_recursivo(p):
+    'funciones : func funciones'
+    pass
+
+def p_funciones_vacias(p):
+    'funciones : '
+    pass
+
+def p_vars(p):
+    'vars : VAR declaracion_var lista_declaraciones'
+    pass
+
+def p_declaracion_var(p):
+    'declaracion_var : lista_identificadores COLON type SEMICOLON'
+    pass
+
+def p_lista_identificadores_mult(p):
+    'lista_identificadores: ID COMMA lista_identificadores'
+    pass
+
+def p_lista_identificadores_ind(p):
+    'lista_identificadores : ID'
+    pass
+
+def p_lista_declaraciones(p):
+    'lista_declaraciones : declaracion_var lista_declaraciones'
+    pass
+
+def p_lista_declaraciones_vacia(p):
+    'lista_declaraciones : '
+    pass
 
 def p_type_int(p):
     'type : INT_TYPE'
