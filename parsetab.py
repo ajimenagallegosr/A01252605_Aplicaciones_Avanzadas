@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'COLON COMMA CTE_FLOAT CTE_INT CTE_STRING DIFFERENT DIVIDE DO ELSE END EQUALS FLOAT_TYPE GREATER ID IF INT_TYPE LBRACES LBRACKETS LESS LPARENTESIS MAIN MINUS PLUS PRINT PROGRAM RBRACES RBRACKETS RPARENTESIS SEMICOLON TIMES VAR VOID WHILEprueba : bodytype : INT_TYPEtype : FLOAT_TYPEbody : LBRACES lista_statements RBRACESlista_statements : lista_statements : statement lista_statementsstatement : print_funcstatement : conditionstatement : cyclestatement : ID opcion_idprint_func : PRINTcondition : cycle : opcion_id : f_callopcion_id : assignf_call : assign : '
+_lr_signature = 'COLON COMMA CTE_FLOAT CTE_INT CTE_STRING DIFFERENT DIVIDE DO ELSE END EQUALS FLOAT_TYPE GREATER ID IF INT_TYPE LBRACES LBRACKETS LESS LPARENTESIS MAIN MINUS PLUS PRINT PROGRAM RBRACES RBRACKETS RPARENTESIS SEMICOLON TIMES VAR VOID WHILEprueba : bodytype : INT_TYPEtype : FLOAT_TYPEbody : LBRACES lista_statements RBRACESlista_statements : lista_statements : statement lista_statementsstatement : print_funcstatement : conditionstatement : cyclestatement : ID opcion_idprint_func : PRINT LPARENTESIS elemento_impresion lista_elementos RPARENTESIS SEMICOLONelemento_impresion : expresionelemento_impresion : CTE_STRINGlista_elementos : COMMA elemento_impresion lista_elementoslista_elementos : expresion : IDcondition : cycle : opcion_id : f_callopcion_id : assignf_call : assign : '
     
-_lr_action_items = {'LBRACES':([0,],[3,]),'$end':([1,2,11,],[0,-1,-4,]),'RBRACES':([3,4,5,6,7,8,9,10,12,13,14,15,],[-5,11,-5,-7,-8,-9,-16,-11,-6,-10,-14,-15,]),'ID':([3,5,6,7,8,9,10,13,14,15,],[9,9,-7,-8,-9,-16,-11,-10,-14,-15,]),'PRINT':([3,5,6,7,8,9,10,13,14,15,],[10,10,-7,-8,-9,-16,-11,-10,-14,-15,]),}
+_lr_action_items = {'LBRACES':([0,],[3,]),'$end':([1,2,11,],[0,-1,-4,]),'RBRACES':([3,4,5,6,7,8,9,12,13,14,15,25,],[-5,11,-5,-7,-8,-9,-21,-6,-10,-19,-20,-11,]),'ID':([3,5,6,7,8,9,13,14,15,16,22,25,],[9,9,-7,-8,-9,-21,-10,-19,-20,20,20,-11,]),'PRINT':([3,5,6,7,8,9,13,14,15,25,],[10,10,-7,-8,-9,-21,-10,-19,-20,-11,]),'LPARENTESIS':([10,],[16,]),'CTE_STRING':([16,22,],[19,19,]),'COMMA':([17,18,19,20,24,],[22,-12,-13,-16,22,]),'RPARENTESIS':([17,18,19,20,21,24,26,],[-15,-12,-13,-16,23,-15,-14,]),'SEMICOLON':([23,],[25,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'prueba':([0,],[1,]),'body':([0,],[2,]),'lista_statements':([3,5,],[4,12,]),'statement':([3,5,],[5,5,]),'print_func':([3,5,],[6,6,]),'condition':([3,5,],[7,7,]),'cycle':([3,5,],[8,8,]),'opcion_id':([9,],[13,]),'f_call':([9,],[14,]),'assign':([9,],[15,]),}
+_lr_goto_items = {'prueba':([0,],[1,]),'body':([0,],[2,]),'lista_statements':([3,5,],[4,12,]),'statement':([3,5,],[5,5,]),'print_func':([3,5,],[6,6,]),'condition':([3,5,],[7,7,]),'cycle':([3,5,],[8,8,]),'opcion_id':([9,],[13,]),'f_call':([9,],[14,]),'assign':([9,],[15,]),'elemento_impresion':([16,22,],[17,24,]),'expresion':([16,22,],[18,18,]),'lista_elementos':([17,24,],[21,26,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -37,11 +37,16 @@ _lr_productions = [
   ('statement -> condition','statement',1,'p_statement_condition','ParserPatito3.py',36),
   ('statement -> cycle','statement',1,'p_statement_cycle','ParserPatito3.py',40),
   ('statement -> ID opcion_id','statement',2,'p_statement_opcion','ParserPatito3.py',44),
-  ('print_func -> PRINT','print_func',1,'p_print_func_placeholder','ParserPatito3.py',49),
-  ('condition -> <empty>','condition',0,'p_condition_placeholder','ParserPatito3.py',55),
-  ('cycle -> <empty>','cycle',0,'p_cycle_placeholder','ParserPatito3.py',59),
-  ('opcion_id -> f_call','opcion_id',1,'p_opcionid_fcall','ParserPatito3.py',63),
-  ('opcion_id -> assign','opcion_id',1,'p_opcionid_assign','ParserPatito3.py',67),
-  ('f_call -> <empty>','f_call',0,'p_f_call_placeholder','ParserPatito3.py',71),
-  ('assign -> <empty>','assign',0,'p_assign_placeholder','ParserPatito3.py',75),
+  ('print_func -> PRINT LPARENTESIS elemento_impresion lista_elementos RPARENTESIS SEMICOLON','print_func',6,'p_print_func_placeholder','ParserPatito3.py',49),
+  ('elemento_impresion -> expresion','elemento_impresion',1,'p_elemento_impresion_exp','ParserPatito3.py',53),
+  ('elemento_impresion -> CTE_STRING','elemento_impresion',1,'p_elemento_impresion_string','ParserPatito3.py',57),
+  ('lista_elementos -> COMMA elemento_impresion lista_elementos','lista_elementos',3,'p_lista_elementos_recursiva','ParserPatito3.py',61),
+  ('lista_elementos -> <empty>','lista_elementos',0,'p_lista_elementos_vacia','ParserPatito3.py',65),
+  ('expresion -> ID','expresion',1,'p_expresion_placeholder','ParserPatito3.py',69),
+  ('condition -> <empty>','condition',0,'p_condition_placeholder','ParserPatito3.py',74),
+  ('cycle -> <empty>','cycle',0,'p_cycle_placeholder','ParserPatito3.py',78),
+  ('opcion_id -> f_call','opcion_id',1,'p_opcionid_fcall','ParserPatito3.py',82),
+  ('opcion_id -> assign','opcion_id',1,'p_opcionid_assign','ParserPatito3.py',86),
+  ('f_call -> <empty>','f_call',0,'p_f_call_placeholder','ParserPatito3.py',90),
+  ('assign -> <empty>','assign',0,'p_assign_placeholder','ParserPatito3.py',94),
 ]

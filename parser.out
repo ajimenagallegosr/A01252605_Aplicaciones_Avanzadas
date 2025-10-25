@@ -3,10 +3,8 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 Unused terminals:
 
     COLON
-    COMMA
     CTE_FLOAT
     CTE_INT
-    CTE_STRING
     DIFFERENT
     DIVIDE
     DO
@@ -17,14 +15,11 @@ Unused terminals:
     IF
     LBRACKETS
     LESS
-    LPARENTESIS
     MAIN
     MINUS
     PLUS
     PROGRAM
     RBRACKETS
-    RPARENTESIS
-    SEMICOLON
     TIMES
     VAR
     VOID
@@ -43,21 +38,26 @@ Rule 7     statement -> print_func
 Rule 8     statement -> condition
 Rule 9     statement -> cycle
 Rule 10    statement -> ID opcion_id
-Rule 11    print_func -> PRINT
-Rule 12    condition -> <empty>
-Rule 13    cycle -> <empty>
-Rule 14    opcion_id -> f_call
-Rule 15    opcion_id -> assign
-Rule 16    f_call -> <empty>
-Rule 17    assign -> <empty>
+Rule 11    print_func -> PRINT LPARENTESIS elemento_impresion lista_elementos RPARENTESIS SEMICOLON
+Rule 12    elemento_impresion -> expresion
+Rule 13    elemento_impresion -> CTE_STRING
+Rule 14    lista_elementos -> COMMA elemento_impresion lista_elementos
+Rule 15    lista_elementos -> <empty>
+Rule 16    expresion -> ID
+Rule 17    condition -> <empty>
+Rule 18    cycle -> <empty>
+Rule 19    opcion_id -> f_call
+Rule 20    opcion_id -> assign
+Rule 21    f_call -> <empty>
+Rule 22    assign -> <empty>
 
 Terminals, with rules where they appear
 
 COLON                : 
-COMMA                : 
+COMMA                : 14
 CTE_FLOAT            : 
 CTE_INT              : 
-CTE_STRING           : 
+CTE_STRING           : 13
 DIFFERENT            : 
 DIVIDE               : 
 DO                   : 
@@ -66,13 +66,13 @@ END                  :
 EQUALS               : 
 FLOAT_TYPE           : 3
 GREATER              : 
-ID                   : 10
+ID                   : 10 16
 IF                   : 
 INT_TYPE             : 2
 LBRACES              : 4
 LBRACKETS            : 
 LESS                 : 
-LPARENTESIS          : 
+LPARENTESIS          : 11
 MAIN                 : 
 MINUS                : 
 PLUS                 : 
@@ -80,8 +80,8 @@ PRINT                : 11
 PROGRAM              : 
 RBRACES              : 4
 RBRACKETS            : 
-RPARENTESIS          : 
-SEMICOLON            : 
+RPARENTESIS          : 11
+SEMICOLON            : 11
 TIMES                : 
 VAR                  : 
 VOID                 : 
@@ -90,11 +90,14 @@ error                :
 
 Nonterminals, with rules where they appear
 
-assign               : 15
+assign               : 20
 body                 : 1
 condition            : 8
 cycle                : 9
-f_call               : 14
+elemento_impresion   : 11 14
+expresion            : 12
+f_call               : 19
+lista_elementos      : 11 14
 lista_statements     : 4 6
 opcion_id            : 10
 print_func           : 7
@@ -137,9 +140,9 @@ state 3
     (8) statement -> . condition
     (9) statement -> . cycle
     (10) statement -> . ID opcion_id
-    (11) print_func -> . PRINT
-    (12) condition -> .
-    (13) cycle -> .
+    (11) print_func -> . PRINT LPARENTESIS elemento_impresion lista_elementos RPARENTESIS SEMICOLON
+    (17) condition -> .
+    (18) cycle -> .
 
   ! shift/reduce conflict for ID resolved as shift
   ! shift/reduce conflict for PRINT resolved as shift
@@ -151,12 +154,12 @@ state 3
     ID              shift and go to state 9
     PRINT           shift and go to state 10
 
-  ! ID              [ reduce using rule 12 (condition -> .) ]
-  ! PRINT           [ reduce using rule 12 (condition -> .) ]
-  ! RBRACES         [ reduce using rule 12 (condition -> .) ]
-  ! ID              [ reduce using rule 13 (cycle -> .) ]
-  ! PRINT           [ reduce using rule 13 (cycle -> .) ]
-  ! RBRACES         [ reduce using rule 13 (cycle -> .) ]
+  ! ID              [ reduce using rule 17 (condition -> .) ]
+  ! PRINT           [ reduce using rule 17 (condition -> .) ]
+  ! RBRACES         [ reduce using rule 17 (condition -> .) ]
+  ! ID              [ reduce using rule 18 (cycle -> .) ]
+  ! PRINT           [ reduce using rule 18 (cycle -> .) ]
+  ! RBRACES         [ reduce using rule 18 (cycle -> .) ]
 
     lista_statements               shift and go to state 4
     statement                      shift and go to state 5
@@ -180,9 +183,9 @@ state 5
     (8) statement -> . condition
     (9) statement -> . cycle
     (10) statement -> . ID opcion_id
-    (11) print_func -> . PRINT
-    (12) condition -> .
-    (13) cycle -> .
+    (11) print_func -> . PRINT LPARENTESIS elemento_impresion lista_elementos RPARENTESIS SEMICOLON
+    (17) condition -> .
+    (18) cycle -> .
 
   ! shift/reduce conflict for ID resolved as shift
   ! shift/reduce conflict for PRINT resolved as shift
@@ -194,12 +197,12 @@ state 5
     ID              shift and go to state 9
     PRINT           shift and go to state 10
 
-  ! ID              [ reduce using rule 12 (condition -> .) ]
-  ! PRINT           [ reduce using rule 12 (condition -> .) ]
-  ! RBRACES         [ reduce using rule 12 (condition -> .) ]
-  ! ID              [ reduce using rule 13 (cycle -> .) ]
-  ! PRINT           [ reduce using rule 13 (cycle -> .) ]
-  ! RBRACES         [ reduce using rule 13 (cycle -> .) ]
+  ! ID              [ reduce using rule 17 (condition -> .) ]
+  ! PRINT           [ reduce using rule 17 (condition -> .) ]
+  ! RBRACES         [ reduce using rule 17 (condition -> .) ]
+  ! ID              [ reduce using rule 18 (cycle -> .) ]
+  ! PRINT           [ reduce using rule 18 (cycle -> .) ]
+  ! RBRACES         [ reduce using rule 18 (cycle -> .) ]
 
     statement                      shift and go to state 5
     lista_statements               shift and go to state 12
@@ -237,21 +240,21 @@ state 8
 state 9
 
     (10) statement -> ID . opcion_id
-    (14) opcion_id -> . f_call
-    (15) opcion_id -> . assign
-    (16) f_call -> .
-    (17) assign -> .
+    (19) opcion_id -> . f_call
+    (20) opcion_id -> . assign
+    (21) f_call -> .
+    (22) assign -> .
 
-  ! reduce/reduce conflict for ID resolved using rule 16 (f_call -> .)
-  ! reduce/reduce conflict for PRINT resolved using rule 16 (f_call -> .)
-  ! reduce/reduce conflict for RBRACES resolved using rule 16 (f_call -> .)
-    ID              reduce using rule 16 (f_call -> .)
-    PRINT           reduce using rule 16 (f_call -> .)
-    RBRACES         reduce using rule 16 (f_call -> .)
+  ! reduce/reduce conflict for ID resolved using rule 21 (f_call -> .)
+  ! reduce/reduce conflict for PRINT resolved using rule 21 (f_call -> .)
+  ! reduce/reduce conflict for RBRACES resolved using rule 21 (f_call -> .)
+    ID              reduce using rule 21 (f_call -> .)
+    PRINT           reduce using rule 21 (f_call -> .)
+    RBRACES         reduce using rule 21 (f_call -> .)
 
-  ! ID              [ reduce using rule 17 (assign -> .) ]
-  ! PRINT           [ reduce using rule 17 (assign -> .) ]
-  ! RBRACES         [ reduce using rule 17 (assign -> .) ]
+  ! ID              [ reduce using rule 22 (assign -> .) ]
+  ! PRINT           [ reduce using rule 22 (assign -> .) ]
+  ! RBRACES         [ reduce using rule 22 (assign -> .) ]
 
     opcion_id                      shift and go to state 13
     f_call                         shift and go to state 14
@@ -259,11 +262,9 @@ state 9
 
 state 10
 
-    (11) print_func -> PRINT .
+    (11) print_func -> PRINT . LPARENTESIS elemento_impresion lista_elementos RPARENTESIS SEMICOLON
 
-    ID              reduce using rule 11 (print_func -> PRINT .)
-    PRINT           reduce using rule 11 (print_func -> PRINT .)
-    RBRACES         reduce using rule 11 (print_func -> PRINT .)
+    LPARENTESIS     shift and go to state 16
 
 
 state 11
@@ -291,20 +292,122 @@ state 13
 
 state 14
 
-    (14) opcion_id -> f_call .
+    (19) opcion_id -> f_call .
 
-    ID              reduce using rule 14 (opcion_id -> f_call .)
-    PRINT           reduce using rule 14 (opcion_id -> f_call .)
-    RBRACES         reduce using rule 14 (opcion_id -> f_call .)
+    ID              reduce using rule 19 (opcion_id -> f_call .)
+    PRINT           reduce using rule 19 (opcion_id -> f_call .)
+    RBRACES         reduce using rule 19 (opcion_id -> f_call .)
 
 
 state 15
 
-    (15) opcion_id -> assign .
+    (20) opcion_id -> assign .
 
-    ID              reduce using rule 15 (opcion_id -> assign .)
-    PRINT           reduce using rule 15 (opcion_id -> assign .)
-    RBRACES         reduce using rule 15 (opcion_id -> assign .)
+    ID              reduce using rule 20 (opcion_id -> assign .)
+    PRINT           reduce using rule 20 (opcion_id -> assign .)
+    RBRACES         reduce using rule 20 (opcion_id -> assign .)
+
+
+state 16
+
+    (11) print_func -> PRINT LPARENTESIS . elemento_impresion lista_elementos RPARENTESIS SEMICOLON
+    (12) elemento_impresion -> . expresion
+    (13) elemento_impresion -> . CTE_STRING
+    (16) expresion -> . ID
+
+    CTE_STRING      shift and go to state 19
+    ID              shift and go to state 20
+
+    elemento_impresion             shift and go to state 17
+    expresion                      shift and go to state 18
+
+state 17
+
+    (11) print_func -> PRINT LPARENTESIS elemento_impresion . lista_elementos RPARENTESIS SEMICOLON
+    (14) lista_elementos -> . COMMA elemento_impresion lista_elementos
+    (15) lista_elementos -> .
+
+    COMMA           shift and go to state 22
+    RPARENTESIS     reduce using rule 15 (lista_elementos -> .)
+
+    lista_elementos                shift and go to state 21
+
+state 18
+
+    (12) elemento_impresion -> expresion .
+
+    COMMA           reduce using rule 12 (elemento_impresion -> expresion .)
+    RPARENTESIS     reduce using rule 12 (elemento_impresion -> expresion .)
+
+
+state 19
+
+    (13) elemento_impresion -> CTE_STRING .
+
+    COMMA           reduce using rule 13 (elemento_impresion -> CTE_STRING .)
+    RPARENTESIS     reduce using rule 13 (elemento_impresion -> CTE_STRING .)
+
+
+state 20
+
+    (16) expresion -> ID .
+
+    COMMA           reduce using rule 16 (expresion -> ID .)
+    RPARENTESIS     reduce using rule 16 (expresion -> ID .)
+
+
+state 21
+
+    (11) print_func -> PRINT LPARENTESIS elemento_impresion lista_elementos . RPARENTESIS SEMICOLON
+
+    RPARENTESIS     shift and go to state 23
+
+
+state 22
+
+    (14) lista_elementos -> COMMA . elemento_impresion lista_elementos
+    (12) elemento_impresion -> . expresion
+    (13) elemento_impresion -> . CTE_STRING
+    (16) expresion -> . ID
+
+    CTE_STRING      shift and go to state 19
+    ID              shift and go to state 20
+
+    elemento_impresion             shift and go to state 24
+    expresion                      shift and go to state 18
+
+state 23
+
+    (11) print_func -> PRINT LPARENTESIS elemento_impresion lista_elementos RPARENTESIS . SEMICOLON
+
+    SEMICOLON       shift and go to state 25
+
+
+state 24
+
+    (14) lista_elementos -> COMMA elemento_impresion . lista_elementos
+    (14) lista_elementos -> . COMMA elemento_impresion lista_elementos
+    (15) lista_elementos -> .
+
+    COMMA           shift and go to state 22
+    RPARENTESIS     reduce using rule 15 (lista_elementos -> .)
+
+    lista_elementos                shift and go to state 26
+
+state 25
+
+    (11) print_func -> PRINT LPARENTESIS elemento_impresion lista_elementos RPARENTESIS SEMICOLON .
+
+    ID              reduce using rule 11 (print_func -> PRINT LPARENTESIS elemento_impresion lista_elementos RPARENTESIS SEMICOLON .)
+    PRINT           reduce using rule 11 (print_func -> PRINT LPARENTESIS elemento_impresion lista_elementos RPARENTESIS SEMICOLON .)
+    RBRACES         reduce using rule 11 (print_func -> PRINT LPARENTESIS elemento_impresion lista_elementos RPARENTESIS SEMICOLON .)
+
+
+state 26
+
+    (14) lista_elementos -> COMMA elemento_impresion lista_elementos .
+
+    RPARENTESIS     reduce using rule 14 (lista_elementos -> COMMA elemento_impresion lista_elementos .)
 
 WARNING: 
 WARNING: Conflicts:

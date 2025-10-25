@@ -65,17 +65,20 @@ def p_lista_elementos_vacia(p):
     'lista_elementos : '
     pass
 
+def p_assign(p):
+    'assign : expresion SEMICOLON'
+    pass
+
+def p_cycle(p):
+    'cycle : WHILE LPARENTESIS expresion RPARENTESIS DO body SEMICOLON'
+
 def p_expresion_placeholder(p):
-    'expresion : '
+    'expresion : ID'
     pass
 
 
 def p_condition_placeholder(p):
     'condition : '
-    pass
-
-def p_cycle_placeholder(p):
-    'cycle : '
     pass
 
 def p_opcionid_fcall(p):
@@ -88,10 +91,6 @@ def p_opcionid_assign(p):
 
 def p_f_call_placeholder(p):
     'f_call : '
-    pass
-
-def p_assign_placeholder(p):
-    'assign : '
     pass
 
 def p_error(p):

@@ -1,12 +1,15 @@
+# test_parser.py
 from ParserPatito3 import parser
 
 codigo = '''
 {
-print
-x
-print
+print("Hola");
+print(x, "mundo");
+variable
+print("final");
 }
-
-
 '''
+
 parser.parse(codigo)
+
+
