@@ -1,0 +1,332 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    COLON
+    COMMA
+    CTE_FLOAT
+    CTE_INT
+    CTE_STRING
+    DIFFERENT
+    DIVIDE
+    DO
+    ELSE
+    END
+    EQUALS
+    GREATER
+    IF
+    LBRACKETS
+    LESS
+    LPARENTESIS
+    MAIN
+    MINUS
+    PLUS
+    PROGRAM
+    RBRACKETS
+    RPARENTESIS
+    SEMICOLON
+    TIMES
+    VAR
+    VOID
+    WHILE
+
+Grammar
+
+Rule 0     S' -> prueba
+Rule 1     prueba -> body
+Rule 2     type -> INT_TYPE
+Rule 3     type -> FLOAT_TYPE
+Rule 4     body -> LBRACES lista_statements RBRACES
+Rule 5     lista_statements -> <empty>
+Rule 6     lista_statements -> statement lista_statements
+Rule 7     statement -> print_func
+Rule 8     statement -> condition
+Rule 9     statement -> cycle
+Rule 10    statement -> ID opcion_id
+Rule 11    print_func -> PRINT
+Rule 12    condition -> <empty>
+Rule 13    cycle -> <empty>
+Rule 14    opcion_id -> f_call
+Rule 15    opcion_id -> assign
+Rule 16    f_call -> <empty>
+Rule 17    assign -> <empty>
+
+Terminals, with rules where they appear
+
+COLON                : 
+COMMA                : 
+CTE_FLOAT            : 
+CTE_INT              : 
+CTE_STRING           : 
+DIFFERENT            : 
+DIVIDE               : 
+DO                   : 
+ELSE                 : 
+END                  : 
+EQUALS               : 
+FLOAT_TYPE           : 3
+GREATER              : 
+ID                   : 10
+IF                   : 
+INT_TYPE             : 2
+LBRACES              : 4
+LBRACKETS            : 
+LESS                 : 
+LPARENTESIS          : 
+MAIN                 : 
+MINUS                : 
+PLUS                 : 
+PRINT                : 11
+PROGRAM              : 
+RBRACES              : 4
+RBRACKETS            : 
+RPARENTESIS          : 
+SEMICOLON            : 
+TIMES                : 
+VAR                  : 
+VOID                 : 
+WHILE                : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+assign               : 15
+body                 : 1
+condition            : 8
+cycle                : 9
+f_call               : 14
+lista_statements     : 4 6
+opcion_id            : 10
+print_func           : 7
+prueba               : 0
+statement            : 6
+type                 : 
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . prueba
+    (1) prueba -> . body
+    (4) body -> . LBRACES lista_statements RBRACES
+
+    LBRACES         shift and go to state 3
+
+    prueba                         shift and go to state 1
+    body                           shift and go to state 2
+
+state 1
+
+    (0) S' -> prueba .
+
+
+
+state 2
+
+    (1) prueba -> body .
+
+    $end            reduce using rule 1 (prueba -> body .)
+
+
+state 3
+
+    (4) body -> LBRACES . lista_statements RBRACES
+    (5) lista_statements -> .
+    (6) lista_statements -> . statement lista_statements
+    (7) statement -> . print_func
+    (8) statement -> . condition
+    (9) statement -> . cycle
+    (10) statement -> . ID opcion_id
+    (11) print_func -> . PRINT
+    (12) condition -> .
+    (13) cycle -> .
+
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for PRINT resolved as shift
+  ! reduce/reduce conflict for RBRACES resolved using rule 5 (lista_statements -> .)
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for PRINT resolved as shift
+  ! reduce/reduce conflict for RBRACES resolved using rule 5 (lista_statements -> .)
+    RBRACES         reduce using rule 5 (lista_statements -> .)
+    ID              shift and go to state 9
+    PRINT           shift and go to state 10
+
+  ! ID              [ reduce using rule 12 (condition -> .) ]
+  ! PRINT           [ reduce using rule 12 (condition -> .) ]
+  ! RBRACES         [ reduce using rule 12 (condition -> .) ]
+  ! ID              [ reduce using rule 13 (cycle -> .) ]
+  ! PRINT           [ reduce using rule 13 (cycle -> .) ]
+  ! RBRACES         [ reduce using rule 13 (cycle -> .) ]
+
+    lista_statements               shift and go to state 4
+    statement                      shift and go to state 5
+    print_func                     shift and go to state 6
+    condition                      shift and go to state 7
+    cycle                          shift and go to state 8
+
+state 4
+
+    (4) body -> LBRACES lista_statements . RBRACES
+
+    RBRACES         shift and go to state 11
+
+
+state 5
+
+    (6) lista_statements -> statement . lista_statements
+    (5) lista_statements -> .
+    (6) lista_statements -> . statement lista_statements
+    (7) statement -> . print_func
+    (8) statement -> . condition
+    (9) statement -> . cycle
+    (10) statement -> . ID opcion_id
+    (11) print_func -> . PRINT
+    (12) condition -> .
+    (13) cycle -> .
+
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for PRINT resolved as shift
+  ! reduce/reduce conflict for RBRACES resolved using rule 5 (lista_statements -> .)
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for PRINT resolved as shift
+  ! reduce/reduce conflict for RBRACES resolved using rule 5 (lista_statements -> .)
+    RBRACES         reduce using rule 5 (lista_statements -> .)
+    ID              shift and go to state 9
+    PRINT           shift and go to state 10
+
+  ! ID              [ reduce using rule 12 (condition -> .) ]
+  ! PRINT           [ reduce using rule 12 (condition -> .) ]
+  ! RBRACES         [ reduce using rule 12 (condition -> .) ]
+  ! ID              [ reduce using rule 13 (cycle -> .) ]
+  ! PRINT           [ reduce using rule 13 (cycle -> .) ]
+  ! RBRACES         [ reduce using rule 13 (cycle -> .) ]
+
+    statement                      shift and go to state 5
+    lista_statements               shift and go to state 12
+    print_func                     shift and go to state 6
+    condition                      shift and go to state 7
+    cycle                          shift and go to state 8
+
+state 6
+
+    (7) statement -> print_func .
+
+    ID              reduce using rule 7 (statement -> print_func .)
+    PRINT           reduce using rule 7 (statement -> print_func .)
+    RBRACES         reduce using rule 7 (statement -> print_func .)
+
+
+state 7
+
+    (8) statement -> condition .
+
+    ID              reduce using rule 8 (statement -> condition .)
+    PRINT           reduce using rule 8 (statement -> condition .)
+    RBRACES         reduce using rule 8 (statement -> condition .)
+
+
+state 8
+
+    (9) statement -> cycle .
+
+    ID              reduce using rule 9 (statement -> cycle .)
+    PRINT           reduce using rule 9 (statement -> cycle .)
+    RBRACES         reduce using rule 9 (statement -> cycle .)
+
+
+state 9
+
+    (10) statement -> ID . opcion_id
+    (14) opcion_id -> . f_call
+    (15) opcion_id -> . assign
+    (16) f_call -> .
+    (17) assign -> .
+
+  ! reduce/reduce conflict for ID resolved using rule 16 (f_call -> .)
+  ! reduce/reduce conflict for PRINT resolved using rule 16 (f_call -> .)
+  ! reduce/reduce conflict for RBRACES resolved using rule 16 (f_call -> .)
+    ID              reduce using rule 16 (f_call -> .)
+    PRINT           reduce using rule 16 (f_call -> .)
+    RBRACES         reduce using rule 16 (f_call -> .)
+
+  ! ID              [ reduce using rule 17 (assign -> .) ]
+  ! PRINT           [ reduce using rule 17 (assign -> .) ]
+  ! RBRACES         [ reduce using rule 17 (assign -> .) ]
+
+    opcion_id                      shift and go to state 13
+    f_call                         shift and go to state 14
+    assign                         shift and go to state 15
+
+state 10
+
+    (11) print_func -> PRINT .
+
+    ID              reduce using rule 11 (print_func -> PRINT .)
+    PRINT           reduce using rule 11 (print_func -> PRINT .)
+    RBRACES         reduce using rule 11 (print_func -> PRINT .)
+
+
+state 11
+
+    (4) body -> LBRACES lista_statements RBRACES .
+
+    $end            reduce using rule 4 (body -> LBRACES lista_statements RBRACES .)
+
+
+state 12
+
+    (6) lista_statements -> statement lista_statements .
+
+    RBRACES         reduce using rule 6 (lista_statements -> statement lista_statements .)
+
+
+state 13
+
+    (10) statement -> ID opcion_id .
+
+    ID              reduce using rule 10 (statement -> ID opcion_id .)
+    PRINT           reduce using rule 10 (statement -> ID opcion_id .)
+    RBRACES         reduce using rule 10 (statement -> ID opcion_id .)
+
+
+state 14
+
+    (14) opcion_id -> f_call .
+
+    ID              reduce using rule 14 (opcion_id -> f_call .)
+    PRINT           reduce using rule 14 (opcion_id -> f_call .)
+    RBRACES         reduce using rule 14 (opcion_id -> f_call .)
+
+
+state 15
+
+    (15) opcion_id -> assign .
+
+    ID              reduce using rule 15 (opcion_id -> assign .)
+    PRINT           reduce using rule 15 (opcion_id -> assign .)
+    RBRACES         reduce using rule 15 (opcion_id -> assign .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for ID in state 3 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 3 resolved as shift
+WARNING: shift/reduce conflict for ID in state 3 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 3 resolved as shift
+WARNING: shift/reduce conflict for ID in state 5 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 5 resolved as shift
+WARNING: shift/reduce conflict for ID in state 5 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 5 resolved as shift
+WARNING: reduce/reduce conflict in state 3 resolved using rule (lista_statements -> <empty>)
+WARNING: rejected rule (condition -> <empty>) in state 3
+WARNING: reduce/reduce conflict in state 3 resolved using rule (lista_statements -> <empty>)
+WARNING: rejected rule (cycle -> <empty>) in state 3
+WARNING: reduce/reduce conflict in state 5 resolved using rule (lista_statements -> <empty>)
+WARNING: rejected rule (condition -> <empty>) in state 5
+WARNING: reduce/reduce conflict in state 5 resolved using rule (lista_statements -> <empty>)
+WARNING: rejected rule (cycle -> <empty>) in state 5
+WARNING: reduce/reduce conflict in state 9 resolved using rule (f_call -> <empty>)
+WARNING: rejected rule (assign -> <empty>) in state 9
+WARNING: Rule (condition -> <empty>) is never reduced
+WARNING: Rule (cycle -> <empty>) is never reduced
+WARNING: Rule (assign -> <empty>) is never reduced
