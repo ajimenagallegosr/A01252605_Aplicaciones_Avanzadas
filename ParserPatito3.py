@@ -132,10 +132,36 @@ def p_comparacion_vacia(p):
     'comparacion : '
     pass
 
+def p_exp(p):
+    'exp : termino suma_resta'
+    pass
 
-def p_exp_placeholder(p):
-    'exp : '
-    print(f"🧮 EXPRESIÓN detectada (ID): {p[1]}")
+def p_suma_resta_suma(p):
+    'suma_resta : PLUS termino suma_resta'
+    pass
+
+def p_suma_resta_resta(p):
+    'suma_resta : MINUS termino suma_resta'
+    pass
+
+def p_suma_resta_vacia(p):
+    'suma_resta : '
+    pass
+
+def p_termino(p):
+    'termino : factor mult_div'
+    pass
+
+def p_mult_div_mult(p):
+    'mult_div : TIMES factor mult_div'
+    pass
+
+def p_mult_div_div(p):
+    'mult_div : DIVIDE factor mult_div'
+    pass
+
+def p_mult_div_vacio(p):
+    'mult_div : '
     pass
 
 def p_f_call_placeholder(p):
