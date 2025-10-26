@@ -15,7 +15,7 @@ def p_declaraciones_vacias(p):
     pass
 
 def p_funciones_recursivo(p):
-    'funciones : func funciones'
+    'funciones : funcs funciones'
     pass
 
 def p_funciones_vacias(p):
@@ -31,7 +31,7 @@ def p_declaracion_var(p):
     pass
 
 def p_lista_identificadores_mult(p):
-    'lista_identificadores: ID COMMA lista_identificadores'
+    'lista_identificadores : ID COMMA lista_identificadores'
     pass
 
 def p_lista_identificadores_ind(p):
@@ -127,7 +127,7 @@ def p_lista_elementos_vacia(p):
     pass
 
 def p_assign(p):
-    'assign : expresion SEMICOLON'
+    'assign : EQUALS expresion SEMICOLON'
     print("📝 Asignación detectada (sin operador)")
     pass
 
@@ -260,11 +260,11 @@ def p_parametro(p):
     pass
 
 def p_lista_parametros_recursivo(p):
-    'lista_parametro : COMMA parametro lista_parametros'
+    'lista_parametros : COMMA parametro lista_parametros'
     pass
 
 def p_lista_parametros_vacia(p):
-    'lista_parametro : '
+    'lista_parametros : '
     pass
 
 def p_bloque_funcion_variables(p):
