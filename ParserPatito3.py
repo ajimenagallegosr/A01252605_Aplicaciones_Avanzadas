@@ -33,10 +33,12 @@ def p_declaracion_var(p):
 
 def p_lista_identificadores_mult(p):
     'lista_identificadores : ID COMMA lista_identificadores'
+    p[0] = [p[1]] + p[3]
     pass
 
 def p_lista_identificadores_ind(p):
     'lista_identificadores : ID'
+    p[0] = [p[1]]
     pass
 
 def p_lista_declaraciones(p):
@@ -128,15 +130,16 @@ def p_cycle(p):
 
 def p_condition(p):
     'condition : IF LPARENTESIS expresion RPARENTESIS body part_else'
-    print("IF detectado")
     pass
 
 def p_part_else_body(p):
     'part_else : ELSE body'
+    print("IF & ELSE detectado")
     pass
 
 def p_part_else_vacia(p):
     'part_else : '
+    print("IF detectado")
     pass
 
 def p_expresion(p):
@@ -234,7 +237,7 @@ def p_cte_float(p):
 
 def p_funcs(p):
     'funcs : VOID ID LPARENTESIS parametros RPARENTESIS LBRACKETS bloque_funcion RBRACKETS SEMICOLON'
-    print(f"Definición de función: {p[2]}")
+    print(f"Nombre de función detectada: {p[2]}")
     pass
 
 def p_parametros_recursivo(p):
@@ -267,6 +270,7 @@ def p_bloque_funcion_body(p):
 
 def p_f_call(p):
     'f_call : LPARENTESIS argumentos RPARENTESIS SEMICOLON'
+    print("F_CALL detectado")
     pass
 
 def p_argumentos_lista(p):

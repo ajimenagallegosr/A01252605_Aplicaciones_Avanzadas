@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'COLON COMMA CTE_FLOAT CTE_INT CTE_STRING DIFFERENT DIVIDE DO ELSE END EQUALS FLOAT_TYPE GREATER ID IF INT_TYPE LBRACES LBRACKETS LESS LPARENTESIS MAIN MINUS PLUS PRINT PROGRAM RBRACES RBRACKETS RPARENTESIS SEMICOLON TIMES VAR VOID WHILEprueba : bodytype : INT_TYPEtype : FLOAT_TYPEbody : LBRACES lista_statements RBRACESlista_statements : lista_statements : statement lista_statementsstatement : print_funcstatement : conditionstatement : cyclestatement : ID opcion_idprint_func : PRINT LPARENTESIS elemento_impresion lista_elementos RPARENTESIS SEMICOLONelemento_impresion : expresionelemento_impresion : CTE_STRINGlista_elementos : COMMA elemento_impresion lista_elementoslista_elementos : expresion : IDcondition : cycle : opcion_id : f_callopcion_id : assignf_call : assign : '
+_lr_signature = 'COLON COMMA CTE_FLOAT CTE_INT CTE_STRING DIFFERENT DIVIDE DO ELSE END EQUALS FLOAT_TYPE GREATER ID IF INT_TYPE LBRACES LBRACKETS LESS LPARENTESIS MAIN MINUS PLUS PRINT PROGRAM RBRACES RBRACKETS RPARENTESIS SEMICOLON TIMES VAR VOID WHILEprogram : PROGRAM ID SEMICOLON declaraciones funciones MAIN body ENDdeclaraciones : varsdeclaraciones : funciones : funcs funcionesfunciones : vars : VAR declaracion_var lista_declaracionesdeclaracion_var : lista_identificadores COLON type SEMICOLONlista_identificadores : ID COMMA lista_identificadoreslista_identificadores : IDlista_declaraciones : declaracion_var lista_declaracioneslista_declaraciones : type : INT_TYPEtype : FLOAT_TYPEbody : LBRACES lista_statements RBRACESlista_statements : lista_statements : statement lista_statementsstatement : print_funcstatement : conditionstatement : cyclestatement : ID opcion_idopcion_id : f_callopcion_id : assignprint_func : PRINT LPARENTESIS elemento_impresion lista_elementos RPARENTESIS SEMICOLONelemento_impresion : expresionelemento_impresion : CTE_STRINGlista_elementos : COMMA elemento_impresion lista_elementoslista_elementos : assign : EQUALS expresion SEMICOLONcycle : WHILE LPARENTESIS expresion RPARENTESIS DO body SEMICOLONcondition : IF LPARENTESIS expresion RPARENTESIS body part_elsepart_else : ELSE bodypart_else : expresion : exp comparacioncomparacion : GREATER expcomparacion : LESS expcomparacion : DIFFERENT expcomparacion : exp : termino suma_restasuma_resta : PLUS termino suma_restasuma_resta : MINUS termino suma_restasuma_resta : termino : factor mult_divmult_div : TIMES factor mult_divmult_div : DIVIDE factor mult_divmult_div : factor : agrupacionfactor : signo_unariofactor : valoragrupacion : LPARENTESIS expresion RPARENTESISsigno_unario : PLUS valorsigno_unario : MINUS valorvalor : IDvalor : ctecte : CTE_INTcte : CTE_FLOATfuncs : VOID ID LPARENTESIS parametros RPARENTESIS LBRACKETS bloque_funcion RBRACKETS SEMICOLONparametros : parametro lista_parametrosparametros : parametro : ID COLON typelista_parametros : COMMA parametro lista_parametroslista_parametros : bloque_funcion : vars bodybloque_funcion : bodyf_call : LPARENTESIS argumentos RPARENTESIS SEMICOLONargumentos : expresion lista_argumentosargumentos : lista_argumentos : COMMA expresion lista_argumentoslista_argumentos : '
     
-_lr_action_items = {'LBRACES':([0,],[3,]),'$end':([1,2,11,],[0,-1,-4,]),'RBRACES':([3,4,5,6,7,8,9,12,13,14,15,25,],[-5,11,-5,-7,-8,-9,-21,-6,-10,-19,-20,-11,]),'ID':([3,5,6,7,8,9,13,14,15,16,22,25,],[9,9,-7,-8,-9,-21,-10,-19,-20,20,20,-11,]),'PRINT':([3,5,6,7,8,9,13,14,15,25,],[10,10,-7,-8,-9,-21,-10,-19,-20,-11,]),'LPARENTESIS':([10,],[16,]),'CTE_STRING':([16,22,],[19,19,]),'COMMA':([17,18,19,20,24,],[22,-12,-13,-16,22,]),'RPARENTESIS':([17,18,19,20,21,24,26,],[-15,-12,-13,-16,23,-15,-14,]),'SEMICOLON':([23,],[25,]),}
+_lr_action_items = {'PROGRAM':([0,],[2,]),'$end':([1,29,],[0,-1,]),'ID':([2,7,10,11,17,20,22,23,31,32,33,34,42,43,45,46,47,48,49,50,51,52,56,57,66,67,84,86,87,88,90,91,93,94,97,99,107,118,127,129,133,134,],[3,13,16,13,13,13,35,39,35,-17,-18,-19,-7,-14,-20,-21,-22,68,68,68,68,68,39,68,68,68,68,68,68,68,68,68,68,68,-28,68,-64,-32,-23,-30,-31,-29,]),'SEMICOLON':([3,25,26,27,43,60,61,62,63,64,65,68,69,70,71,72,82,85,89,92,95,96,106,109,110,111,112,113,114,115,116,120,123,124,125,126,131,],[4,42,-12,-13,-14,-37,-41,-45,-46,-47,-48,-52,-53,-54,-55,97,107,-33,-38,-42,-50,-51,-49,-34,-35,-36,-41,-41,-45,-45,127,132,-39,-40,-43,-44,134,]),'VOID':([4,5,6,9,11,17,18,24,42,132,],[-3,10,-2,10,-11,-11,-6,-10,-7,-56,]),'MAIN':([4,5,6,8,9,11,15,17,18,24,42,132,],[-3,-5,-2,14,-5,-11,-4,-11,-6,-10,-7,-56,]),'VAR':([4,79,],[7,7,]),'LBRACES':([11,14,17,18,24,42,79,100,103,119,130,],[-11,22,-11,-6,-10,-7,22,22,22,22,22,]),'COLON':([12,13,28,39,],[19,-9,-8,53,]),'COMMA':([13,26,27,41,59,60,61,62,63,64,65,68,69,70,71,73,74,75,78,80,85,89,92,95,96,106,108,109,110,111,112,113,114,115,117,123,124,125,126,],[20,-12,-13,56,84,-37,-41,-45,-46,-47,-48,-52,-53,-54,-55,99,-24,-25,-59,56,-33,-38,-42,-50,-51,-49,84,-34,-35,-36,-41,-41,-45,-45,99,-39,-40,-43,-44,]),'LPARENTESIS':([16,35,36,37,38,48,49,50,51,52,57,84,86,87,88,90,91,93,94,99,],[23,48,50,51,52,57,57,57,57,57,57,57,57,57,57,57,57,57,57,57,]),'INT_TYPE':([19,53,],[26,26,]),'FLOAT_TYPE':([19,53,],[27,27,]),'END':([21,43,],[29,-14,]),'RBRACES':([22,30,31,32,33,34,43,44,45,46,47,97,107,118,127,129,133,134,],[-15,43,-15,-17,-18,-19,-14,-16,-20,-21,-22,-28,-64,-32,-23,-30,-31,-29,]),'PRINT':([22,31,32,33,34,43,45,46,47,97,107,118,127,129,133,134,],[36,36,-17,-18,-19,-14,-20,-21,-22,-28,-64,-32,-23,-30,-31,-29,]),'IF':([22,31,32,33,34,43,45,46,47,97,107,118,127,129,133,134,],[37,37,-17,-18,-19,-14,-20,-21,-22,-28,-64,-32,-23,-30,-31,-29,]),'WHILE':([22,31,32,33,34,43,45,46,47,97,107,118,127,129,133,134,],[38,38,-17,-18,-19,-14,-20,-21,-22,-28,-64,-32,-23,-30,-31,-29,]),'RPARENTESIS':([23,26,27,40,41,48,55,58,59,60,61,62,63,64,65,68,69,70,71,73,74,75,76,77,78,80,81,83,85,89,92,95,96,98,105,106,108,109,110,111,112,113,114,115,117,122,123,124,125,126,128,],[-58,-12,-13,54,-61,-66,-57,82,-68,-37,-41,-45,-46,-47,-48,-52,-53,-54,-55,-27,-24,-25,100,101,-59,-61,106,-65,-33,-38,-42,-50,-51,116,-60,-49,-68,-34,-35,-36,-41,-41,-45,-45,-27,-67,-39,-40,-43,-44,-26,]),'EQUALS':([35,],[49,]),'RBRACKETS':([43,102,104,121,],[-14,120,-63,-62,]),'ELSE':([43,118,],[-14,130,]),'PLUS':([48,49,50,51,52,57,61,62,63,64,65,68,69,70,71,84,86,87,88,90,91,92,93,94,95,96,99,106,112,113,114,115,125,126,],[66,66,66,66,66,66,90,-45,-46,-47,-48,-52,-53,-54,-55,66,66,66,66,66,66,-42,66,66,-50,-51,66,-49,90,90,-45,-45,-43,-44,]),'MINUS':([48,49,50,51,52,57,61,62,63,64,65,68,69,70,71,84,86,87,88,90,91,92,93,94,95,96,99,106,112,113,114,115,125,126,],[67,67,67,67,67,67,91,-45,-46,-47,-48,-52,-53,-54,-55,67,67,67,67,67,67,-42,67,67,-50,-51,67,-49,91,91,-45,-45,-43,-44,]),'CTE_INT':([48,49,50,51,52,57,66,67,84,86,87,88,90,91,93,94,99,],[70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,]),'CTE_FLOAT':([48,49,50,51,52,57,66,67,84,86,87,88,90,91,93,94,99,],[71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,]),'CTE_STRING':([50,99,],[75,75,]),'LBRACKETS':([54,],[79,]),'GREATER':([60,61,62,63,64,65,68,69,70,71,89,92,95,96,106,112,113,114,115,123,124,125,126,],[86,-41,-45,-46,-47,-48,-52,-53,-54,-55,-38,-42,-50,-51,-49,-41,-41,-45,-45,-39,-40,-43,-44,]),'LESS':([60,61,62,63,64,65,68,69,70,71,89,92,95,96,106,112,113,114,115,123,124,125,126,],[87,-41,-45,-46,-47,-48,-52,-53,-54,-55,-38,-42,-50,-51,-49,-41,-41,-45,-45,-39,-40,-43,-44,]),'DIFFERENT':([60,61,62,63,64,65,68,69,70,71,89,92,95,96,106,112,113,114,115,123,124,125,126,],[88,-41,-45,-46,-47,-48,-52,-53,-54,-55,-38,-42,-50,-51,-49,-41,-41,-45,-45,-39,-40,-43,-44,]),'TIMES':([62,63,64,65,68,69,70,71,95,96,106,114,115,],[93,-46,-47,-48,-52,-53,-54,-55,-50,-51,-49,93,93,]),'DIVIDE':([62,63,64,65,68,69,70,71,95,96,106,114,115,],[94,-46,-47,-48,-52,-53,-54,-55,-50,-51,-49,94,94,]),'DO':([101,],[119,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'prueba':([0,],[1,]),'body':([0,],[2,]),'lista_statements':([3,5,],[4,12,]),'statement':([3,5,],[5,5,]),'print_func':([3,5,],[6,6,]),'condition':([3,5,],[7,7,]),'cycle':([3,5,],[8,8,]),'opcion_id':([9,],[13,]),'f_call':([9,],[14,]),'assign':([9,],[15,]),'elemento_impresion':([16,22,],[17,24,]),'expresion':([16,22,],[18,18,]),'lista_elementos':([17,24,],[21,26,]),}
+_lr_goto_items = {'program':([0,],[1,]),'declaraciones':([4,],[5,]),'vars':([4,79,],[6,103,]),'funciones':([5,9,],[8,15,]),'funcs':([5,9,],[9,9,]),'declaracion_var':([7,11,17,],[11,17,17,]),'lista_identificadores':([7,11,17,20,],[12,12,12,28,]),'lista_declaraciones':([11,17,],[18,24,]),'body':([14,79,100,103,119,130,],[21,104,118,121,131,133,]),'type':([19,53,],[25,78,]),'lista_statements':([22,31,],[30,44,]),'statement':([22,31,],[31,31,]),'print_func':([22,31,],[32,32,]),'condition':([22,31,],[33,33,]),'cycle':([22,31,],[34,34,]),'parametros':([23,],[40,]),'parametro':([23,56,],[41,80,]),'opcion_id':([35,],[45,]),'f_call':([35,],[46,]),'assign':([35,],[47,]),'lista_parametros':([41,80,],[55,105,]),'argumentos':([48,],[58,]),'expresion':([48,49,50,51,52,57,84,99,],[59,72,74,76,77,81,108,74,]),'exp':([48,49,50,51,52,57,84,86,87,88,99,],[60,60,60,60,60,60,60,109,110,111,60,]),'termino':([48,49,50,51,52,57,84,86,87,88,90,91,99,],[61,61,61,61,61,61,61,61,61,61,112,113,61,]),'factor':([48,49,50,51,52,57,84,86,87,88,90,91,93,94,99,],[62,62,62,62,62,62,62,62,62,62,62,62,114,115,62,]),'agrupacion':([48,49,50,51,52,57,84,86,87,88,90,91,93,94,99,],[63,63,63,63,63,63,63,63,63,63,63,63,63,63,63,]),'signo_unario':([48,49,50,51,52,57,84,86,87,88,90,91,93,94,99,],[64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,]),'valor':([48,49,50,51,52,57,66,67,84,86,87,88,90,91,93,94,99,],[65,65,65,65,65,65,95,96,65,65,65,65,65,65,65,65,65,]),'cte':([48,49,50,51,52,57,66,67,84,86,87,88,90,91,93,94,99,],[69,69,69,69,69,69,69,69,69,69,69,69,69,69,69,69,69,]),'elemento_impresion':([50,99,],[73,117,]),'lista_argumentos':([59,108,],[83,122,]),'comparacion':([60,],[85,]),'suma_resta':([61,112,113,],[89,123,124,]),'mult_div':([62,114,115,],[92,125,126,]),'lista_elementos':([73,117,],[98,128,]),'bloque_funcion':([79,],[102,]),'part_else':([118,],[129,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,27 +26,73 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> prueba","S'",1,None,None,None),
-  ('prueba -> body','prueba',1,'p_prueba','ParserPatito3.py',7),
-  ('type -> INT_TYPE','type',1,'p_type_int','ParserPatito3.py',11),
-  ('type -> FLOAT_TYPE','type',1,'p_type_float','ParserPatito3.py',15),
-  ('body -> LBRACES lista_statements RBRACES','body',3,'p_body','ParserPatito3.py',18),
-  ('lista_statements -> <empty>','lista_statements',0,'p_lista_statements_vacio','ParserPatito3.py',23),
-  ('lista_statements -> statement lista_statements','lista_statements',2,'p_lista_statements_statements','ParserPatito3.py',27),
-  ('statement -> print_func','statement',1,'p_statement_printfunc','ParserPatito3.py',31),
-  ('statement -> condition','statement',1,'p_statement_condition','ParserPatito3.py',36),
-  ('statement -> cycle','statement',1,'p_statement_cycle','ParserPatito3.py',40),
-  ('statement -> ID opcion_id','statement',2,'p_statement_opcion','ParserPatito3.py',44),
-  ('print_func -> PRINT LPARENTESIS elemento_impresion lista_elementos RPARENTESIS SEMICOLON','print_func',6,'p_print_func_placeholder','ParserPatito3.py',49),
-  ('elemento_impresion -> expresion','elemento_impresion',1,'p_elemento_impresion_exp','ParserPatito3.py',53),
-  ('elemento_impresion -> CTE_STRING','elemento_impresion',1,'p_elemento_impresion_string','ParserPatito3.py',57),
-  ('lista_elementos -> COMMA elemento_impresion lista_elementos','lista_elementos',3,'p_lista_elementos_recursiva','ParserPatito3.py',61),
-  ('lista_elementos -> <empty>','lista_elementos',0,'p_lista_elementos_vacia','ParserPatito3.py',65),
-  ('expresion -> ID','expresion',1,'p_expresion_placeholder','ParserPatito3.py',69),
-  ('condition -> <empty>','condition',0,'p_condition_placeholder','ParserPatito3.py',74),
-  ('cycle -> <empty>','cycle',0,'p_cycle_placeholder','ParserPatito3.py',78),
-  ('opcion_id -> f_call','opcion_id',1,'p_opcionid_fcall','ParserPatito3.py',82),
-  ('opcion_id -> assign','opcion_id',1,'p_opcionid_assign','ParserPatito3.py',86),
-  ('f_call -> <empty>','f_call',0,'p_f_call_placeholder','ParserPatito3.py',90),
-  ('assign -> <empty>','assign',0,'p_assign_placeholder','ParserPatito3.py',94),
+  ("S' -> program","S'",1,None,None,None),
+  ('program -> PROGRAM ID SEMICOLON declaraciones funciones MAIN body END','program',8,'p_program','ParserPatito3.py',6),
+  ('declaraciones -> vars','declaraciones',1,'p_declaraciones_vars','ParserPatito3.py',10),
+  ('declaraciones -> <empty>','declaraciones',0,'p_declaraciones_vacias','ParserPatito3.py',14),
+  ('funciones -> funcs funciones','funciones',2,'p_funciones_recursivo','ParserPatito3.py',18),
+  ('funciones -> <empty>','funciones',0,'p_funciones_vacias','ParserPatito3.py',22),
+  ('vars -> VAR declaracion_var lista_declaraciones','vars',3,'p_vars','ParserPatito3.py',26),
+  ('declaracion_var -> lista_identificadores COLON type SEMICOLON','declaracion_var',4,'p_declaracion_var','ParserPatito3.py',30),
+  ('lista_identificadores -> ID COMMA lista_identificadores','lista_identificadores',3,'p_lista_identificadores_mult','ParserPatito3.py',35),
+  ('lista_identificadores -> ID','lista_identificadores',1,'p_lista_identificadores_ind','ParserPatito3.py',39),
+  ('lista_declaraciones -> declaracion_var lista_declaraciones','lista_declaraciones',2,'p_lista_declaraciones','ParserPatito3.py',43),
+  ('lista_declaraciones -> <empty>','lista_declaraciones',0,'p_lista_declaraciones_vacia','ParserPatito3.py',47),
+  ('type -> INT_TYPE','type',1,'p_type_int','ParserPatito3.py',51),
+  ('type -> FLOAT_TYPE','type',1,'p_type_float','ParserPatito3.py',56),
+  ('body -> LBRACES lista_statements RBRACES','body',3,'p_body','ParserPatito3.py',61),
+  ('lista_statements -> <empty>','lista_statements',0,'p_lista_statements_vacio','ParserPatito3.py',66),
+  ('lista_statements -> statement lista_statements','lista_statements',2,'p_lista_statements_statements','ParserPatito3.py',70),
+  ('statement -> print_func','statement',1,'p_statement_printfunc','ParserPatito3.py',74),
+  ('statement -> condition','statement',1,'p_statement_condition','ParserPatito3.py',79),
+  ('statement -> cycle','statement',1,'p_statement_cycle','ParserPatito3.py',83),
+  ('statement -> ID opcion_id','statement',2,'p_statement_opcion','ParserPatito3.py',87),
+  ('opcion_id -> f_call','opcion_id',1,'p_opcionid_fcall','ParserPatito3.py',92),
+  ('opcion_id -> assign','opcion_id',1,'p_opcionid_assign','ParserPatito3.py',96),
+  ('print_func -> PRINT LPARENTESIS elemento_impresion lista_elementos RPARENTESIS SEMICOLON','print_func',6,'p_print_func_placeholder','ParserPatito3.py',100),
+  ('elemento_impresion -> expresion','elemento_impresion',1,'p_elemento_impresion_exp','ParserPatito3.py',104),
+  ('elemento_impresion -> CTE_STRING','elemento_impresion',1,'p_elemento_impresion_string','ParserPatito3.py',108),
+  ('lista_elementos -> COMMA elemento_impresion lista_elementos','lista_elementos',3,'p_lista_elementos_recursiva','ParserPatito3.py',112),
+  ('lista_elementos -> <empty>','lista_elementos',0,'p_lista_elementos_vacia','ParserPatito3.py',116),
+  ('assign -> EQUALS expresion SEMICOLON','assign',3,'p_assign','ParserPatito3.py',120),
+  ('cycle -> WHILE LPARENTESIS expresion RPARENTESIS DO body SEMICOLON','cycle',7,'p_cycle','ParserPatito3.py',125),
+  ('condition -> IF LPARENTESIS expresion RPARENTESIS body part_else','condition',6,'p_condition','ParserPatito3.py',130),
+  ('part_else -> ELSE body','part_else',2,'p_part_else_body','ParserPatito3.py',135),
+  ('part_else -> <empty>','part_else',0,'p_part_else_vacia','ParserPatito3.py',139),
+  ('expresion -> exp comparacion','expresion',2,'p_expresion','ParserPatito3.py',143),
+  ('comparacion -> GREATER exp','comparacion',2,'p_comparacion_mayor','ParserPatito3.py',148),
+  ('comparacion -> LESS exp','comparacion',2,'p_comparacion_menor','ParserPatito3.py',152),
+  ('comparacion -> DIFFERENT exp','comparacion',2,'p_comparacion_diferente','ParserPatito3.py',156),
+  ('comparacion -> <empty>','comparacion',0,'p_comparacion_vacia','ParserPatito3.py',160),
+  ('exp -> termino suma_resta','exp',2,'p_exp','ParserPatito3.py',164),
+  ('suma_resta -> PLUS termino suma_resta','suma_resta',3,'p_suma_resta_suma','ParserPatito3.py',168),
+  ('suma_resta -> MINUS termino suma_resta','suma_resta',3,'p_suma_resta_resta','ParserPatito3.py',172),
+  ('suma_resta -> <empty>','suma_resta',0,'p_suma_resta_vacia','ParserPatito3.py',176),
+  ('termino -> factor mult_div','termino',2,'p_termino','ParserPatito3.py',180),
+  ('mult_div -> TIMES factor mult_div','mult_div',3,'p_mult_div_mult','ParserPatito3.py',184),
+  ('mult_div -> DIVIDE factor mult_div','mult_div',3,'p_mult_div_div','ParserPatito3.py',188),
+  ('mult_div -> <empty>','mult_div',0,'p_mult_div_vacio','ParserPatito3.py',192),
+  ('factor -> agrupacion','factor',1,'p_factor_agrupacion','ParserPatito3.py',196),
+  ('factor -> signo_unario','factor',1,'p_factor_signo','ParserPatito3.py',200),
+  ('factor -> valor','factor',1,'p_factor_valor','ParserPatito3.py',204),
+  ('agrupacion -> LPARENTESIS expresion RPARENTESIS','agrupacion',3,'p_agrupacion','ParserPatito3.py',208),
+  ('signo_unario -> PLUS valor','signo_unario',2,'p_signo_unario_suma','ParserPatito3.py',212),
+  ('signo_unario -> MINUS valor','signo_unario',2,'p_signo_unario_resta','ParserPatito3.py',216),
+  ('valor -> ID','valor',1,'p_valor_id','ParserPatito3.py',220),
+  ('valor -> cte','valor',1,'p_valor_cte','ParserPatito3.py',224),
+  ('cte -> CTE_INT','cte',1,'p_cte_int','ParserPatito3.py',228),
+  ('cte -> CTE_FLOAT','cte',1,'p_cte_float','ParserPatito3.py',232),
+  ('funcs -> VOID ID LPARENTESIS parametros RPARENTESIS LBRACKETS bloque_funcion RBRACKETS SEMICOLON','funcs',9,'p_funcs','ParserPatito3.py',236),
+  ('parametros -> parametro lista_parametros','parametros',2,'p_parametros_recursivo','ParserPatito3.py',241),
+  ('parametros -> <empty>','parametros',0,'p_parametros_vacio','ParserPatito3.py',245),
+  ('parametro -> ID COLON type','parametro',3,'p_parametro','ParserPatito3.py',249),
+  ('lista_parametros -> COMMA parametro lista_parametros','lista_parametros',3,'p_lista_parametros_recursivo','ParserPatito3.py',253),
+  ('lista_parametros -> <empty>','lista_parametros',0,'p_lista_parametros_vacia','ParserPatito3.py',257),
+  ('bloque_funcion -> vars body','bloque_funcion',2,'p_bloque_funcion_variables','ParserPatito3.py',261),
+  ('bloque_funcion -> body','bloque_funcion',1,'p_bloque_funcion_body','ParserPatito3.py',265),
+  ('f_call -> LPARENTESIS argumentos RPARENTESIS SEMICOLON','f_call',4,'p_f_call','ParserPatito3.py',269),
+  ('argumentos -> expresion lista_argumentos','argumentos',2,'p_argumentos_lista','ParserPatito3.py',273),
+  ('argumentos -> <empty>','argumentos',0,'p_argumentos_vacia','ParserPatito3.py',277),
+  ('lista_argumentos -> COMMA expresion lista_argumentos','lista_argumentos',3,'p_lista_argumentos_lista','ParserPatito3.py',281),
+  ('lista_argumentos -> <empty>','lista_argumentos',0,'p_lista_argumentos_vacia','ParserPatito3.py',285),
 ]
