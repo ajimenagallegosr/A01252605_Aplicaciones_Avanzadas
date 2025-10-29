@@ -1,6 +1,6 @@
 # Ana Jimena Gallegos Rongel
 # A01252605 test cases
-from ParserPatito3 import parser
+from ParserPatito import parser
 
 tests = [
     # Programa
