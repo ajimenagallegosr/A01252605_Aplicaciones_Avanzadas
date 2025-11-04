@@ -4,6 +4,7 @@ test_cases = [
     # 1. reservadas
     '''
     program miPrograma;
+    == =
     var x, y, total : int;
     var nombre : float;
     main {

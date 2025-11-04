@@ -1,10 +1,21 @@
 # Ana Jimena Gallegos Rongel
 # A01252605 test cases
-from ParserPatito import parser
+from ParserPatito2 import parser
+
+codigo = '''
+    program ejemplo;
+    var x : int;
+    main {
+        if (x < 10) {
+            print("entra");
+        };
+    }
+    end
+    '''
 
 tests = [
     # Programa
-    (" 1. Programa mínimo",
+    ("1. Programa mínimo",
     '''
     program test;
     main {
@@ -22,7 +33,7 @@ tests = [
     end
     '''),
 
-    ("Declaración múltiple de variables",
+    ("3. Declaración múltiple de variables",
     '''
     program var_multiples;
     var x, y, z : float;
@@ -32,7 +43,7 @@ tests = [
     '''),
 
     # Statements
-    ("Assign con numero",
+    ("4. Assign con número",
     '''
     program ejemplo;
     var x : int;
@@ -42,7 +53,7 @@ tests = [
     end
     '''),
 
-    ("Assign con expresión",
+    ("5. Assign con expresión",
     '''
     program ejemplo;
     var x, y : int;
@@ -53,19 +64,19 @@ tests = [
     end
     '''),
 
-    ("Condition simple",
+    ("6. Condition simple",
     '''
     program ejemplo;
     var x : int;
     main {
         if (x < 10) {
             print("entra");
-        }
+        };
     }
     end
     '''),
 
-    ("Condition con else",
+    ("7. Condition con else",
     '''
     program ejemplo;
     var x : int;
@@ -74,12 +85,12 @@ tests = [
             print("mayor");
         } else {
             print("menor");
-        }
+        };
     }
     end
     '''),
 
-    ("Cycle - While",
+    ("8. Cycle - While",
     '''
     program ejemplo;
     var x : int;
@@ -93,16 +104,16 @@ tests = [
     end
     '''),
 
-    ("FCall",
+    ("9. FCall",
     '''
     program ejemplo;
     main {
-        func_x(x);
+        func_x();
     }
     end
     '''),
 
-    ("Print con string y expresión",
+    ("10. Print con string y expresión",
     '''
     program ejemplo;
     var x : int;
@@ -115,37 +126,117 @@ tests = [
     '''),
 
     # Funciones
-    ("Función sin parametros",
+    ("11. Función sin parámetros tipo void",
     '''
     program ejemplo;
-    void saluda() [
+    void saluda() {
         var x : int;
         {
             print("Hola");
         }
-    ];
+    };
     main {
         saluda();
     }
     end
     '''),
 
-    ("Función con parametros",
+    ("12. Función con parámetros tipo void",
     '''
     program ejemplo;
-    void suma(a : int, b : float) [
+    void suma(a : int, b : float) {
         {
             print("Funcion con params");
         }
-    ];
+    };
     main {
         suma(5, 2.3);
     }
     end
     '''),
 
+    ("13. Función con tipo de retorno int",
+    '''
+    program ejemplo;
+    int cuadrado(a : int) {
+        {
+            print("Calculando cuadrado");
+        }
+    };
+    main {
+        cuadrado(4);
+    }
+    end
+    '''),
+
+    ("14. Función con tipo de retorno float",
+    '''
+    program ejemplo;
+    float area(r : float) {
+        {
+            print("Calculando área");
+        }
+    };
+    main {
+        area(3.5);
+    }
+    end
+    '''),
+
+    # Corchetes - estatutos anidados
+    ("15. Estatuto dentro de corchetes simple",
+    '''
+    program ejemplo;
+    main {
+        [ print("Hola dentro de corchetes"); ]
+    }
+    end
+    '''),
+
+    ("16. Estatutos múltiples dentro de corchetes",
+    '''
+    program ejemplo;
+    var x : int;
+    main {
+        [
+            x = 10;
+            print("x vale", x);
+            [ print("anidado"); ]
+        ]
+    }
+    end
+    '''),
+
+    ("17. Combinación de corchetes y ciclo",
+    '''
+    program ejemplo;
+    var x : int;
+    main {
+        x = 0;
+        while (x < 3) do {
+            print("loop interno", x);
+            x = x + 1;
+        };
+    }
+    end
+    '''),
+
+    ("18. Llamada a función dentro de corchetes",
+    '''
+    program ejemplo;
+    void saludo() {
+        {
+            print("Hola!");
+        }
+    };
+    main {
+        [ saludo(); ]
+    }
+    end
+    '''),
+
     # Casos de error
-    ("Error, falta de punto y coma",
+    ("19. Error, falta de punto y coma",
     '''
     program ejemplo
     main {
@@ -153,7 +244,7 @@ tests = [
     end
     '''),
 
-    ("Error, declaración inválida",
+    ("20. Error, declaración inválida",
     '''
     program ejemplo;
     var x int;
@@ -162,12 +253,12 @@ tests = [
     end
     '''),
 
-    ("Error, asignacion inválida",
+    ("21. Error, asignación inválida",
     '''
     program ejemplo;
     var x : int;
-    x = 5;
     main {
+        x = ;
     }
     end
     '''),
@@ -179,3 +270,5 @@ for i, (nombre, codigo) in enumerate(tests, 1):
     print(f" Test {i}: {nombre}")
     print("="*50)
     parser.parse(codigo)
+
+#parser.parse(codigo)
