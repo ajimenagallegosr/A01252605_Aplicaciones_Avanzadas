@@ -39,14 +39,9 @@ def p_lista_declaraciones(p):
                            | empty'''
     pass
 
-def p_type_int(p):
-    'type : INT_TYPE'
-    print("Tipo detectado: INT")
-    pass
-
-def p_type_float(p):
-    'type : FLOAT_TYPE'
-    print("Tipo detectado: FLOAT")
+def p_type(p):
+    '''type : INT_TYPE
+            | FLOAT_TYPE'''
     pass
 
 def p_body(p):
@@ -63,11 +58,12 @@ def p_statement(p):
     '''statement : print_func
                  | condition
                  | cycle
-                 | ID opcion_id'''
+                 | ID opcion_id
+                 | LBRACKETS lista_statements RBRACKETS'''
     pass
 
 def p_opcion_id(p):
-    '''opcion_id : f_call
+    '''opcion_id : f_call SEMICOLON
                  | assign'''
     pass
 
@@ -113,6 +109,7 @@ def p_comparacion(p):
     '''comparacion : GREATER exp
                    | LESS exp
                    | DIFFERENT exp
+                   | STRICT_EQUAL exp
                    | empty'''
     pass
 
@@ -139,7 +136,13 @@ def p_mult_div(p):
 def p_factor(p):
     '''factor : agrupacion
               | signo_unario
-              | valor'''
+              | cte
+              | ID id_opcion'''
+    pass
+
+def p_id_opcion(p):
+    '''id_opcion : f_call
+                 | empty'''
     pass
 
 def p_agrupacion(p):
@@ -162,8 +165,13 @@ def p_cte(p):
     pass
 
 def p_funcs(p):
-    'funcs : VOID ID LPARENTESIS parametros RPARENTESIS LBRACKETS bloque_funcion RBRACKETS SEMICOLON'
+    'funcs : funcs_type ID LPARENTESIS parametros RPARENTESIS LBRACES bloque_funcion RBRACES SEMICOLON'
     print(f"Nombre de función detectada: {p[2]}")
+    pass
+
+def p_funcs_type(p):
+    '''funcs_type : VOID
+                  | type'''
     pass
 
 def p_parametros(p):
@@ -186,7 +194,7 @@ def p_bloque_funcion(p):
     pass
 
 def p_f_call(p):
-    'f_call : LPARENTESIS argumentos RPARENTESIS SEMICOLON'
+    'f_call : LPARENTESIS argumentos RPARENTESIS'
     print("F_CALL detectado")
     pass
 
