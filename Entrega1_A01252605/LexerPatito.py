@@ -25,6 +25,7 @@ tokens = [
     'CTE_FLOAT',
     'CTE_STRING',
     'EQUALS',
+    'STRICT_EQUAL',
     'PLUS',
     'MINUS',
     'TIMES',
@@ -46,6 +47,7 @@ tokens = [
 #Regex for simple tokens
 
 t_EQUALS = r'\='
+t_STRICT_EQUAL = r'\=='
 t_PLUS = r'\+'
 t_MINUS = r'-'
 t_TIMES = r'\*'

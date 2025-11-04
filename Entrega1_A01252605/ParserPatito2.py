@@ -92,7 +92,7 @@ def p_cycle(p):
     pass
 
 def p_condition(p):
-    'condition : IF LPARENTESIS expresion RPARENTESIS body part_else'
+    'condition : IF LPARENTESIS expresion RPARENTESIS body part_else SEMICOLON'
     pass
 
 def p_part_else(p):
