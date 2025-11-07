@@ -4,8 +4,16 @@ import semantic2
 
 
 def p_program(p):
-    'program : PROGRAM create_dirfunc ID create_id SEMICOLON declaraciones funciones MAIN body END'
+    'program : PROGRAM create_dirfunc ID create_id SEMICOLON declaraciones funciones MAIN body END clean_program'
     print("Programa válido")
+
+def p_clean_program(p):
+    'clean_program :'
+    print("Paso Final: Eliminando DirFunc y tabla global")
+
+    # comentados por test
+    #semantic2.func_dir = None
+    #semantic2.current_function = None
 
 def p_create_dirfunc(p):
     'create_dirfunc :'
@@ -18,7 +26,7 @@ def p_create_id(p):
     program_name = p[-1]
     semantic2.func_dir.add_function(program_name, 'program')
     semantic2.current_function = program_name
-    print(f"Nombre de programa registrado: {program_name}")
+    print("Nombre de programa registrado: {program_name}")
 
 def p_declaraciones(p):
     '''declaraciones : vars
@@ -201,7 +209,7 @@ def p_cte(p):
     pass
 
 def p_funcs(p):
-    'funcs : prepare_new_func funcs_type add_current_type ID add_function LPARENTESIS start_func_vars parametros RPARENTESIS LBRACES bloque_funcion RBRACES SEMICOLON'
+    'funcs : prepare_new_func funcs_type add_current_type ID add_function LPARENTESIS start_func_vars parametros RPARENTESIS LBRACES bloque_funcion RBRACES end_func SEMICOLON'
     print(f"Func detectada: {p[3]}")
 
 def p_prepare_new_func(p):
@@ -263,6 +271,14 @@ def p_bloque_funcion(p):
     '''bloque_funcion : vars body
                       | body'''
     pass
+
+def p_end_func(p):
+    'end_func :'
+    print(f"Paso 12: Eliminando VarTable de función '{semantic2.current_function}'")
+    #comentados en los test
+    #semantic2.func_dir.directory[semantic2.current_function]['vars'] = None
+    #semantic2.current_function = None
+
 
 def p_f_call(p):
     'f_call : LPARENTESIS argumentos RPARENTESIS'
