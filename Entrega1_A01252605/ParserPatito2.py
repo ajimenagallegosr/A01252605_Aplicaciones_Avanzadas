@@ -1,10 +1,24 @@
 import ply.yacc as yacc
 from LexerPatito import tokens
+import semantic2
 
 
 def p_program(p):
-    'program : PROGRAM ID SEMICOLON declaraciones funciones MAIN body END'
+    'program : PROGRAM create_dirfunc ID create_id SEMICOLON declaraciones funciones MAIN body END'
     print("Programa válido")
+
+def p_create_dirfunc(p):
+    'create_dirfunc :'
+    semantic2.func_dir = semantic2.FunctionDirectory()
+    semantic2.current_function = None
+    print("Directorio de funciones creado")
+
+def p_create_id(p):
+    'create_id :'
+    program_name = p[-1]
+    semantic2.func_dir.add_function(program_name, 'program')
+    semantic2.current_function = program_name
+    print(f"Nombre de programa registrado: {program_name}")
 
 def p_declaraciones(p):
     '''declaraciones : vars
@@ -22,16 +36,36 @@ def p_vars(p):
 
 def p_declaracion_var(p):
     'declaracion_var : lista_identificadores COLON type SEMICOLON'
-    print(f"Declaración de variable(s): {p[1]}")
+    tipo = semantic2.current_type
+    lista = p[1]
+
+    for ident in lista:
+        if semantic2.func_dir.var_exists(semantic2.current_function, ident):
+            raise Exception(f"ERROR: Multiple declaration of variable '{ident}' in '{semantic2.current_function}")
+        semantic2.func_dir.add_var(semantic2.current_function, ident, tipo)
+        print(f"Variable declarada: {ident} ({tipo}) en {semantic2.current_function}")
     pass
 
 def p_lista_identificadores(p):
     'lista_identificadores : ID lista_identificadores_prima'
+    if p[2] is None:
+        p[0] = [p[1]]
+    else:
+        p[0] = [p[1]] + p[2]
+
     pass
 
 def p_lista_identificadores_prima(p):
     '''lista_identificadores_prima : COMMA ID lista_identificadores_prima
                                     | empty'''
+    if len(p) == 4:
+        if p[3] is None:
+            p[0] = [p[2]]
+        else:
+            p[0] = [p[2]] + p[3]
+
+    else: 
+        p[0] = None
     pass
 
 def p_lista_declaraciones(p):
@@ -42,6 +76,8 @@ def p_lista_declaraciones(p):
 def p_type(p):
     '''type : INT_TYPE
             | FLOAT_TYPE'''
+    semantic2.current_type = p[1]
+    p[0] = p[1]
     pass
 
 def p_body(p):
@@ -165,9 +201,15 @@ def p_cte(p):
     pass
 
 def p_funcs(p):
-    'funcs : funcs_type ID LPARENTESIS parametros RPARENTESIS LBRACES bloque_funcion RBRACES SEMICOLON'
+    'funcs : prepare_new_func funcs_type ID LPARENTESIS parametros RPARENTESIS LBRACES bloque_funcion RBRACES SEMICOLON'
     print(f"Nombre de función detectada: {p[2]}")
     pass
+
+def p_prepare_new_func(p):
+    'prepare_new_func :'
+    # Apenas empieza a leerse func
+    semantic2.current_type = None
+    print("Preparando nueva función...")
 
 def p_funcs_type(p):
     '''funcs_type : VOID
