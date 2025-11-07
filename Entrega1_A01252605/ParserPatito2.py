@@ -237,10 +237,21 @@ def p_start_func_vars(p):
 def p_parametros(p):
     '''parametros : parametro lista_parametros
                   | empty'''
+    
     pass
 
 def p_parametro(p):
     'parametro : ID COLON type'
+    param_name = p[1]
+    param_type = p[3]
+
+    if semantic2.func_dir.var_exists(semantic2.current_function, param_name):
+        print("Error '{param_name} ya existe en función '{semantic2.current_function}'")
+    else:
+        semantic2.func_dir.add_var(semantic2.current_function, param_name, param_type)
+    
+    print(f"Paso 11: Parámetro agregado '{param_name}' tipo '{param_type}' a función '{semantic2.current_function}'")
+
     pass
 
 def p_lista_parametros(p):
