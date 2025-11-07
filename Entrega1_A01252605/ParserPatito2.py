@@ -201,7 +201,7 @@ def p_cte(p):
     pass
 
 def p_funcs(p):
-    'funcs : prepare_new_func funcs_type add_current_type ID LPARENTESIS parametros RPARENTESIS LBRACES bloque_funcion RBRACES SEMICOLON'
+    'funcs : prepare_new_func funcs_type add_current_type ID add_function LPARENTESIS parametros RPARENTESIS LBRACES bloque_funcion RBRACES SEMICOLON'
     print(f"Func detectada: {p[3]}")
 
 def p_prepare_new_func(p):
@@ -218,6 +218,17 @@ def p_funcs_type(p):
 def p_add_current_type(p):
     'add_current_type :'
     semantic2.current_type = p[-1]
+
+def p_add_function(p):
+    'add_function :'
+    func_name = p[-1]
+    func_type = semantic2.current_type
+
+    print("registrando '{func_name}' con '{func_type}'")
+    semantic2.func_dir.add_function(func_name, func_type)
+
+    semantic2.current_function = func_name
+
 
 
 def p_parametros(p):
