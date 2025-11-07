@@ -201,7 +201,7 @@ def p_cte(p):
     pass
 
 def p_funcs(p):
-    'funcs : prepare_new_func funcs_type ID LPARENTESIS parametros RPARENTESIS LBRACES bloque_funcion RBRACES SEMICOLON'
+    'funcs : prepare_new_func funcs_type add_current_type ID LPARENTESIS parametros RPARENTESIS LBRACES bloque_funcion RBRACES SEMICOLON'
     print(f"Func detectada: {p[3]}")
 
 def p_prepare_new_func(p):
@@ -214,6 +214,10 @@ def p_funcs_type(p):
     '''funcs_type : VOID
                   | type'''
     p[0] = p[1]
+
+def p_add_current_type(p):
+    'add_current_type :'
+    semantic2.current_type = p[-1]
 
 
 def p_parametros(p):
