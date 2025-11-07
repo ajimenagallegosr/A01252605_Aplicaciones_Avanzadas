@@ -1,6 +1,6 @@
 import ply.yacc as yacc
 from LexerPatito import tokens
-import semantic2
+import semantic as semantic
 
 
 def p_program(p):
@@ -17,15 +17,15 @@ def p_clean_program(p):
 
 def p_create_dirfunc(p):
     'create_dirfunc :'
-    semantic2.func_dir = semantic2.FunctionDirectory()
-    semantic2.current_function = None
+    semantic.func_dir = semantic.FunctionDirectory()
+    semantic.current_function = None
     print("Paso 1, Directorio de funciones creado")
 
 def p_create_id(p):
     'create_id :'
     program_name = p[-1]
-    semantic2.func_dir.add_function(program_name, 'program')
-    semantic2.current_function = program_name
+    semantic.func_dir.add_function(program_name, 'program')
+    semantic.current_function = program_name
     print(f"Paso 2, Nombre de programa registrado: '{program_name}'")
 
 def p_declaraciones(p):
@@ -44,14 +44,14 @@ def p_vars(p):
 
 def p_declaracion_var(p):
     'declaracion_var : lista_identificadores COLON type SEMICOLON'
-    tipo = semantic2.current_type
+    tipo = semantic.current_type
     lista = p[1]
 
     for ident in lista:
-        if semantic2.func_dir.var_exists(semantic2.current_function, ident):
-            raise Exception(f"ERROR: Multiple declaration of variable '{ident}' in '{semantic2.current_function}")
-        semantic2.func_dir.add_var(semantic2.current_function, ident, tipo)
-        print(f"Paso 5, Variable agregada: {ident} ({tipo}) en {semantic2.current_function} Var Table")
+        if semantic.func_dir.var_exists(semantic.current_function, ident):
+            raise Exception(f"ERROR: Multiple declaration of variable '{ident}' in '{semantic.current_function}")
+        semantic.func_dir.add_var(semantic.current_function, ident, tipo)
+        print(f"Paso 5, Variable agregada: {ident} ({tipo}) en {semantic.current_function} Var Table")
     pass
 
 def p_lista_identificadores(p):
@@ -86,7 +86,7 @@ def p_lista_declaraciones(p):
 def p_type(p):
     '''type : INT_TYPE
             | FLOAT_TYPE'''
-    semantic2.current_type = p[1]
+    semantic.current_type = p[1]
     p[0] = p[1]
 
     print(f"Paso 4/11, Tipo de variable(s) '{p[0]}'")
@@ -213,8 +213,8 @@ def p_funcs(p):
 
 def p_prepare_new_func(p):
     'prepare_new_func :'
-    semantic2.current_type = None
-    semantic2.current_function = None
+    semantic.current_type = None
+    semantic.current_function = None
     print("Paso 7, Preparando para nueva función")
 
 def p_funcs_type(p):
@@ -224,23 +224,23 @@ def p_funcs_type(p):
 
 def p_add_current_type(p):
     'add_current_type :'
-    semantic2.current_type = p[-1]
+    semantic.current_type = p[-1]
     print(f"Paso 8, Tipo de funcion detectada '{p[-1]}")
 
 def p_add_function(p):
     'add_function :'
     func_name = p[-1]
-    func_type = semantic2.current_type
+    func_type = semantic.current_type
 
     print(f"Paso 9, Registrado '{func_name}' con '{func_type}'")
-    semantic2.func_dir.add_function(func_name, func_type)
+    semantic.func_dir.add_function(func_name, func_type)
 
-    semantic2.current_function = func_name
+    semantic.current_function = func_name
 
 def p_start_func_vars(p):
     'start_func_vars :'
-    semantic2.func_dir.directory[semantic2.current_function]['vars'] = semantic2.VarTable()
-    print(f"Paso 10: VarTable creada para función '{semantic2.current_function}'")
+    semantic.func_dir.directory[semantic.current_function]['vars'] = semantic.VarTable()
+    print(f"Paso 10: VarTable creada para función '{semantic.current_function}'")
 
 def p_parametros(p):
     '''parametros : parametro lista_parametros
@@ -253,9 +253,9 @@ def p_parametro(p):
     param_name = p[1]
     param_type = p[3]
 
-    semantic2.func_dir.add_var(semantic2.current_function, param_name, param_type)
+    semantic.func_dir.add_var(semantic.current_function, param_name, param_type)
     
-    print(f"Paso 11: Parámetro agregado '{param_name}' tipo '{param_type}' a función '{semantic2.current_function}'")
+    print(f"Paso 11: Parámetro agregado '{param_name}' tipo '{param_type}' a función '{semantic.current_function}'")
 
     pass
 
@@ -271,7 +271,7 @@ def p_bloque_funcion(p):
 
 def p_end_func(p):
     'end_func :'
-    print(f"Paso 12: Eliminando VarTable de función '{semantic2.current_function}'")
+    print(f"Paso 12: Eliminando VarTable de función '{semantic.current_function}'")
     #comentados en los test
     #semantic2.func_dir.directory[semantic2.current_function]['vars'] = None
     #semantic2.current_function = None
