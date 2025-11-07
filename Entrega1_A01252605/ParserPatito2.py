@@ -48,8 +48,6 @@ def p_declaracion_var(p):
     lista = p[1]
 
     for ident in lista:
-        if semantic.func_dir.var_exists(semantic.current_function, ident):
-            raise Exception(f"ERROR: Multiple declaration of variable '{ident}' in '{semantic.current_function}")
         semantic.func_dir.add_var(semantic.current_function, ident, tipo)
         print(f"Paso 5, Variable agregada: {ident} ({tipo}) en {semantic.current_function} Var Table")
     pass
