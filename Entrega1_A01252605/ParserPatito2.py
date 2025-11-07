@@ -9,7 +9,7 @@ def p_program(p):
 
 def p_clean_program(p):
     'clean_program :'
-    print("Paso Final: Eliminando DirFunc y tabla global")
+    print("Paso 6 (Final), Eliminando DirFunc y tabla global")
 
     # comentados por test
     #semantic2.func_dir = None
@@ -19,14 +19,14 @@ def p_create_dirfunc(p):
     'create_dirfunc :'
     semantic2.func_dir = semantic2.FunctionDirectory()
     semantic2.current_function = None
-    print("Directorio de funciones creado")
+    print("Paso 1, Directorio de funciones creado")
 
 def p_create_id(p):
     'create_id :'
     program_name = p[-1]
     semantic2.func_dir.add_function(program_name, 'program')
     semantic2.current_function = program_name
-    print("Nombre de programa registrado: {program_name}")
+    print(f"Paso 2, Nombre de programa registrado: '{program_name}'")
 
 def p_declaraciones(p):
     '''declaraciones : vars
@@ -51,7 +51,7 @@ def p_declaracion_var(p):
         if semantic2.func_dir.var_exists(semantic2.current_function, ident):
             raise Exception(f"ERROR: Multiple declaration of variable '{ident}' in '{semantic2.current_function}")
         semantic2.func_dir.add_var(semantic2.current_function, ident, tipo)
-        print(f"Variable declarada: {ident} ({tipo}) en {semantic2.current_function}")
+        print(f"Paso 5, Variable agregada: {ident} ({tipo}) en {semantic2.current_function} Var Table")
     pass
 
 def p_lista_identificadores(p):
@@ -60,6 +60,8 @@ def p_lista_identificadores(p):
         p[0] = [p[1]]
     else:
         p[0] = [p[1]] + p[2]
+    
+    print(f"Paso 3, Variable detectada '{p[0]}'")
 
     pass
 
@@ -86,11 +88,12 @@ def p_type(p):
             | FLOAT_TYPE'''
     semantic2.current_type = p[1]
     p[0] = p[1]
+
+    print(f"Paso 4/11, Tipo de variable(s) '{p[0]}'")
     pass
 
 def p_body(p):
     'body : LBRACES lista_statements RBRACES'
-    print("body detectado")
     pass
 
 def p_lista_statements(p):
@@ -127,12 +130,10 @@ def p_lista_elementos(p):
 
 def p_assign(p):
     'assign : EQUALS expresion SEMICOLON'
-    print("Asignación detectada")
     pass
 
 def p_cycle(p):
     'cycle : WHILE LPARENTESIS expresion RPARENTESIS DO body SEMICOLON'
-    print("WHILE detectado")
     pass
 
 def p_condition(p):
@@ -146,7 +147,6 @@ def p_part_else(p):
 
 def p_expresion(p):
     'expresion : exp comparacion'
-    print("Expresión detectada")
     pass
 
 def p_comparacion(p):
@@ -210,13 +210,12 @@ def p_cte(p):
 
 def p_funcs(p):
     'funcs : prepare_new_func funcs_type add_current_type ID add_function LPARENTESIS start_func_vars parametros RPARENTESIS LBRACES bloque_funcion RBRACES end_func SEMICOLON'
-    print(f"Func detectada: {p[3]}")
 
 def p_prepare_new_func(p):
     'prepare_new_func :'
     semantic2.current_type = None
     semantic2.current_function = None
-    print("Paso 7: preparando para nueva función")
+    print("Paso 7, Preparando para nueva función")
 
 def p_funcs_type(p):
     '''funcs_type : VOID
@@ -226,13 +225,14 @@ def p_funcs_type(p):
 def p_add_current_type(p):
     'add_current_type :'
     semantic2.current_type = p[-1]
+    print(f"Paso 8, Tipo de funcion detectada '{p[-1]}")
 
 def p_add_function(p):
     'add_function :'
     func_name = p[-1]
     func_type = semantic2.current_type
 
-    print("registrando '{func_name}' con '{func_type}'")
+    print(f"Paso 9, Registrado '{func_name}' con '{func_type}'")
     semantic2.func_dir.add_function(func_name, func_type)
 
     semantic2.current_function = func_name
@@ -253,10 +253,7 @@ def p_parametro(p):
     param_name = p[1]
     param_type = p[3]
 
-    if semantic2.func_dir.var_exists(semantic2.current_function, param_name):
-        print("Error '{param_name} ya existe en función '{semantic2.current_function}'")
-    else:
-        semantic2.func_dir.add_var(semantic2.current_function, param_name, param_type)
+    semantic2.func_dir.add_var(semantic2.current_function, param_name, param_type)
     
     print(f"Paso 11: Parámetro agregado '{param_name}' tipo '{param_type}' a función '{semantic2.current_function}'")
 
@@ -282,7 +279,6 @@ def p_end_func(p):
 
 def p_f_call(p):
     'f_call : LPARENTESIS argumentos RPARENTESIS'
-    print("F_CALL detectado")
     pass
 
 def p_argumentos(p):
