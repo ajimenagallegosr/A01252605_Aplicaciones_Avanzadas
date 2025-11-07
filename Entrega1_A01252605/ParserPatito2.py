@@ -201,7 +201,7 @@ def p_cte(p):
     pass
 
 def p_funcs(p):
-    'funcs : prepare_new_func funcs_type add_current_type ID add_function LPARENTESIS parametros RPARENTESIS LBRACES bloque_funcion RBRACES SEMICOLON'
+    'funcs : prepare_new_func funcs_type add_current_type ID add_function LPARENTESIS start_func_vars parametros RPARENTESIS LBRACES bloque_funcion RBRACES SEMICOLON'
     print(f"Func detectada: {p[3]}")
 
 def p_prepare_new_func(p):
@@ -229,7 +229,10 @@ def p_add_function(p):
 
     semantic2.current_function = func_name
 
-
+def p_start_func_vars(p):
+    'start_func_vars :'
+    semantic2.func_dir.directory[semantic2.current_function]['vars'] = semantic2.VarTable()
+    print(f"Paso 10: VarTable creada para función '{semantic2.current_function}'")
 
 def p_parametros(p):
     '''parametros : parametro lista_parametros
