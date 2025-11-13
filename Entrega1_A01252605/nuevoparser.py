@@ -10,20 +10,38 @@ def reduce_oper(op):
         temp_op = semantic.PilaOper.pop()
         right = semantic.PilaO.pop()
         left = semantic.PilaO.pop()
+        right_type = semantic.PilaT.pop()
+        left_type  = semantic.PilaT.pop()
+
+        result_type = semantic.semantic_cube[temp_op].get((left_type, right_type))
+
+        if result_type is None or result_type == "error":
+            raise TypeError(f"Error semántico: no se puede aplicar {temp_op} a {left_type} y {right_type}")
+
         temp = semantic.new_temp()
         semantic.generate_quad(temp_op, left, right, temp)
-        print("gen 1")
         semantic.PilaO.append(temp)
+        semantic.PilaT.append(result_type)
+        print("gen 1")
     
     if op == ')':
         while semantic.PilaOper and semantic.PilaOper[-1] != '(':
             temp_op = semantic.PilaOper.pop()
             right = semantic.PilaO.pop()
             left = semantic.PilaO.pop()
+            right_type = semantic.PilaT.pop()
+            left_type  = semantic.PilaT.pop()
+
+            result_type = semantic.semantic_cube[temp_op].get((left_type, right_type))
+
+            if result_type is None or result_type == "error":
+                raise TypeError(f"Error semántico: no se puede aplicar {temp_op} a {left_type} y {right_type}")
+            
             temp = semantic.new_temp()
             semantic.generate_quad(temp_op, left, right, temp)
-            print("gen 1")
+            semantic.PilaT.append(result_type)
             semantic.PilaO.append(temp)
+            print("gen 1")
         semantic.PilaOper.pop()
         return
     
@@ -143,10 +161,16 @@ def p_print_func(p):
     'print_func : PRINT LPARENTESIS elemento_impresion lista_elementos RPARENTESIS SEMICOLON'
     pass
 
-def p_elemento_impresion(p):
-    '''elemento_impresion : expresion
-                          | CTE_STRING'''
-    pass
+def p_elemento_impresion_expr(p):
+    'elemento_impresion : expresion'
+    valor = semantic.PilaO.pop()
+    semantic.PilaT.pop()
+    semantic.generate_quad('print', None, None, valor)
+
+def p_elemento_impresion_str(p):
+    'elemento_impresion : CTE_STRING'
+    semantic.generate_quad('print', None, None, p[1])
+
 
 def p_lista_elementos(p):
     '''lista_elementos : COMMA elemento_impresion lista_elementos
@@ -156,8 +180,18 @@ def p_lista_elementos(p):
 def p_assign(p):
     'assign : EQUALS expresion SEMICOLON'
     right = semantic.PilaO.pop()
+    right_type = semantic.PilaT.pop()
+
     left = p[-1]
+    left_type = semantic.func_dir.get_var_type(semantic.current_function, left)
+
+    result_type = semantic.semantic_cube['='].get((left_type, right_type), "error")
+
+    if result_type == "error" or result_type is None:
+        raise TypeError(f"Error semántico: no se puede asignar {right_type} a {left_type} en '{left}'")
+
     semantic.generate_quad('=', right, None, left)
+
 
 
 def p_cycle(p):
@@ -178,11 +212,17 @@ def p_expresion(p):
     while semantic.PilaOper and semantic.PilaOper[-1] != '(':
         temp_op = semantic.PilaOper.pop()
         right = semantic.PilaO.pop()
-        left = semantic.PilaO.pop()
+        left  = semantic.PilaO.pop()
+        right_type = semantic.PilaT.pop()
+        left_type  = semantic.PilaT.pop()
+        result_type = semantic.semantic_cube[temp_op].get((left_type, right_type))
+        if result_type is None:
+            raise TypeError(f"Error semántico: no se puede aplicar {temp_op} a {left_type} y {right_type}")
         temp = semantic.new_temp()
         semantic.generate_quad(temp_op, left, right, temp)
         print("gen 2")
         semantic.PilaO.append(temp)
+        semantic.PilaT.append(result_type)
 
 
 def p_comparacion(p):
@@ -220,12 +260,18 @@ def p_factor(p):
               | cte
               | ID id_opcion'''
     if len(p) == 3 and p.slice[1].type == 'ID':
-        print(p[1])
         semantic.PilaO.append(p[1])
-    elif len(p) == 2 and isinstance(p[1], (int, float, str)):
+        var_type = semantic.func_dir.get_var_type(semantic.current_function, p[1])
+        semantic.PilaT.append(var_type)
+        print("id: ",p[1], " - ", var_type)
+    elif len(p) == 2 and isinstance(p[1], (int, float)):
         semantic.PilaO.append(p[1])
-        print(p[1])
-
+        if isinstance(p[1], int):
+            print("num: ", p[1], "- int")
+            semantic.PilaT.append("int")
+        else:
+            print("num: ", p[1], "- float")
+            semantic.PilaT.append("float")
 
 def p_id_opcion(p):
     '''id_opcion : f_call
@@ -260,11 +306,12 @@ def p_valor(p):
 def p_cte(p):
     '''cte : CTE_INT
            | CTE_FLOAT'''
-    # Convierte el valor del token a tipo numérico real
     if p.slice[1].type == 'CTE_INT':
         val = int(p[1])
+        print(val, " - int")
     else:
         val = float(p[1])
+        print(val, " - float")
     p[0] = val
     pass
 
