@@ -4,7 +4,6 @@ import Semantic as semantic
         
 def reduce_oper(op):
     prec = {'+': 2, '-': 2, '*': 3, '/': 3, '<': 1, '>': 1, '!=': 1, '==': 1}
-    print(op)
 
     while semantic.PilaOper and semantic.PilaOper[-1] != '(' and prec.get(semantic.PilaOper[-1], 0) >= prec.get(op, 0):
         temp_op = semantic.PilaOper.pop()
@@ -22,7 +21,6 @@ def reduce_oper(op):
         semantic.generate_quad(temp_op, left, right, temp)
         semantic.PilaO.append(temp)
         semantic.PilaT.append(result_type)
-        print("gen 1")
     
     if op == ')':
         while semantic.PilaOper and semantic.PilaOper[-1] != '(':
@@ -41,7 +39,6 @@ def reduce_oper(op):
             semantic.generate_quad(temp_op, left, right, temp)
             semantic.PilaT.append(result_type)
             semantic.PilaO.append(temp)
-            print("gen 1")
         semantic.PilaOper.pop()
         return
     
@@ -220,7 +217,6 @@ def p_expresion(p):
             raise TypeError(f"Error semántico: no se puede aplicar {temp_op} a {left_type} y {right_type}")
         temp = semantic.new_temp()
         semantic.generate_quad(temp_op, left, right, temp)
-        print("gen 2")
         semantic.PilaO.append(temp)
         semantic.PilaT.append(result_type)
 
@@ -263,14 +259,11 @@ def p_factor(p):
         semantic.PilaO.append(p[1])
         var_type = semantic.func_dir.get_var_type(semantic.current_function, p[1])
         semantic.PilaT.append(var_type)
-        print("id: ",p[1], " - ", var_type)
     elif len(p) == 2 and isinstance(p[1], (int, float)):
         semantic.PilaO.append(p[1])
         if isinstance(p[1], int):
-            print("num: ", p[1], "- int")
             semantic.PilaT.append("int")
         else:
-            print("num: ", p[1], "- float")
             semantic.PilaT.append("float")
 
 def p_id_opcion(p):
@@ -285,12 +278,10 @@ def p_agrupacion(p):
 def p_push_paren(p):
     'push_paren :'
     semantic.PilaOper.append('(')
-    print("push (")
 
 def p_close_paren(p):
     'close_paren :'
     reduce_oper(')')
-    print("pop )")
 
 
 def p_signo_unario(p):
@@ -308,10 +299,8 @@ def p_cte(p):
            | CTE_FLOAT'''
     if p.slice[1].type == 'CTE_INT':
         val = int(p[1])
-        print(val, " - int")
     else:
         val = float(p[1])
-        print(val, " - float")
     p[0] = val
     pass
 
