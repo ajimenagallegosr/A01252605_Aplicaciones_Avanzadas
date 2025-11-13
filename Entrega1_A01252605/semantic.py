@@ -24,33 +24,34 @@ semantic_cube = {
         ('float', 'float'): 'float'
     },
     '>': {
-        ('int', 'int'): 'int',
-        ('int', 'float'): 'int',
-        ('float', 'int'): 'int',
-        ('float', 'float'): 'int'
+        ('int', 'int'): 'bool',
+        ('int', 'float'): 'bool',
+        ('float', 'int'): 'bool',
+        ('float', 'float'): 'bool'
     },
     '<': {
-        ('int', 'int'): 'int',
-        ('int', 'float'): 'int',
-        ('float', 'int'): 'int',
-        ('float', 'float'): 'int'
+        ('int', 'int'): 'bool',
+        ('int', 'float'): 'bool',
+        ('float', 'int'): 'bool',
+        ('float', 'float'): 'bool'
     },
     '!=': {
-        ('int', 'int'): 'int',
-        ('int', 'float'): 'int',
-        ('float', 'int'): 'int',
-        ('float', 'float'): 'int'
+        ('int', 'int'): 'bool',
+        ('int', 'float'): 'bool',
+        ('float', 'int'): 'bool',
+        ('float', 'float'): 'bool'
     },
     '==': {
-        ('int', 'int'): 'int',
-        ('int', 'float'): 'int',
-        ('float', 'int'): 'int',
-        ('float', 'float'): 'int'
+        ('int', 'int'): 'bool',
+        ('int', 'float'): 'bool',
+        ('float', 'int'): 'bool',
+        ('float', 'float'): 'bool'
     },
     '=': {
         ('int', 'int'): 'int',
         ('float', 'float'): 'float',
-        ('float', 'int'): 'float'
+        ('float', 'int'): 'float',
+        ('int', 'float') : 'error'
         # ('int','float') no permitido, error semántico
     }
 }
@@ -89,3 +90,27 @@ class FunctionDirectory:
 
 func_dir = FunctionDirectory()
 current_function = 'global'
+current_type = None
+
+PilaO = []       # operandos, a, b, c, 1, 2
+PilaT = []       # tipos, int, float, etc
+PilaOper = []    # operadores, +, -, *, etc
+QuadList = []    # cuádruplos
+temp_counter = 0
+
+def new_temp():
+    global temp_counter
+    name = f"t{temp_counter}"
+    temp_counter += 1
+    return name
+
+def generate_quad(op, l, r, res):
+    QuadList.append((op, l, r, res))
+    print(f"Cuádruplo generado: {(op, l, r, res)}")
+
+def print_quads():
+    print("\nCUADRUPLOS FINALES")
+    for i, q in enumerate(QuadList):
+        print(f"{i}: {q}")
+
+
