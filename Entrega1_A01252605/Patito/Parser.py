@@ -193,7 +193,7 @@ def p_assign(p):
 
 
 def p_cycle(p):
-    'cycle : WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body add_goF_Step_W SEMICOLON'
+    'cycle : WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body SEMICOLON add_goF_Step_W'
     pass
  
 def p_add_while(p):
@@ -211,10 +211,9 @@ def p_add_goF_W(p):
 def p_add_goF_Step_W(p):
     'add_goF_Step_W :'
     edit_goTo = semantic.PilaGoTo.pop()
-    goTo = len(semantic.QuadList) + 1
-    semantic.QuadList[edit_goTo][3] = goTo
     goTo = semantic.PilaGoTo.pop()
     semantic.generate_quad("GoTo", None, None, goTo)
+    semantic.QuadList[edit_goTo][3] = len(semantic.QuadList)
 
 
 def p_condition(p):
