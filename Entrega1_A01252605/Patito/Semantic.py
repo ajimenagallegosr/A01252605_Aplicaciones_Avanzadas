@@ -86,7 +86,14 @@ class FunctionDirectory:
         self.directory[func_name]['vars'].add(var_name, var_type)
 
     def get_var_type(self, func_name, var_name):
-        return self.directory[func_name]['vars'].get_type(var_name)
+        try:
+            return self.directory[func_name]['vars'].get_type(var_name)
+        except:
+            pass
+
+        program_scope = list(self.directory.keys())[0]  # usualmente el nombre del programa
+        return self.directory[program_scope]['vars'].get_type(var_name)
+
 
 func_dir = FunctionDirectory()
 current_function = 'global'

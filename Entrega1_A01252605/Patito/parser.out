@@ -36,15 +36,15 @@ Rule 30    elemento_impresion -> CTE_STRING
 Rule 31    lista_elementos -> COMMA elemento_impresion lista_elementos
 Rule 32    lista_elementos -> empty
 Rule 33    assign -> EQUALS expresion SEMICOLON
-Rule 34    cycle -> WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body add_goF_Step_W SEMICOLON
+Rule 34    cycle -> WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body SEMICOLON add_goF_Step_W
 Rule 35    add_while -> <empty>
 Rule 36    add_goF_W -> <empty>
 Rule 37    add_goF_Step_W -> <empty>
-Rule 38    condition -> IF LPARENTESIS expresion RPARENTESIS add_if body add_endif part_else add_else SEMICOLON
+Rule 38    condition -> IF LPARENTESIS expresion RPARENTESIS add_if body part_else SEMICOLON add_endif
 Rule 39    add_if -> <empty>
 Rule 40    add_endif -> <empty>
 Rule 41    add_else -> <empty>
-Rule 42    part_else -> ELSE body
+Rule 42    part_else -> add_else ELSE body
 Rule 43    part_else -> empty
 Rule 44    expresion -> exp comparacion
 Rule 45    comparacion -> GREATER add_op exp
@@ -139,7 +139,7 @@ error                :
 Nonterminals, with rules where they appear
 
 add_current_type     : 73
-add_else             : 38
+add_else             : 42
 add_endif            : 38
 add_function         : 73
 add_goF_Step_W       : 34
@@ -557,8 +557,8 @@ state 33
     (25) statement -> . LBRACKETS lista_statements RBRACKETS
     (93) empty -> .
     (28) print_func -> . PRINT LPARENTESIS elemento_impresion lista_elementos RPARENTESIS SEMICOLON
-    (38) condition -> . IF LPARENTESIS expresion RPARENTESIS add_if body add_endif part_else add_else SEMICOLON
-    (34) cycle -> . WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body add_goF_Step_W SEMICOLON
+    (38) condition -> . IF LPARENTESIS expresion RPARENTESIS add_if body part_else SEMICOLON add_endif
+    (34) cycle -> . WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body SEMICOLON add_goF_Step_W
 
     ID              shift and go to state 45
     LBRACKETS       shift and go to state 46
@@ -640,8 +640,8 @@ state 40
     (25) statement -> . LBRACKETS lista_statements RBRACKETS
     (93) empty -> .
     (28) print_func -> . PRINT LPARENTESIS elemento_impresion lista_elementos RPARENTESIS SEMICOLON
-    (38) condition -> . IF LPARENTESIS expresion RPARENTESIS add_if body add_endif part_else add_else SEMICOLON
-    (34) cycle -> . WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body add_goF_Step_W SEMICOLON
+    (38) condition -> . IF LPARENTESIS expresion RPARENTESIS add_if body part_else SEMICOLON add_endif
+    (34) cycle -> . WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body SEMICOLON add_goF_Step_W
 
     ID              shift and go to state 45
     LBRACKETS       shift and go to state 46
@@ -732,8 +732,8 @@ state 46
     (25) statement -> . LBRACKETS lista_statements RBRACKETS
     (93) empty -> .
     (28) print_func -> . PRINT LPARENTESIS elemento_impresion lista_elementos RPARENTESIS SEMICOLON
-    (38) condition -> . IF LPARENTESIS expresion RPARENTESIS add_if body add_endif part_else add_else SEMICOLON
-    (34) cycle -> . WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body add_goF_Step_W SEMICOLON
+    (38) condition -> . IF LPARENTESIS expresion RPARENTESIS add_if body part_else SEMICOLON add_endif
+    (34) cycle -> . WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body SEMICOLON add_goF_Step_W
 
     ID              shift and go to state 45
     LBRACKETS       shift and go to state 46
@@ -758,14 +758,14 @@ state 47
 
 state 48
 
-    (38) condition -> IF . LPARENTESIS expresion RPARENTESIS add_if body add_endif part_else add_else SEMICOLON
+    (38) condition -> IF . LPARENTESIS expresion RPARENTESIS add_if body part_else SEMICOLON add_endif
 
     LPARENTESIS     shift and go to state 63
 
 
 state 49
 
-    (34) cycle -> WHILE . add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body add_goF_Step_W SEMICOLON
+    (34) cycle -> WHILE . add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body SEMICOLON add_goF_Step_W
     (35) add_while -> .
 
     LPARENTESIS     reduce using rule 35 (add_while -> .)
@@ -812,8 +812,8 @@ state 54
     (18) body -> LBRACES lista_statements RBRACES .
 
     END             reduce using rule 18 (body -> LBRACES lista_statements RBRACES .)
-    ELSE            reduce using rule 18 (body -> LBRACES lista_statements RBRACES .)
     SEMICOLON       reduce using rule 18 (body -> LBRACES lista_statements RBRACES .)
+    ELSE            reduce using rule 18 (body -> LBRACES lista_statements RBRACES .)
     RBRACES         reduce using rule 18 (body -> LBRACES lista_statements RBRACES .)
 
 
@@ -970,7 +970,7 @@ state 62
 
 state 63
 
-    (38) condition -> IF LPARENTESIS . expresion RPARENTESIS add_if body add_endif part_else add_else SEMICOLON
+    (38) condition -> IF LPARENTESIS . expresion RPARENTESIS add_if body part_else SEMICOLON add_endif
     (44) expresion -> . exp comparacion
     (50) exp -> . termino suma_resta
     (54) termino -> . factor mult_div
@@ -1001,7 +1001,7 @@ state 63
 
 state 64
 
-    (34) cycle -> WHILE add_while . LPARENTESIS expresion RPARENTESIS add_goF_W DO body add_goF_Step_W SEMICOLON
+    (34) cycle -> WHILE add_while . LPARENTESIS expresion RPARENTESIS add_goF_W DO body SEMICOLON add_goF_Step_W
 
     LPARENTESIS     shift and go to state 88
 
@@ -1323,14 +1323,14 @@ state 86
 
 state 87
 
-    (38) condition -> IF LPARENTESIS expresion . RPARENTESIS add_if body add_endif part_else add_else SEMICOLON
+    (38) condition -> IF LPARENTESIS expresion . RPARENTESIS add_if body part_else SEMICOLON add_endif
 
     RPARENTESIS     shift and go to state 120
 
 
 state 88
 
-    (34) cycle -> WHILE add_while LPARENTESIS . expresion RPARENTESIS add_goF_W DO body add_goF_Step_W SEMICOLON
+    (34) cycle -> WHILE add_while LPARENTESIS . expresion RPARENTESIS add_goF_W DO body SEMICOLON add_goF_Step_W
     (44) expresion -> . exp comparacion
     (50) exp -> . termino suma_resta
     (54) termino -> . factor mult_div
@@ -1831,7 +1831,7 @@ state 119
 
 state 120
 
-    (38) condition -> IF LPARENTESIS expresion RPARENTESIS . add_if body add_endif part_else add_else SEMICOLON
+    (38) condition -> IF LPARENTESIS expresion RPARENTESIS . add_if body part_else SEMICOLON add_endif
     (39) add_if -> .
 
     LBRACES         reduce using rule 39 (add_if -> .)
@@ -1840,7 +1840,7 @@ state 120
 
 state 121
 
-    (34) cycle -> WHILE add_while LPARENTESIS expresion . RPARENTESIS add_goF_W DO body add_goF_Step_W SEMICOLON
+    (34) cycle -> WHILE add_while LPARENTESIS expresion . RPARENTESIS add_goF_W DO body SEMICOLON add_goF_Step_W
 
     RPARENTESIS     shift and go to state 136
 
@@ -2122,7 +2122,7 @@ state 134
 
 state 135
 
-    (38) condition -> IF LPARENTESIS expresion RPARENTESIS add_if . body add_endif part_else add_else SEMICOLON
+    (38) condition -> IF LPARENTESIS expresion RPARENTESIS add_if . body part_else SEMICOLON add_endif
     (18) body -> . LBRACES lista_statements RBRACES
 
     LBRACES         shift and go to state 33
@@ -2131,7 +2131,7 @@ state 135
 
 state 136
 
-    (34) cycle -> WHILE add_while LPARENTESIS expresion RPARENTESIS . add_goF_W DO body add_goF_Step_W SEMICOLON
+    (34) cycle -> WHILE add_while LPARENTESIS expresion RPARENTESIS . add_goF_W DO body SEMICOLON add_goF_Step_W
     (36) add_goF_W -> .
 
     DO              reduce using rule 36 (add_goF_W -> .)
@@ -2344,19 +2344,24 @@ state 152
 
 state 153
 
-    (38) condition -> IF LPARENTESIS expresion RPARENTESIS add_if body . add_endif part_else add_else SEMICOLON
-    (40) add_endif -> .
+    (38) condition -> IF LPARENTESIS expresion RPARENTESIS add_if body . part_else SEMICOLON add_endif
+    (42) part_else -> . add_else ELSE body
+    (43) part_else -> . empty
+    (41) add_else -> .
+    (93) empty -> .
 
-    ELSE            reduce using rule 40 (add_endif -> .)
-    SEMICOLON       reduce using rule 40 (add_endif -> .)
+    ELSE            reduce using rule 41 (add_else -> .)
+    SEMICOLON       reduce using rule 93 (empty -> .)
 
-    add_endif                      shift and go to state 165
+    part_else                      shift and go to state 165
+    add_else                       shift and go to state 166
+    empty                          shift and go to state 167
 
 state 154
 
-    (34) cycle -> WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W . DO body add_goF_Step_W SEMICOLON
+    (34) cycle -> WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W . DO body SEMICOLON add_goF_Step_W
 
-    DO              shift and go to state 166
+    DO              shift and go to state 168
 
 
 state 155
@@ -2368,13 +2373,13 @@ state 155
     INT_TYPE        shift and go to state 23
     FLOAT_TYPE      shift and go to state 24
 
-    type                           shift and go to state 167
+    type                           shift and go to state 169
 
 state 156
 
     (73) funcs -> prepare_new_func funcs_type add_current_type ID add_function LPARENTESIS start_func_vars parametros RPARENTESIS . LBRACES bloque_funcion RBRACES end_func SEMICOLON
 
-    LBRACES         shift and go to state 168
+    LBRACES         shift and go to state 170
 
 
 state 157
@@ -2391,7 +2396,7 @@ state 158
 
     ID              shift and go to state 137
 
-    parametro                      shift and go to state 169
+    parametro                      shift and go to state 171
 
 state 159
 
@@ -2475,27 +2480,35 @@ state 164
 
 state 165
 
-    (38) condition -> IF LPARENTESIS expresion RPARENTESIS add_if body add_endif . part_else add_else SEMICOLON
-    (42) part_else -> . ELSE body
-    (43) part_else -> . empty
-    (93) empty -> .
+    (38) condition -> IF LPARENTESIS expresion RPARENTESIS add_if body part_else . SEMICOLON add_endif
 
-    ELSE            shift and go to state 171
-    SEMICOLON       reduce using rule 93 (empty -> .)
+    SEMICOLON       shift and go to state 172
 
-    part_else                      shift and go to state 170
-    empty                          shift and go to state 172
 
 state 166
 
-    (34) cycle -> WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO . body add_goF_Step_W SEMICOLON
+    (42) part_else -> add_else . ELSE body
+
+    ELSE            shift and go to state 173
+
+
+state 167
+
+    (43) part_else -> empty .
+
+    SEMICOLON       reduce using rule 43 (part_else -> empty .)
+
+
+state 168
+
+    (34) cycle -> WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO . body SEMICOLON add_goF_Step_W
     (18) body -> . LBRACES lista_statements RBRACES
 
     LBRACES         shift and go to state 33
 
-    body                           shift and go to state 173
+    body                           shift and go to state 174
 
-state 167
+state 169
 
     (82) parametro -> ID COLON type .
 
@@ -2503,7 +2516,7 @@ state 167
     RPARENTESIS     reduce using rule 82 (parametro -> ID COLON type .)
 
 
-state 168
+state 170
 
     (73) funcs -> prepare_new_func funcs_type add_current_type ID add_function LPARENTESIS start_func_vars parametros RPARENTESIS LBRACES . bloque_funcion RBRACES end_func SEMICOLON
     (85) bloque_funcion -> . vars body
@@ -2514,11 +2527,11 @@ state 168
     VAR             shift and go to state 10
     LBRACES         shift and go to state 33
 
-    bloque_funcion                 shift and go to state 174
-    vars                           shift and go to state 175
-    body                           shift and go to state 176
+    bloque_funcion                 shift and go to state 175
+    vars                           shift and go to state 176
+    body                           shift and go to state 177
 
-state 169
+state 171
 
     (83) lista_parametros -> COMMA parametro . lista_parametros
     (83) lista_parametros -> . COMMA parametro lista_parametros
@@ -2528,95 +2541,106 @@ state 169
     COMMA           shift and go to state 158
     RPARENTESIS     reduce using rule 93 (empty -> .)
 
-    lista_parametros               shift and go to state 177
+    lista_parametros               shift and go to state 178
     empty                          shift and go to state 159
 
-state 170
+state 172
 
-    (38) condition -> IF LPARENTESIS expresion RPARENTESIS add_if body add_endif part_else . add_else SEMICOLON
-    (41) add_else -> .
+    (38) condition -> IF LPARENTESIS expresion RPARENTESIS add_if body part_else SEMICOLON . add_endif
+    (40) add_endif -> .
 
-    SEMICOLON       reduce using rule 41 (add_else -> .)
+    ID              reduce using rule 40 (add_endif -> .)
+    LBRACKETS       reduce using rule 40 (add_endif -> .)
+    PRINT           reduce using rule 40 (add_endif -> .)
+    IF              reduce using rule 40 (add_endif -> .)
+    WHILE           reduce using rule 40 (add_endif -> .)
+    RBRACES         reduce using rule 40 (add_endif -> .)
+    RBRACKETS       reduce using rule 40 (add_endif -> .)
 
-    add_else                       shift and go to state 178
+    add_endif                      shift and go to state 179
 
-state 171
+state 173
 
-    (42) part_else -> ELSE . body
+    (42) part_else -> add_else ELSE . body
     (18) body -> . LBRACES lista_statements RBRACES
 
     LBRACES         shift and go to state 33
 
-    body                           shift and go to state 179
-
-state 172
-
-    (43) part_else -> empty .
-
-    SEMICOLON       reduce using rule 43 (part_else -> empty .)
-
-
-state 173
-
-    (34) cycle -> WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body . add_goF_Step_W SEMICOLON
-    (37) add_goF_Step_W -> .
-
-    SEMICOLON       reduce using rule 37 (add_goF_Step_W -> .)
-
-    add_goF_Step_W                 shift and go to state 180
+    body                           shift and go to state 180
 
 state 174
 
-    (73) funcs -> prepare_new_func funcs_type add_current_type ID add_function LPARENTESIS start_func_vars parametros RPARENTESIS LBRACES bloque_funcion . RBRACES end_func SEMICOLON
+    (34) cycle -> WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body . SEMICOLON add_goF_Step_W
 
-    RBRACES         shift and go to state 181
+    SEMICOLON       shift and go to state 181
 
 
 state 175
+
+    (73) funcs -> prepare_new_func funcs_type add_current_type ID add_function LPARENTESIS start_func_vars parametros RPARENTESIS LBRACES bloque_funcion . RBRACES end_func SEMICOLON
+
+    RBRACES         shift and go to state 182
+
+
+state 176
 
     (85) bloque_funcion -> vars . body
     (18) body -> . LBRACES lista_statements RBRACES
 
     LBRACES         shift and go to state 33
 
-    body                           shift and go to state 182
+    body                           shift and go to state 183
 
-state 176
+state 177
 
     (86) bloque_funcion -> body .
 
     RBRACES         reduce using rule 86 (bloque_funcion -> body .)
 
 
-state 177
+state 178
 
     (83) lista_parametros -> COMMA parametro lista_parametros .
 
     RPARENTESIS     reduce using rule 83 (lista_parametros -> COMMA parametro lista_parametros .)
 
 
-state 178
-
-    (38) condition -> IF LPARENTESIS expresion RPARENTESIS add_if body add_endif part_else add_else . SEMICOLON
-
-    SEMICOLON       shift and go to state 183
-
-
 state 179
 
-    (42) part_else -> ELSE body .
+    (38) condition -> IF LPARENTESIS expresion RPARENTESIS add_if body part_else SEMICOLON add_endif .
 
-    SEMICOLON       reduce using rule 42 (part_else -> ELSE body .)
+    ID              reduce using rule 38 (condition -> IF LPARENTESIS expresion RPARENTESIS add_if body part_else SEMICOLON add_endif .)
+    LBRACKETS       reduce using rule 38 (condition -> IF LPARENTESIS expresion RPARENTESIS add_if body part_else SEMICOLON add_endif .)
+    PRINT           reduce using rule 38 (condition -> IF LPARENTESIS expresion RPARENTESIS add_if body part_else SEMICOLON add_endif .)
+    IF              reduce using rule 38 (condition -> IF LPARENTESIS expresion RPARENTESIS add_if body part_else SEMICOLON add_endif .)
+    WHILE           reduce using rule 38 (condition -> IF LPARENTESIS expresion RPARENTESIS add_if body part_else SEMICOLON add_endif .)
+    RBRACES         reduce using rule 38 (condition -> IF LPARENTESIS expresion RPARENTESIS add_if body part_else SEMICOLON add_endif .)
+    RBRACKETS       reduce using rule 38 (condition -> IF LPARENTESIS expresion RPARENTESIS add_if body part_else SEMICOLON add_endif .)
 
 
 state 180
 
-    (34) cycle -> WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body add_goF_Step_W . SEMICOLON
+    (42) part_else -> add_else ELSE body .
 
-    SEMICOLON       shift and go to state 184
+    SEMICOLON       reduce using rule 42 (part_else -> add_else ELSE body .)
 
 
 state 181
+
+    (34) cycle -> WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body SEMICOLON . add_goF_Step_W
+    (37) add_goF_Step_W -> .
+
+    ID              reduce using rule 37 (add_goF_Step_W -> .)
+    LBRACKETS       reduce using rule 37 (add_goF_Step_W -> .)
+    PRINT           reduce using rule 37 (add_goF_Step_W -> .)
+    IF              reduce using rule 37 (add_goF_Step_W -> .)
+    WHILE           reduce using rule 37 (add_goF_Step_W -> .)
+    RBRACES         reduce using rule 37 (add_goF_Step_W -> .)
+    RBRACKETS       reduce using rule 37 (add_goF_Step_W -> .)
+
+    add_goF_Step_W                 shift and go to state 184
+
+state 182
 
     (73) funcs -> prepare_new_func funcs_type add_current_type ID add_function LPARENTESIS start_func_vars parametros RPARENTESIS LBRACES bloque_funcion RBRACES . end_func SEMICOLON
     (87) end_func -> .
@@ -2625,37 +2649,24 @@ state 181
 
     end_func                       shift and go to state 185
 
-state 182
+state 183
 
     (85) bloque_funcion -> vars body .
 
     RBRACES         reduce using rule 85 (bloque_funcion -> vars body .)
 
 
-state 183
-
-    (38) condition -> IF LPARENTESIS expresion RPARENTESIS add_if body add_endif part_else add_else SEMICOLON .
-
-    ID              reduce using rule 38 (condition -> IF LPARENTESIS expresion RPARENTESIS add_if body add_endif part_else add_else SEMICOLON .)
-    LBRACKETS       reduce using rule 38 (condition -> IF LPARENTESIS expresion RPARENTESIS add_if body add_endif part_else add_else SEMICOLON .)
-    PRINT           reduce using rule 38 (condition -> IF LPARENTESIS expresion RPARENTESIS add_if body add_endif part_else add_else SEMICOLON .)
-    IF              reduce using rule 38 (condition -> IF LPARENTESIS expresion RPARENTESIS add_if body add_endif part_else add_else SEMICOLON .)
-    WHILE           reduce using rule 38 (condition -> IF LPARENTESIS expresion RPARENTESIS add_if body add_endif part_else add_else SEMICOLON .)
-    RBRACES         reduce using rule 38 (condition -> IF LPARENTESIS expresion RPARENTESIS add_if body add_endif part_else add_else SEMICOLON .)
-    RBRACKETS       reduce using rule 38 (condition -> IF LPARENTESIS expresion RPARENTESIS add_if body add_endif part_else add_else SEMICOLON .)
-
-
 state 184
 
-    (34) cycle -> WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body add_goF_Step_W SEMICOLON .
+    (34) cycle -> WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body SEMICOLON add_goF_Step_W .
 
-    ID              reduce using rule 34 (cycle -> WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body add_goF_Step_W SEMICOLON .)
-    LBRACKETS       reduce using rule 34 (cycle -> WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body add_goF_Step_W SEMICOLON .)
-    PRINT           reduce using rule 34 (cycle -> WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body add_goF_Step_W SEMICOLON .)
-    IF              reduce using rule 34 (cycle -> WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body add_goF_Step_W SEMICOLON .)
-    WHILE           reduce using rule 34 (cycle -> WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body add_goF_Step_W SEMICOLON .)
-    RBRACES         reduce using rule 34 (cycle -> WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body add_goF_Step_W SEMICOLON .)
-    RBRACKETS       reduce using rule 34 (cycle -> WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body add_goF_Step_W SEMICOLON .)
+    ID              reduce using rule 34 (cycle -> WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body SEMICOLON add_goF_Step_W .)
+    LBRACKETS       reduce using rule 34 (cycle -> WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body SEMICOLON add_goF_Step_W .)
+    PRINT           reduce using rule 34 (cycle -> WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body SEMICOLON add_goF_Step_W .)
+    IF              reduce using rule 34 (cycle -> WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body SEMICOLON add_goF_Step_W .)
+    WHILE           reduce using rule 34 (cycle -> WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body SEMICOLON add_goF_Step_W .)
+    RBRACES         reduce using rule 34 (cycle -> WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body SEMICOLON add_goF_Step_W .)
+    RBRACKETS       reduce using rule 34 (cycle -> WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body SEMICOLON add_goF_Step_W .)
 
 
 state 185

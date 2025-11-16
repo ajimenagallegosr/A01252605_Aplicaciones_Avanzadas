@@ -414,8 +414,8 @@ def p_end_func(p):
     'end_func :'
     print(f"Paso 12: Eliminando VarTable de función '{semantic.current_function}'")
     #comentados en los test
-    #semantic2.func_dir.directory[semantic2.current_function]['vars'] = None
-    #semantic2.current_function = None
+    #semantic.func_dir.directory[semantic.current_function]['vars'] = None
+    #semantic.current_function = None
 
 
 def p_f_call(p):
