@@ -52,6 +52,7 @@ def p_clean_program(p):
     'clean_program :'
     print("Paso 6 (Final), Eliminando DirFunc y tabla global")
     semantic.print_quads()
+    #print(semantic.QuadList[11], len(semantic.QuadList))
 
     # comentados por test
     #semantic2.func_dir = None
@@ -192,8 +193,29 @@ def p_assign(p):
 
 
 def p_cycle(p):
-    'cycle : WHILE LPARENTESIS expresion RPARENTESIS DO body SEMICOLON'
+    'cycle : WHILE add_while LPARENTESIS expresion RPARENTESIS add_goF_W DO body add_goF_Step_W SEMICOLON'
     pass
+ 
+def p_add_while(p):
+    'add_while :'
+    step_add = len(semantic.QuadList)
+    semantic.PilaGoTo.append(step_add)
+
+def p_add_goF_W(p):
+    'add_goF_W :'
+    step_add = len(semantic.QuadList)
+    semantic.PilaGoTo.append(step_add)
+    goTo = semantic.PilaO.pop()
+    semantic.generate_quad("goToF", goTo, None, None)
+
+def p_add_goF_Step_W(p):
+    'add_goF_Step_W :'
+    edit_goTo = semantic.PilaGoTo.pop()
+    goTo = len(semantic.QuadList) + 1
+    semantic.QuadList[edit_goTo][3] = goTo
+    goTo = semantic.PilaGoTo.pop()
+    semantic.generate_quad("GoTo", None, None, goTo)
+
 
 def p_condition(p):
     'condition : IF LPARENTESIS expresion RPARENTESIS body part_else SEMICOLON'

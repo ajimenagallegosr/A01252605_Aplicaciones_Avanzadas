@@ -96,6 +96,7 @@ PilaO = []       # operandos, a, b, c, 1, 2
 PilaT = []       # tipos, int, float, etc
 PilaOper = []    # operadores, +, -, *, etc
 QuadList = []    # cuádruplos
+PilaGoTo = []
 temp_counter = 0
 
 def new_temp():
@@ -105,8 +106,8 @@ def new_temp():
     return name
 
 def generate_quad(op, l, r, res):
-    QuadList.append((op, l, r, res))
-    print(f"Cuádruplo generado: {(op, l, r, res)}")
+    QuadList.append([op, l, r, res])
+    print(f"Cuádruplo generado: {[op, l, r, res]}")
 
 def print_quads():
     print("\nCUADRUPLOS FINALES")

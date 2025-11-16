@@ -36,10 +36,33 @@ main
 end
 """
 
+codigo2 = '''
+program test;
+var a,b,c,d : int;
+    f, e : float;
+
+main
+{
+    a = 0;
+    b = 3;
+    c = 0;
+
+    while (a < b) do {
+    c = 0;
+    while (c < 2) do {
+        c = c + 1;
+    };
+    a = a + 1;
+    };
+    a = 5;
+}
+end
+'''
+
 
 print("Antes del parseo:", semantic.func_dir.directory)
 
-parser.parse(codigo)
+parser.parse(codigo2)
 
 print("Después del parseo:", semantic.func_dir.directory)
 
