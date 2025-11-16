@@ -43,18 +43,11 @@ var a,b,c,d : int;
 
 main
 {
-    a = 0;
-    b = 3;
-    c = 0;
-
-    while (a < b) do {
-    c = 0;
-    while (c < 2) do {
-        c = c + 1;
+    if(a < b){
+        a = b;
+        a = 2;
     };
-    a = a + 1;
-    };
-    a = 5;
+    print(a);
 }
 end
 '''

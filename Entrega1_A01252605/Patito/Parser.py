@@ -218,8 +218,34 @@ def p_add_goF_Step_W(p):
 
 
 def p_condition(p):
-    'condition : IF LPARENTESIS expresion RPARENTESIS body part_else SEMICOLON'
+    'condition : IF LPARENTESIS expresion RPARENTESIS add_if body add_endif part_else add_else SEMICOLON'
     pass
+
+def p_add_if(p):
+    'add_if :'
+    step_add = len(semantic.QuadList)
+    print(step_add)
+    semantic.PilaGoTo.append(step_add)
+    goTo = semantic.PilaO.pop()
+    semantic.generate_quad("goToF", goTo, None, None)
+
+def p_add_endif(p):
+    'add_endif :'
+    step_add = len(semantic.QuadList)
+    print(step_add)
+    semantic.PilaGoTo.append(step_add)
+    semantic.generate_quad("goTo", None, None, None)
+
+def p_add_else(p):
+    'add_else :'
+    goTo = len(semantic.QuadList)
+    print(semantic.PilaGoTo)
+    if len(semantic.PilaGoTo) > 1:
+        edit_goToElse = semantic.PilaGoTo.pop()
+        semantic.QuadList[edit_goToElse][3] = goTo
+        edit_goToEnd = semantic.PilaGoTo.pop()
+        semantic.QuadList[edit_goToEnd][3] = edit_goToElse + 1
+
 
 def p_part_else(p):
     '''part_else : ELSE body
