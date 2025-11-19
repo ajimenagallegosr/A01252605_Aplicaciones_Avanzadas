@@ -29,10 +29,11 @@ program test;
 var a,b,c,d : int;
     f, e : float;
 
-    void suma(x: int, y: int){
-        var res : int;
+    void suma(a: float, y: int){
+        var res : float;
         {
-            res = x + y;
+            res = 1;
+            res = a + y;
         }
     }; 
 
@@ -73,6 +74,80 @@ main
 }
 end
 """
+
+codigo4 = '''
+program test;
+var a,b,c,d : int;
+
+void suma(a: float, y: int){
+        var res : float;
+        {
+            res = a + y;
+        }
+    }; 
+
+void resta(a: float, y: int){
+    var res : float;
+    {
+        res = a + y;
+    }
+}; 
+
+main
+{
+
+}
+end
+'''
+
+codigo5 = '''
+program test;
+var a,b,c,d : int;
+
+main
+{
+    a = b + c;
+}
+end
+'''
+
+codeLoopIf = """
+program prueba;
+var a,b,c,d : int;
+main {
+    if(a+b>d){
+        if(a<b){
+            a = 0;
+            b = b+d;
+        }
+        else{
+            c = a+b;
+        };
+    }
+    else{
+        a = b+c;
+    };
+    d = b+a*c;
+}
+end
+"""
+
+code2222 = '''
+program prueba;
+var a,b,c : int;
+
+void suma(a: float, y: int){
+        var res : float;
+        {
+            res = a + y;
+        }
+    }; 
+main {
+    a = b + c;
+    print(a);
+}
+end
+'''
 
 
 print("Antes del parseo:", semantic.func_dir.directory)

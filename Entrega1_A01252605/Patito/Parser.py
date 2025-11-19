@@ -1,6 +1,7 @@
 import ply.yacc as yacc
 from Lexer import tokens
 import Semantic as semantic
+import Memory as memory
         
 def reduce_oper(op):
     prec = {'+': 2, '-': 2, '*': 3, '/': 3, '<': 1, '>': 1, '!=': 1, '==': 1}
@@ -18,6 +19,15 @@ def reduce_oper(op):
             raise TypeError(f"Error semántico: no se puede aplicar {temp_op} a {left_type} y {right_type}")
 
         temp = semantic.new_temp()
+        if result_type == 'int':
+            addr = memory.allocate_temporal('int')
+            memory.TempInt[temp] = addr
+        elif result_type == 'float':
+            addr = memory.allocate_temporal('float')
+            memory.TempFloat[temp] = addr
+        elif result_type == 'bool':
+            addr = memory.allocate_temporal('bool')
+            memory.TempBool[temp] = addr
         semantic.generate_quad(temp_op, left, right, temp)
         semantic.PilaO.append(temp)
         semantic.PilaT.append(result_type)
@@ -36,6 +46,15 @@ def reduce_oper(op):
                 raise TypeError(f"Error semántico: no se puede aplicar {temp_op} a {left_type} y {right_type}")
             
             temp = semantic.new_temp()
+            if result_type == 'int':
+                addr = memory.allocate_temporal('int')
+                memory.TempInt[temp] = addr
+            elif result_type == 'float':
+                addr = memory.allocate_temporal('float')
+                memory.TempFloat[temp] = addr
+            elif result_type == 'bool':
+                addr = memory.allocate_temporal('bool')
+                memory.TempBool[temp] = addr
             semantic.generate_quad(temp_op, left, right, temp)
             semantic.PilaT.append(result_type)
             semantic.PilaO.append(temp)
@@ -45,7 +64,7 @@ def reduce_oper(op):
     semantic.PilaOper.append(op)
 
 def p_program(p):
-    'program : PROGRAM create_dirfunc ID create_id SEMICOLON declaraciones funciones MAIN body END clean_program'
+    'program : PROGRAM create_dirfunc ID create_id SEMICOLON declaraciones funciones MAIN set_main body END clean_program'
     print("Programa válido")
 
 def p_clean_program(p):
@@ -212,8 +231,13 @@ def p_add_goF_Step_W(p):
     'add_goF_Step_W :'
     edit_goTo = semantic.PilaGoTo.pop()
     goTo = semantic.PilaGoTo.pop()
-    semantic.generate_quad("GoTo", None, None, goTo)
+    semantic.generate_quad("GoTo", None, None, None)
+
+    semantic.QuadList[len(semantic.QuadList) - 1][3] = goTo
+    memory.QuadListMemory[len(semantic.QuadList)-1][3] = goTo
+    
     semantic.QuadList[edit_goTo][3] = len(semantic.QuadList)
+    memory.QuadListMemory[edit_goTo][3] = len(semantic.QuadList)
 
 
 def p_condition(p):
@@ -232,6 +256,7 @@ def p_add_endif(p):
     step_add = len(semantic.QuadList)
     ifT = semantic.PilaGoTo.pop()
     semantic.QuadList[ifT][3] = step_add
+    memory.QuadListMemory[ifT][3] = step_add
 
 def p_add_else(p):
     'add_else :'
@@ -241,6 +266,7 @@ def p_add_else(p):
     step_add = len(semantic.QuadList)
     semantic.PilaGoTo.append(step_add - 1)
     semantic.QuadList[ifFalseS][3] = ifFalseGo
+    memory.QuadListMemory[ifFalseS][3] = ifFalseGo
 
 
 def p_part_else(p):
@@ -260,6 +286,15 @@ def p_expresion(p):
         if result_type is None:
             raise TypeError(f"Error semántico: no se puede aplicar {temp_op} a {left_type} y {right_type}")
         temp = semantic.new_temp()
+        if result_type == 'int':
+            addr = memory.allocate_temporal('int')
+            memory.TempInt[temp] = addr
+        elif result_type == 'float':
+            addr = memory.allocate_temporal('float')
+            memory.TempFloat[temp] = addr
+        elif result_type == 'bool':
+            addr = memory.allocate_temporal('bool')
+            memory.TempBool[temp] = addr
         semantic.generate_quad(temp_op, left, right, temp)
         semantic.PilaO.append(temp)
         semantic.PilaT.append(result_type)
@@ -447,5 +482,13 @@ def p_add_op(p):
     'add_op :'
     op = p[-1]
     reduce_oper(op)
+
+# para los cuadraticos de memoria
+def p_set_main(p):
+    'set_main :'
+    program_scope = list(semantic.func_dir.directory.keys())[0]
+    semantic.current_function = program_scope
+    print(f"Entrando a MAIN como función '{semantic.current_function}'")
+
 
 parser = yacc.yacc()
