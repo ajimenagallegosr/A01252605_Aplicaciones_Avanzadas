@@ -1,0 +1,2861 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> PROGRAM create_dirfunc ID create_id SEMICOLON declarations functions MAIN body END clean_program
+Rule 2     create_dirfunc -> <empty>
+Rule 3     create_id -> <empty>
+Rule 4     clean_program -> <empty>
+Rule 5     declarations -> vars
+Rule 6     declarations -> empty
+Rule 7     functions -> funcs functions
+Rule 8     functions -> empty
+Rule 9     vars -> VAR var_declaration var_declaration_list
+Rule 10    var_declaration -> identifier_list COLON type SEMICOLON
+Rule 11    identifier_list -> ID add_to_var_table identifier_list_tail
+Rule 12    identifier_list_tail -> COMMA ID add_to_var_table identifier_list_tail
+Rule 13    identifier_list_tail -> empty
+Rule 14    add_to_var_table -> <empty>
+Rule 15    var_declaration_list -> var_declaration var_declaration_list
+Rule 16    var_declaration_list -> empty
+Rule 17    type -> INT_TYPE current_type
+Rule 18    type -> FLOAT_TYPE current_type
+Rule 19    current_type -> <empty>
+Rule 20    body -> LBRACES statement_list RBRACES
+Rule 21    statement_list -> statement statement_list
+Rule 22    statement_list -> empty
+Rule 23    statement -> print_func
+Rule 24    statement -> condition
+Rule 25    statement -> cycle
+Rule 26    statement -> RETURN expression
+Rule 27    statement -> ID id_option
+Rule 28    statement -> LBRACKETS statement_list RBRACKETS
+Rule 29    id_option -> f_call SEMICOLON
+Rule 30    id_option -> assign
+Rule 31    print_func -> PRINT LPARENTESIS print_element print_element_list RPARENTESIS SEMICOLON
+Rule 32    print_element -> expression
+Rule 33    print_element -> CTE_STRING
+Rule 34    print_element_list -> COMMA print_element print_element_list
+Rule 35    print_element_list -> empty
+Rule 36    assign -> EQUALS expression SEMICOLON
+Rule 37    cycle -> WHILE LPARENTESIS expression RPARENTESIS DO body SEMICOLON
+Rule 38    condition -> IF LPARENTESIS expression RPARENTESIS body else_part SEMICOLON
+Rule 39    else_part -> ELSE body
+Rule 40    else_part -> empty
+Rule 41    expression -> exp comparison
+Rule 42    comparison -> GREATER exp
+Rule 43    comparison -> LESS exp
+Rule 44    comparison -> DIFFERENT exp
+Rule 45    comparison -> STRICT_EQUAL exp
+Rule 46    comparison -> empty
+Rule 47    exp -> term add_sub
+Rule 48    add_sub -> PLUS term add_sub
+Rule 49    add_sub -> MINUS term add_sub
+Rule 50    add_sub -> empty
+Rule 51    term -> factor mult_div
+Rule 52    mult_div -> TIMES factor mult_div
+Rule 53    mult_div -> DIVIDE factor mult_div
+Rule 54    mult_div -> empty
+Rule 55    factor -> grouping
+Rule 56    factor -> unary_sign
+Rule 57    factor -> cte
+Rule 58    factor -> ID id_func_option
+Rule 59    id_func_option -> f_call
+Rule 60    id_func_option -> empty
+Rule 61    grouping -> LPARENTESIS expression RPARENTESIS
+Rule 62    unary_sign -> PLUS value
+Rule 63    unary_sign -> MINUS value
+Rule 64    value -> ID
+Rule 65    value -> cte
+Rule 66    cte -> CTE_INT
+Rule 67    cte -> CTE_FLOAT
+Rule 68    funcs -> prepare_new_func funcs_type add_current_type ID add_function LPARENTESIS start_func_vars parameters RPARENTESIS LBRACES function_block RBRACES SEMICOLON end_func
+Rule 69    prepare_new_func -> <empty>
+Rule 70    funcs_type -> VOID
+Rule 71    funcs_type -> type
+Rule 72    add_current_type -> <empty>
+Rule 73    add_function -> <empty>
+Rule 74    start_func_vars -> <empty>
+Rule 75    end_func -> <empty>
+Rule 76    parameters -> parameter parameter_list
+Rule 77    parameters -> empty
+Rule 78    parameter -> ID COLON type
+Rule 79    parameter_list -> COMMA parameter parameter_list
+Rule 80    parameter_list -> empty
+Rule 81    function_block -> vars body
+Rule 82    function_block -> body
+Rule 83    f_call -> LPARENTESIS arguments RPARENTESIS
+Rule 84    arguments -> expression argument_list
+Rule 85    arguments -> empty
+Rule 86    argument_list -> COMMA expression argument_list
+Rule 87    argument_list -> empty
+Rule 88    empty -> <empty>
+
+Terminals, with rules where they appear
+
+COLON                : 10 78
+COMMA                : 12 34 79 86
+CTE_FLOAT            : 67
+CTE_INT              : 66
+CTE_STRING           : 33
+DIFFERENT            : 44
+DIVIDE               : 53
+DO                   : 37
+ELSE                 : 39
+END                  : 1
+EQUALS               : 36
+FLOAT_TYPE           : 18
+GREATER              : 42
+ID                   : 1 11 12 27 58 64 68 78
+IF                   : 38
+INT_TYPE             : 17
+LBRACES              : 20 68
+LBRACKETS            : 28
+LESS                 : 43
+LPARENTESIS          : 31 37 38 61 68 83
+MAIN                 : 1
+MINUS                : 49 63
+PLUS                 : 48 62
+PRINT                : 31
+PROGRAM              : 1
+RBRACES              : 20 68
+RBRACKETS            : 28
+RETURN               : 26
+RPARENTESIS          : 31 37 38 61 68 83
+SEMICOLON            : 1 10 29 31 36 37 38 68
+STRICT_EQUAL         : 45
+TIMES                : 52
+VAR                  : 9
+VOID                 : 70
+WHILE                : 37
+error                : 
+
+Nonterminals, with rules where they appear
+
+add_current_type     : 68
+add_function         : 68
+add_sub              : 47 48 49
+add_to_var_table     : 11 12
+argument_list        : 84 86
+arguments            : 83
+assign               : 30
+body                 : 1 37 38 39 81 82
+clean_program        : 1
+comparison           : 41
+condition            : 24
+create_dirfunc       : 1
+create_id            : 1
+cte                  : 57 65
+current_type         : 17 18
+cycle                : 25
+declarations         : 1
+else_part            : 38
+empty                : 6 8 13 16 22 35 40 46 50 54 60 77 80 85 87
+end_func             : 68
+exp                  : 41 42 43 44 45
+expression           : 26 32 36 37 38 61 84 86
+f_call               : 29 59
+factor               : 51 52 53
+funcs                : 7
+funcs_type           : 68
+function_block       : 68
+functions            : 1 7
+grouping             : 55
+id_func_option       : 58
+id_option            : 27
+identifier_list      : 10
+identifier_list_tail : 11 12
+mult_div             : 51 52 53
+parameter            : 76 79
+parameter_list       : 76 79
+parameters           : 68
+prepare_new_func     : 68
+print_element        : 31 34
+print_element_list   : 31 34
+print_func           : 23
+program              : 0
+start_func_vars      : 68
+statement            : 21
+statement_list       : 20 21 28
+term                 : 47 48 49
+type                 : 10 71 78
+unary_sign           : 56
+value                : 62 63
+var_declaration      : 9 15
+var_declaration_list : 9 15
+vars                 : 5 81
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . PROGRAM create_dirfunc ID create_id SEMICOLON declarations functions MAIN body END clean_program
+
+    PROGRAM         shift and go to state 2
+
+    program                        shift and go to state 1
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> PROGRAM . create_dirfunc ID create_id SEMICOLON declarations functions MAIN body END clean_program
+    (2) create_dirfunc -> .
+
+    ID              reduce using rule 2 (create_dirfunc -> .)
+
+    create_dirfunc                 shift and go to state 3
+
+state 3
+
+    (1) program -> PROGRAM create_dirfunc . ID create_id SEMICOLON declarations functions MAIN body END clean_program
+
+    ID              shift and go to state 4
+
+
+state 4
+
+    (1) program -> PROGRAM create_dirfunc ID . create_id SEMICOLON declarations functions MAIN body END clean_program
+    (3) create_id -> .
+
+    SEMICOLON       reduce using rule 3 (create_id -> .)
+
+    create_id                      shift and go to state 5
+
+state 5
+
+    (1) program -> PROGRAM create_dirfunc ID create_id . SEMICOLON declarations functions MAIN body END clean_program
+
+    SEMICOLON       shift and go to state 6
+
+
+state 6
+
+    (1) program -> PROGRAM create_dirfunc ID create_id SEMICOLON . declarations functions MAIN body END clean_program
+    (5) declarations -> . vars
+    (6) declarations -> . empty
+    (9) vars -> . VAR var_declaration var_declaration_list
+    (88) empty -> .
+
+    VAR             shift and go to state 10
+    MAIN            reduce using rule 88 (empty -> .)
+    VOID            reduce using rule 88 (empty -> .)
+    INT_TYPE        reduce using rule 88 (empty -> .)
+    FLOAT_TYPE      reduce using rule 88 (empty -> .)
+
+    declarations                   shift and go to state 7
+    vars                           shift and go to state 8
+    empty                          shift and go to state 9
+
+state 7
+
+    (1) program -> PROGRAM create_dirfunc ID create_id SEMICOLON declarations . functions MAIN body END clean_program
+    (7) functions -> . funcs functions
+    (8) functions -> . empty
+    (68) funcs -> . prepare_new_func funcs_type add_current_type ID add_function LPARENTESIS start_func_vars parameters RPARENTESIS LBRACES function_block RBRACES SEMICOLON end_func
+    (88) empty -> .
+    (69) prepare_new_func -> .
+
+    MAIN            reduce using rule 88 (empty -> .)
+    VOID            reduce using rule 69 (prepare_new_func -> .)
+    INT_TYPE        reduce using rule 69 (prepare_new_func -> .)
+    FLOAT_TYPE      reduce using rule 69 (prepare_new_func -> .)
+
+    functions                      shift and go to state 11
+    funcs                          shift and go to state 12
+    empty                          shift and go to state 13
+    prepare_new_func               shift and go to state 14
+
+state 8
+
+    (5) declarations -> vars .
+
+    MAIN            reduce using rule 5 (declarations -> vars .)
+    VOID            reduce using rule 5 (declarations -> vars .)
+    INT_TYPE        reduce using rule 5 (declarations -> vars .)
+    FLOAT_TYPE      reduce using rule 5 (declarations -> vars .)
+
+
+state 9
+
+    (6) declarations -> empty .
+
+    MAIN            reduce using rule 6 (declarations -> empty .)
+    VOID            reduce using rule 6 (declarations -> empty .)
+    INT_TYPE        reduce using rule 6 (declarations -> empty .)
+    FLOAT_TYPE      reduce using rule 6 (declarations -> empty .)
+
+
+state 10
+
+    (9) vars -> VAR . var_declaration var_declaration_list
+    (10) var_declaration -> . identifier_list COLON type SEMICOLON
+    (11) identifier_list -> . ID add_to_var_table identifier_list_tail
+
+    ID              shift and go to state 17
+
+    var_declaration                shift and go to state 15
+    identifier_list                shift and go to state 16
+
+state 11
+
+    (1) program -> PROGRAM create_dirfunc ID create_id SEMICOLON declarations functions . MAIN body END clean_program
+
+    MAIN            shift and go to state 18
+
+
+state 12
+
+    (7) functions -> funcs . functions
+    (7) functions -> . funcs functions
+    (8) functions -> . empty
+    (68) funcs -> . prepare_new_func funcs_type add_current_type ID add_function LPARENTESIS start_func_vars parameters RPARENTESIS LBRACES function_block RBRACES SEMICOLON end_func
+    (88) empty -> .
+    (69) prepare_new_func -> .
+
+    MAIN            reduce using rule 88 (empty -> .)
+    VOID            reduce using rule 69 (prepare_new_func -> .)
+    INT_TYPE        reduce using rule 69 (prepare_new_func -> .)
+    FLOAT_TYPE      reduce using rule 69 (prepare_new_func -> .)
+
+    funcs                          shift and go to state 12
+    functions                      shift and go to state 19
+    empty                          shift and go to state 13
+    prepare_new_func               shift and go to state 14
+
+state 13
+
+    (8) functions -> empty .
+
+    MAIN            reduce using rule 8 (functions -> empty .)
+
+
+state 14
+
+    (68) funcs -> prepare_new_func . funcs_type add_current_type ID add_function LPARENTESIS start_func_vars parameters RPARENTESIS LBRACES function_block RBRACES SEMICOLON end_func
+    (70) funcs_type -> . VOID
+    (71) funcs_type -> . type
+    (17) type -> . INT_TYPE current_type
+    (18) type -> . FLOAT_TYPE current_type
+
+    VOID            shift and go to state 21
+    INT_TYPE        shift and go to state 23
+    FLOAT_TYPE      shift and go to state 24
+
+    funcs_type                     shift and go to state 20
+    type                           shift and go to state 22
+
+state 15
+
+    (9) vars -> VAR var_declaration . var_declaration_list
+    (15) var_declaration_list -> . var_declaration var_declaration_list
+    (16) var_declaration_list -> . empty
+    (10) var_declaration -> . identifier_list COLON type SEMICOLON
+    (88) empty -> .
+    (11) identifier_list -> . ID add_to_var_table identifier_list_tail
+
+    MAIN            reduce using rule 88 (empty -> .)
+    VOID            reduce using rule 88 (empty -> .)
+    INT_TYPE        reduce using rule 88 (empty -> .)
+    FLOAT_TYPE      reduce using rule 88 (empty -> .)
+    LBRACES         reduce using rule 88 (empty -> .)
+    ID              shift and go to state 17
+
+    var_declaration                shift and go to state 25
+    var_declaration_list           shift and go to state 26
+    empty                          shift and go to state 27
+    identifier_list                shift and go to state 16
+
+state 16
+
+    (10) var_declaration -> identifier_list . COLON type SEMICOLON
+
+    COLON           shift and go to state 28
+
+
+state 17
+
+    (11) identifier_list -> ID . add_to_var_table identifier_list_tail
+    (14) add_to_var_table -> .
+
+    COMMA           reduce using rule 14 (add_to_var_table -> .)
+    COLON           reduce using rule 14 (add_to_var_table -> .)
+
+    add_to_var_table               shift and go to state 29
+
+state 18
+
+    (1) program -> PROGRAM create_dirfunc ID create_id SEMICOLON declarations functions MAIN . body END clean_program
+    (20) body -> . LBRACES statement_list RBRACES
+
+    LBRACES         shift and go to state 31
+
+    body                           shift and go to state 30
+
+state 19
+
+    (7) functions -> funcs functions .
+
+    MAIN            reduce using rule 7 (functions -> funcs functions .)
+
+
+state 20
+
+    (68) funcs -> prepare_new_func funcs_type . add_current_type ID add_function LPARENTESIS start_func_vars parameters RPARENTESIS LBRACES function_block RBRACES SEMICOLON end_func
+    (72) add_current_type -> .
+
+    ID              reduce using rule 72 (add_current_type -> .)
+
+    add_current_type               shift and go to state 32
+
+state 21
+
+    (70) funcs_type -> VOID .
+
+    ID              reduce using rule 70 (funcs_type -> VOID .)
+
+
+state 22
+
+    (71) funcs_type -> type .
+
+    ID              reduce using rule 71 (funcs_type -> type .)
+
+
+state 23
+
+    (17) type -> INT_TYPE . current_type
+    (19) current_type -> .
+
+    ID              reduce using rule 19 (current_type -> .)
+    SEMICOLON       reduce using rule 19 (current_type -> .)
+    COMMA           reduce using rule 19 (current_type -> .)
+    RPARENTESIS     reduce using rule 19 (current_type -> .)
+
+    current_type                   shift and go to state 33
+
+state 24
+
+    (18) type -> FLOAT_TYPE . current_type
+    (19) current_type -> .
+
+    ID              reduce using rule 19 (current_type -> .)
+    SEMICOLON       reduce using rule 19 (current_type -> .)
+    COMMA           reduce using rule 19 (current_type -> .)
+    RPARENTESIS     reduce using rule 19 (current_type -> .)
+
+    current_type                   shift and go to state 34
+
+state 25
+
+    (15) var_declaration_list -> var_declaration . var_declaration_list
+    (15) var_declaration_list -> . var_declaration var_declaration_list
+    (16) var_declaration_list -> . empty
+    (10) var_declaration -> . identifier_list COLON type SEMICOLON
+    (88) empty -> .
+    (11) identifier_list -> . ID add_to_var_table identifier_list_tail
+
+    MAIN            reduce using rule 88 (empty -> .)
+    VOID            reduce using rule 88 (empty -> .)
+    INT_TYPE        reduce using rule 88 (empty -> .)
+    FLOAT_TYPE      reduce using rule 88 (empty -> .)
+    LBRACES         reduce using rule 88 (empty -> .)
+    ID              shift and go to state 17
+
+    var_declaration                shift and go to state 25
+    var_declaration_list           shift and go to state 35
+    empty                          shift and go to state 27
+    identifier_list                shift and go to state 16
+
+state 26
+
+    (9) vars -> VAR var_declaration var_declaration_list .
+
+    MAIN            reduce using rule 9 (vars -> VAR var_declaration var_declaration_list .)
+    VOID            reduce using rule 9 (vars -> VAR var_declaration var_declaration_list .)
+    INT_TYPE        reduce using rule 9 (vars -> VAR var_declaration var_declaration_list .)
+    FLOAT_TYPE      reduce using rule 9 (vars -> VAR var_declaration var_declaration_list .)
+    LBRACES         reduce using rule 9 (vars -> VAR var_declaration var_declaration_list .)
+
+
+state 27
+
+    (16) var_declaration_list -> empty .
+
+    MAIN            reduce using rule 16 (var_declaration_list -> empty .)
+    VOID            reduce using rule 16 (var_declaration_list -> empty .)
+    INT_TYPE        reduce using rule 16 (var_declaration_list -> empty .)
+    FLOAT_TYPE      reduce using rule 16 (var_declaration_list -> empty .)
+    LBRACES         reduce using rule 16 (var_declaration_list -> empty .)
+
+
+state 28
+
+    (10) var_declaration -> identifier_list COLON . type SEMICOLON
+    (17) type -> . INT_TYPE current_type
+    (18) type -> . FLOAT_TYPE current_type
+
+    INT_TYPE        shift and go to state 23
+    FLOAT_TYPE      shift and go to state 24
+
+    type                           shift and go to state 36
+
+state 29
+
+    (11) identifier_list -> ID add_to_var_table . identifier_list_tail
+    (12) identifier_list_tail -> . COMMA ID add_to_var_table identifier_list_tail
+    (13) identifier_list_tail -> . empty
+    (88) empty -> .
+
+    COMMA           shift and go to state 38
+    COLON           reduce using rule 88 (empty -> .)
+
+    identifier_list_tail           shift and go to state 37
+    empty                          shift and go to state 39
+
+state 30
+
+    (1) program -> PROGRAM create_dirfunc ID create_id SEMICOLON declarations functions MAIN body . END clean_program
+
+    END             shift and go to state 40
+
+
+state 31
+
+    (20) body -> LBRACES . statement_list RBRACES
+    (21) statement_list -> . statement statement_list
+    (22) statement_list -> . empty
+    (23) statement -> . print_func
+    (24) statement -> . condition
+    (25) statement -> . cycle
+    (26) statement -> . RETURN expression
+    (27) statement -> . ID id_option
+    (28) statement -> . LBRACKETS statement_list RBRACKETS
+    (88) empty -> .
+    (31) print_func -> . PRINT LPARENTESIS print_element print_element_list RPARENTESIS SEMICOLON
+    (38) condition -> . IF LPARENTESIS expression RPARENTESIS body else_part SEMICOLON
+    (37) cycle -> . WHILE LPARENTESIS expression RPARENTESIS DO body SEMICOLON
+
+    RETURN          shift and go to state 47
+    ID              shift and go to state 48
+    LBRACKETS       shift and go to state 49
+    RBRACES         reduce using rule 88 (empty -> .)
+    PRINT           shift and go to state 50
+    IF              shift and go to state 51
+    WHILE           shift and go to state 52
+
+    statement_list                 shift and go to state 41
+    statement                      shift and go to state 42
+    empty                          shift and go to state 43
+    print_func                     shift and go to state 44
+    condition                      shift and go to state 45
+    cycle                          shift and go to state 46
+
+state 32
+
+    (68) funcs -> prepare_new_func funcs_type add_current_type . ID add_function LPARENTESIS start_func_vars parameters RPARENTESIS LBRACES function_block RBRACES SEMICOLON end_func
+
+    ID              shift and go to state 53
+
+
+state 33
+
+    (17) type -> INT_TYPE current_type .
+
+    ID              reduce using rule 17 (type -> INT_TYPE current_type .)
+    SEMICOLON       reduce using rule 17 (type -> INT_TYPE current_type .)
+    COMMA           reduce using rule 17 (type -> INT_TYPE current_type .)
+    RPARENTESIS     reduce using rule 17 (type -> INT_TYPE current_type .)
+
+
+state 34
+
+    (18) type -> FLOAT_TYPE current_type .
+
+    ID              reduce using rule 18 (type -> FLOAT_TYPE current_type .)
+    SEMICOLON       reduce using rule 18 (type -> FLOAT_TYPE current_type .)
+    COMMA           reduce using rule 18 (type -> FLOAT_TYPE current_type .)
+    RPARENTESIS     reduce using rule 18 (type -> FLOAT_TYPE current_type .)
+
+
+state 35
+
+    (15) var_declaration_list -> var_declaration var_declaration_list .
+
+    MAIN            reduce using rule 15 (var_declaration_list -> var_declaration var_declaration_list .)
+    VOID            reduce using rule 15 (var_declaration_list -> var_declaration var_declaration_list .)
+    INT_TYPE        reduce using rule 15 (var_declaration_list -> var_declaration var_declaration_list .)
+    FLOAT_TYPE      reduce using rule 15 (var_declaration_list -> var_declaration var_declaration_list .)
+    LBRACES         reduce using rule 15 (var_declaration_list -> var_declaration var_declaration_list .)
+
+
+state 36
+
+    (10) var_declaration -> identifier_list COLON type . SEMICOLON
+
+    SEMICOLON       shift and go to state 54
+
+
+state 37
+
+    (11) identifier_list -> ID add_to_var_table identifier_list_tail .
+
+    COLON           reduce using rule 11 (identifier_list -> ID add_to_var_table identifier_list_tail .)
+
+
+state 38
+
+    (12) identifier_list_tail -> COMMA . ID add_to_var_table identifier_list_tail
+
+    ID              shift and go to state 55
+
+
+state 39
+
+    (13) identifier_list_tail -> empty .
+
+    COLON           reduce using rule 13 (identifier_list_tail -> empty .)
+
+
+state 40
+
+    (1) program -> PROGRAM create_dirfunc ID create_id SEMICOLON declarations functions MAIN body END . clean_program
+    (4) clean_program -> .
+
+    $end            reduce using rule 4 (clean_program -> .)
+
+    clean_program                  shift and go to state 56
+
+state 41
+
+    (20) body -> LBRACES statement_list . RBRACES
+
+    RBRACES         shift and go to state 57
+
+
+state 42
+
+    (21) statement_list -> statement . statement_list
+    (21) statement_list -> . statement statement_list
+    (22) statement_list -> . empty
+    (23) statement -> . print_func
+    (24) statement -> . condition
+    (25) statement -> . cycle
+    (26) statement -> . RETURN expression
+    (27) statement -> . ID id_option
+    (28) statement -> . LBRACKETS statement_list RBRACKETS
+    (88) empty -> .
+    (31) print_func -> . PRINT LPARENTESIS print_element print_element_list RPARENTESIS SEMICOLON
+    (38) condition -> . IF LPARENTESIS expression RPARENTESIS body else_part SEMICOLON
+    (37) cycle -> . WHILE LPARENTESIS expression RPARENTESIS DO body SEMICOLON
+
+    RETURN          shift and go to state 47
+    ID              shift and go to state 48
+    LBRACKETS       shift and go to state 49
+    RBRACES         reduce using rule 88 (empty -> .)
+    RBRACKETS       reduce using rule 88 (empty -> .)
+    PRINT           shift and go to state 50
+    IF              shift and go to state 51
+    WHILE           shift and go to state 52
+
+    statement                      shift and go to state 42
+    statement_list                 shift and go to state 58
+    empty                          shift and go to state 43
+    print_func                     shift and go to state 44
+    condition                      shift and go to state 45
+    cycle                          shift and go to state 46
+
+state 43
+
+    (22) statement_list -> empty .
+
+    RBRACES         reduce using rule 22 (statement_list -> empty .)
+    RBRACKETS       reduce using rule 22 (statement_list -> empty .)
+
+
+state 44
+
+    (23) statement -> print_func .
+
+    RETURN          reduce using rule 23 (statement -> print_func .)
+    ID              reduce using rule 23 (statement -> print_func .)
+    LBRACKETS       reduce using rule 23 (statement -> print_func .)
+    PRINT           reduce using rule 23 (statement -> print_func .)
+    IF              reduce using rule 23 (statement -> print_func .)
+    WHILE           reduce using rule 23 (statement -> print_func .)
+    RBRACES         reduce using rule 23 (statement -> print_func .)
+    RBRACKETS       reduce using rule 23 (statement -> print_func .)
+
+
+state 45
+
+    (24) statement -> condition .
+
+    RETURN          reduce using rule 24 (statement -> condition .)
+    ID              reduce using rule 24 (statement -> condition .)
+    LBRACKETS       reduce using rule 24 (statement -> condition .)
+    PRINT           reduce using rule 24 (statement -> condition .)
+    IF              reduce using rule 24 (statement -> condition .)
+    WHILE           reduce using rule 24 (statement -> condition .)
+    RBRACES         reduce using rule 24 (statement -> condition .)
+    RBRACKETS       reduce using rule 24 (statement -> condition .)
+
+
+state 46
+
+    (25) statement -> cycle .
+
+    RETURN          reduce using rule 25 (statement -> cycle .)
+    ID              reduce using rule 25 (statement -> cycle .)
+    LBRACKETS       reduce using rule 25 (statement -> cycle .)
+    PRINT           reduce using rule 25 (statement -> cycle .)
+    IF              reduce using rule 25 (statement -> cycle .)
+    WHILE           reduce using rule 25 (statement -> cycle .)
+    RBRACES         reduce using rule 25 (statement -> cycle .)
+    RBRACKETS       reduce using rule 25 (statement -> cycle .)
+
+
+state 47
+
+    (26) statement -> RETURN . expression
+    (41) expression -> . exp comparison
+    (47) exp -> . term add_sub
+    (51) term -> . factor mult_div
+    (55) factor -> . grouping
+    (56) factor -> . unary_sign
+    (57) factor -> . cte
+    (58) factor -> . ID id_func_option
+    (61) grouping -> . LPARENTESIS expression RPARENTESIS
+    (62) unary_sign -> . PLUS value
+    (63) unary_sign -> . MINUS value
+    (66) cte -> . CTE_INT
+    (67) cte -> . CTE_FLOAT
+
+    ID              shift and go to state 66
+    LPARENTESIS     shift and go to state 67
+    PLUS            shift and go to state 68
+    MINUS           shift and go to state 69
+    CTE_INT         shift and go to state 70
+    CTE_FLOAT       shift and go to state 71
+
+    expression                     shift and go to state 59
+    exp                            shift and go to state 60
+    term                           shift and go to state 61
+    factor                         shift and go to state 62
+    grouping                       shift and go to state 63
+    unary_sign                     shift and go to state 64
+    cte                            shift and go to state 65
+
+state 48
+
+    (27) statement -> ID . id_option
+    (29) id_option -> . f_call SEMICOLON
+    (30) id_option -> . assign
+    (83) f_call -> . LPARENTESIS arguments RPARENTESIS
+    (36) assign -> . EQUALS expression SEMICOLON
+
+    LPARENTESIS     shift and go to state 75
+    EQUALS          shift and go to state 76
+
+    id_option                      shift and go to state 72
+    f_call                         shift and go to state 73
+    assign                         shift and go to state 74
+
+state 49
+
+    (28) statement -> LBRACKETS . statement_list RBRACKETS
+    (21) statement_list -> . statement statement_list
+    (22) statement_list -> . empty
+    (23) statement -> . print_func
+    (24) statement -> . condition
+    (25) statement -> . cycle
+    (26) statement -> . RETURN expression
+    (27) statement -> . ID id_option
+    (28) statement -> . LBRACKETS statement_list RBRACKETS
+    (88) empty -> .
+    (31) print_func -> . PRINT LPARENTESIS print_element print_element_list RPARENTESIS SEMICOLON
+    (38) condition -> . IF LPARENTESIS expression RPARENTESIS body else_part SEMICOLON
+    (37) cycle -> . WHILE LPARENTESIS expression RPARENTESIS DO body SEMICOLON
+
+    RETURN          shift and go to state 47
+    ID              shift and go to state 48
+    LBRACKETS       shift and go to state 49
+    RBRACKETS       reduce using rule 88 (empty -> .)
+    PRINT           shift and go to state 50
+    IF              shift and go to state 51
+    WHILE           shift and go to state 52
+
+    statement_list                 shift and go to state 77
+    statement                      shift and go to state 42
+    empty                          shift and go to state 43
+    print_func                     shift and go to state 44
+    condition                      shift and go to state 45
+    cycle                          shift and go to state 46
+
+state 50
+
+    (31) print_func -> PRINT . LPARENTESIS print_element print_element_list RPARENTESIS SEMICOLON
+
+    LPARENTESIS     shift and go to state 78
+
+
+state 51
+
+    (38) condition -> IF . LPARENTESIS expression RPARENTESIS body else_part SEMICOLON
+
+    LPARENTESIS     shift and go to state 79
+
+
+state 52
+
+    (37) cycle -> WHILE . LPARENTESIS expression RPARENTESIS DO body SEMICOLON
+
+    LPARENTESIS     shift and go to state 80
+
+
+state 53
+
+    (68) funcs -> prepare_new_func funcs_type add_current_type ID . add_function LPARENTESIS start_func_vars parameters RPARENTESIS LBRACES function_block RBRACES SEMICOLON end_func
+    (73) add_function -> .
+
+    LPARENTESIS     reduce using rule 73 (add_function -> .)
+
+    add_function                   shift and go to state 81
+
+state 54
+
+    (10) var_declaration -> identifier_list COLON type SEMICOLON .
+
+    ID              reduce using rule 10 (var_declaration -> identifier_list COLON type SEMICOLON .)
+    MAIN            reduce using rule 10 (var_declaration -> identifier_list COLON type SEMICOLON .)
+    VOID            reduce using rule 10 (var_declaration -> identifier_list COLON type SEMICOLON .)
+    INT_TYPE        reduce using rule 10 (var_declaration -> identifier_list COLON type SEMICOLON .)
+    FLOAT_TYPE      reduce using rule 10 (var_declaration -> identifier_list COLON type SEMICOLON .)
+    LBRACES         reduce using rule 10 (var_declaration -> identifier_list COLON type SEMICOLON .)
+
+
+state 55
+
+    (12) identifier_list_tail -> COMMA ID . add_to_var_table identifier_list_tail
+    (14) add_to_var_table -> .
+
+    COMMA           reduce using rule 14 (add_to_var_table -> .)
+    COLON           reduce using rule 14 (add_to_var_table -> .)
+
+    add_to_var_table               shift and go to state 82
+
+state 56
+
+    (1) program -> PROGRAM create_dirfunc ID create_id SEMICOLON declarations functions MAIN body END clean_program .
+
+    $end            reduce using rule 1 (program -> PROGRAM create_dirfunc ID create_id SEMICOLON declarations functions MAIN body END clean_program .)
+
+
+state 57
+
+    (20) body -> LBRACES statement_list RBRACES .
+
+    END             reduce using rule 20 (body -> LBRACES statement_list RBRACES .)
+    ELSE            reduce using rule 20 (body -> LBRACES statement_list RBRACES .)
+    SEMICOLON       reduce using rule 20 (body -> LBRACES statement_list RBRACES .)
+    RBRACES         reduce using rule 20 (body -> LBRACES statement_list RBRACES .)
+
+
+state 58
+
+    (21) statement_list -> statement statement_list .
+
+    RBRACES         reduce using rule 21 (statement_list -> statement statement_list .)
+    RBRACKETS       reduce using rule 21 (statement_list -> statement statement_list .)
+
+
+state 59
+
+    (26) statement -> RETURN expression .
+
+    RETURN          reduce using rule 26 (statement -> RETURN expression .)
+    ID              reduce using rule 26 (statement -> RETURN expression .)
+    LBRACKETS       reduce using rule 26 (statement -> RETURN expression .)
+    PRINT           reduce using rule 26 (statement -> RETURN expression .)
+    IF              reduce using rule 26 (statement -> RETURN expression .)
+    WHILE           reduce using rule 26 (statement -> RETURN expression .)
+    RBRACES         reduce using rule 26 (statement -> RETURN expression .)
+    RBRACKETS       reduce using rule 26 (statement -> RETURN expression .)
+
+
+state 60
+
+    (41) expression -> exp . comparison
+    (42) comparison -> . GREATER exp
+    (43) comparison -> . LESS exp
+    (44) comparison -> . DIFFERENT exp
+    (45) comparison -> . STRICT_EQUAL exp
+    (46) comparison -> . empty
+    (88) empty -> .
+
+    GREATER         shift and go to state 84
+    LESS            shift and go to state 85
+    DIFFERENT       shift and go to state 86
+    STRICT_EQUAL    shift and go to state 87
+    RETURN          reduce using rule 88 (empty -> .)
+    ID              reduce using rule 88 (empty -> .)
+    LBRACKETS       reduce using rule 88 (empty -> .)
+    PRINT           reduce using rule 88 (empty -> .)
+    IF              reduce using rule 88 (empty -> .)
+    WHILE           reduce using rule 88 (empty -> .)
+    RBRACES         reduce using rule 88 (empty -> .)
+    RBRACKETS       reduce using rule 88 (empty -> .)
+    RPARENTESIS     reduce using rule 88 (empty -> .)
+    COMMA           reduce using rule 88 (empty -> .)
+    SEMICOLON       reduce using rule 88 (empty -> .)
+
+    comparison                     shift and go to state 83
+    empty                          shift and go to state 88
+
+state 61
+
+    (47) exp -> term . add_sub
+    (48) add_sub -> . PLUS term add_sub
+    (49) add_sub -> . MINUS term add_sub
+    (50) add_sub -> . empty
+    (88) empty -> .
+
+    PLUS            shift and go to state 90
+    MINUS           shift and go to state 91
+    GREATER         reduce using rule 88 (empty -> .)
+    LESS            reduce using rule 88 (empty -> .)
+    DIFFERENT       reduce using rule 88 (empty -> .)
+    STRICT_EQUAL    reduce using rule 88 (empty -> .)
+    RETURN          reduce using rule 88 (empty -> .)
+    ID              reduce using rule 88 (empty -> .)
+    LBRACKETS       reduce using rule 88 (empty -> .)
+    PRINT           reduce using rule 88 (empty -> .)
+    IF              reduce using rule 88 (empty -> .)
+    WHILE           reduce using rule 88 (empty -> .)
+    RBRACES         reduce using rule 88 (empty -> .)
+    RBRACKETS       reduce using rule 88 (empty -> .)
+    RPARENTESIS     reduce using rule 88 (empty -> .)
+    COMMA           reduce using rule 88 (empty -> .)
+    SEMICOLON       reduce using rule 88 (empty -> .)
+
+    add_sub                        shift and go to state 89
+    empty                          shift and go to state 92
+
+state 62
+
+    (51) term -> factor . mult_div
+    (52) mult_div -> . TIMES factor mult_div
+    (53) mult_div -> . DIVIDE factor mult_div
+    (54) mult_div -> . empty
+    (88) empty -> .
+
+    TIMES           shift and go to state 94
+    DIVIDE          shift and go to state 95
+    PLUS            reduce using rule 88 (empty -> .)
+    MINUS           reduce using rule 88 (empty -> .)
+    GREATER         reduce using rule 88 (empty -> .)
+    LESS            reduce using rule 88 (empty -> .)
+    DIFFERENT       reduce using rule 88 (empty -> .)
+    STRICT_EQUAL    reduce using rule 88 (empty -> .)
+    RETURN          reduce using rule 88 (empty -> .)
+    ID              reduce using rule 88 (empty -> .)
+    LBRACKETS       reduce using rule 88 (empty -> .)
+    PRINT           reduce using rule 88 (empty -> .)
+    IF              reduce using rule 88 (empty -> .)
+    WHILE           reduce using rule 88 (empty -> .)
+    RBRACES         reduce using rule 88 (empty -> .)
+    RBRACKETS       reduce using rule 88 (empty -> .)
+    RPARENTESIS     reduce using rule 88 (empty -> .)
+    COMMA           reduce using rule 88 (empty -> .)
+    SEMICOLON       reduce using rule 88 (empty -> .)
+
+    mult_div                       shift and go to state 93
+    empty                          shift and go to state 96
+
+state 63
+
+    (55) factor -> grouping .
+
+    TIMES           reduce using rule 55 (factor -> grouping .)
+    DIVIDE          reduce using rule 55 (factor -> grouping .)
+    PLUS            reduce using rule 55 (factor -> grouping .)
+    MINUS           reduce using rule 55 (factor -> grouping .)
+    GREATER         reduce using rule 55 (factor -> grouping .)
+    LESS            reduce using rule 55 (factor -> grouping .)
+    DIFFERENT       reduce using rule 55 (factor -> grouping .)
+    STRICT_EQUAL    reduce using rule 55 (factor -> grouping .)
+    RETURN          reduce using rule 55 (factor -> grouping .)
+    ID              reduce using rule 55 (factor -> grouping .)
+    LBRACKETS       reduce using rule 55 (factor -> grouping .)
+    PRINT           reduce using rule 55 (factor -> grouping .)
+    IF              reduce using rule 55 (factor -> grouping .)
+    WHILE           reduce using rule 55 (factor -> grouping .)
+    RBRACES         reduce using rule 55 (factor -> grouping .)
+    RBRACKETS       reduce using rule 55 (factor -> grouping .)
+    RPARENTESIS     reduce using rule 55 (factor -> grouping .)
+    COMMA           reduce using rule 55 (factor -> grouping .)
+    SEMICOLON       reduce using rule 55 (factor -> grouping .)
+
+
+state 64
+
+    (56) factor -> unary_sign .
+
+    TIMES           reduce using rule 56 (factor -> unary_sign .)
+    DIVIDE          reduce using rule 56 (factor -> unary_sign .)
+    PLUS            reduce using rule 56 (factor -> unary_sign .)
+    MINUS           reduce using rule 56 (factor -> unary_sign .)
+    GREATER         reduce using rule 56 (factor -> unary_sign .)
+    LESS            reduce using rule 56 (factor -> unary_sign .)
+    DIFFERENT       reduce using rule 56 (factor -> unary_sign .)
+    STRICT_EQUAL    reduce using rule 56 (factor -> unary_sign .)
+    RETURN          reduce using rule 56 (factor -> unary_sign .)
+    ID              reduce using rule 56 (factor -> unary_sign .)
+    LBRACKETS       reduce using rule 56 (factor -> unary_sign .)
+    PRINT           reduce using rule 56 (factor -> unary_sign .)
+    IF              reduce using rule 56 (factor -> unary_sign .)
+    WHILE           reduce using rule 56 (factor -> unary_sign .)
+    RBRACES         reduce using rule 56 (factor -> unary_sign .)
+    RBRACKETS       reduce using rule 56 (factor -> unary_sign .)
+    RPARENTESIS     reduce using rule 56 (factor -> unary_sign .)
+    COMMA           reduce using rule 56 (factor -> unary_sign .)
+    SEMICOLON       reduce using rule 56 (factor -> unary_sign .)
+
+
+state 65
+
+    (57) factor -> cte .
+
+    TIMES           reduce using rule 57 (factor -> cte .)
+    DIVIDE          reduce using rule 57 (factor -> cte .)
+    PLUS            reduce using rule 57 (factor -> cte .)
+    MINUS           reduce using rule 57 (factor -> cte .)
+    GREATER         reduce using rule 57 (factor -> cte .)
+    LESS            reduce using rule 57 (factor -> cte .)
+    DIFFERENT       reduce using rule 57 (factor -> cte .)
+    STRICT_EQUAL    reduce using rule 57 (factor -> cte .)
+    RETURN          reduce using rule 57 (factor -> cte .)
+    ID              reduce using rule 57 (factor -> cte .)
+    LBRACKETS       reduce using rule 57 (factor -> cte .)
+    PRINT           reduce using rule 57 (factor -> cte .)
+    IF              reduce using rule 57 (factor -> cte .)
+    WHILE           reduce using rule 57 (factor -> cte .)
+    RBRACES         reduce using rule 57 (factor -> cte .)
+    RBRACKETS       reduce using rule 57 (factor -> cte .)
+    RPARENTESIS     reduce using rule 57 (factor -> cte .)
+    COMMA           reduce using rule 57 (factor -> cte .)
+    SEMICOLON       reduce using rule 57 (factor -> cte .)
+
+
+state 66
+
+    (58) factor -> ID . id_func_option
+    (59) id_func_option -> . f_call
+    (60) id_func_option -> . empty
+    (83) f_call -> . LPARENTESIS arguments RPARENTESIS
+    (88) empty -> .
+
+    LPARENTESIS     shift and go to state 75
+    TIMES           reduce using rule 88 (empty -> .)
+    DIVIDE          reduce using rule 88 (empty -> .)
+    PLUS            reduce using rule 88 (empty -> .)
+    MINUS           reduce using rule 88 (empty -> .)
+    GREATER         reduce using rule 88 (empty -> .)
+    LESS            reduce using rule 88 (empty -> .)
+    DIFFERENT       reduce using rule 88 (empty -> .)
+    STRICT_EQUAL    reduce using rule 88 (empty -> .)
+    RETURN          reduce using rule 88 (empty -> .)
+    ID              reduce using rule 88 (empty -> .)
+    LBRACKETS       reduce using rule 88 (empty -> .)
+    PRINT           reduce using rule 88 (empty -> .)
+    IF              reduce using rule 88 (empty -> .)
+    WHILE           reduce using rule 88 (empty -> .)
+    RBRACES         reduce using rule 88 (empty -> .)
+    RBRACKETS       reduce using rule 88 (empty -> .)
+    RPARENTESIS     reduce using rule 88 (empty -> .)
+    COMMA           reduce using rule 88 (empty -> .)
+    SEMICOLON       reduce using rule 88 (empty -> .)
+
+    id_func_option                 shift and go to state 97
+    f_call                         shift and go to state 98
+    empty                          shift and go to state 99
+
+state 67
+
+    (61) grouping -> LPARENTESIS . expression RPARENTESIS
+    (41) expression -> . exp comparison
+    (47) exp -> . term add_sub
+    (51) term -> . factor mult_div
+    (55) factor -> . grouping
+    (56) factor -> . unary_sign
+    (57) factor -> . cte
+    (58) factor -> . ID id_func_option
+    (61) grouping -> . LPARENTESIS expression RPARENTESIS
+    (62) unary_sign -> . PLUS value
+    (63) unary_sign -> . MINUS value
+    (66) cte -> . CTE_INT
+    (67) cte -> . CTE_FLOAT
+
+    ID              shift and go to state 66
+    LPARENTESIS     shift and go to state 67
+    PLUS            shift and go to state 68
+    MINUS           shift and go to state 69
+    CTE_INT         shift and go to state 70
+    CTE_FLOAT       shift and go to state 71
+
+    expression                     shift and go to state 100
+    exp                            shift and go to state 60
+    term                           shift and go to state 61
+    factor                         shift and go to state 62
+    grouping                       shift and go to state 63
+    unary_sign                     shift and go to state 64
+    cte                            shift and go to state 65
+
+state 68
+
+    (62) unary_sign -> PLUS . value
+    (64) value -> . ID
+    (65) value -> . cte
+    (66) cte -> . CTE_INT
+    (67) cte -> . CTE_FLOAT
+
+    ID              shift and go to state 102
+    CTE_INT         shift and go to state 70
+    CTE_FLOAT       shift and go to state 71
+
+    value                          shift and go to state 101
+    cte                            shift and go to state 103
+
+state 69
+
+    (63) unary_sign -> MINUS . value
+    (64) value -> . ID
+    (65) value -> . cte
+    (66) cte -> . CTE_INT
+    (67) cte -> . CTE_FLOAT
+
+    ID              shift and go to state 102
+    CTE_INT         shift and go to state 70
+    CTE_FLOAT       shift and go to state 71
+
+    value                          shift and go to state 104
+    cte                            shift and go to state 103
+
+state 70
+
+    (66) cte -> CTE_INT .
+
+    TIMES           reduce using rule 66 (cte -> CTE_INT .)
+    DIVIDE          reduce using rule 66 (cte -> CTE_INT .)
+    PLUS            reduce using rule 66 (cte -> CTE_INT .)
+    MINUS           reduce using rule 66 (cte -> CTE_INT .)
+    GREATER         reduce using rule 66 (cte -> CTE_INT .)
+    LESS            reduce using rule 66 (cte -> CTE_INT .)
+    DIFFERENT       reduce using rule 66 (cte -> CTE_INT .)
+    STRICT_EQUAL    reduce using rule 66 (cte -> CTE_INT .)
+    RETURN          reduce using rule 66 (cte -> CTE_INT .)
+    ID              reduce using rule 66 (cte -> CTE_INT .)
+    LBRACKETS       reduce using rule 66 (cte -> CTE_INT .)
+    PRINT           reduce using rule 66 (cte -> CTE_INT .)
+    IF              reduce using rule 66 (cte -> CTE_INT .)
+    WHILE           reduce using rule 66 (cte -> CTE_INT .)
+    RBRACES         reduce using rule 66 (cte -> CTE_INT .)
+    RBRACKETS       reduce using rule 66 (cte -> CTE_INT .)
+    RPARENTESIS     reduce using rule 66 (cte -> CTE_INT .)
+    COMMA           reduce using rule 66 (cte -> CTE_INT .)
+    SEMICOLON       reduce using rule 66 (cte -> CTE_INT .)
+
+
+state 71
+
+    (67) cte -> CTE_FLOAT .
+
+    TIMES           reduce using rule 67 (cte -> CTE_FLOAT .)
+    DIVIDE          reduce using rule 67 (cte -> CTE_FLOAT .)
+    PLUS            reduce using rule 67 (cte -> CTE_FLOAT .)
+    MINUS           reduce using rule 67 (cte -> CTE_FLOAT .)
+    GREATER         reduce using rule 67 (cte -> CTE_FLOAT .)
+    LESS            reduce using rule 67 (cte -> CTE_FLOAT .)
+    DIFFERENT       reduce using rule 67 (cte -> CTE_FLOAT .)
+    STRICT_EQUAL    reduce using rule 67 (cte -> CTE_FLOAT .)
+    RETURN          reduce using rule 67 (cte -> CTE_FLOAT .)
+    ID              reduce using rule 67 (cte -> CTE_FLOAT .)
+    LBRACKETS       reduce using rule 67 (cte -> CTE_FLOAT .)
+    PRINT           reduce using rule 67 (cte -> CTE_FLOAT .)
+    IF              reduce using rule 67 (cte -> CTE_FLOAT .)
+    WHILE           reduce using rule 67 (cte -> CTE_FLOAT .)
+    RBRACES         reduce using rule 67 (cte -> CTE_FLOAT .)
+    RBRACKETS       reduce using rule 67 (cte -> CTE_FLOAT .)
+    RPARENTESIS     reduce using rule 67 (cte -> CTE_FLOAT .)
+    COMMA           reduce using rule 67 (cte -> CTE_FLOAT .)
+    SEMICOLON       reduce using rule 67 (cte -> CTE_FLOAT .)
+
+
+state 72
+
+    (27) statement -> ID id_option .
+
+    RETURN          reduce using rule 27 (statement -> ID id_option .)
+    ID              reduce using rule 27 (statement -> ID id_option .)
+    LBRACKETS       reduce using rule 27 (statement -> ID id_option .)
+    PRINT           reduce using rule 27 (statement -> ID id_option .)
+    IF              reduce using rule 27 (statement -> ID id_option .)
+    WHILE           reduce using rule 27 (statement -> ID id_option .)
+    RBRACES         reduce using rule 27 (statement -> ID id_option .)
+    RBRACKETS       reduce using rule 27 (statement -> ID id_option .)
+
+
+state 73
+
+    (29) id_option -> f_call . SEMICOLON
+
+    SEMICOLON       shift and go to state 105
+
+
+state 74
+
+    (30) id_option -> assign .
+
+    RETURN          reduce using rule 30 (id_option -> assign .)
+    ID              reduce using rule 30 (id_option -> assign .)
+    LBRACKETS       reduce using rule 30 (id_option -> assign .)
+    PRINT           reduce using rule 30 (id_option -> assign .)
+    IF              reduce using rule 30 (id_option -> assign .)
+    WHILE           reduce using rule 30 (id_option -> assign .)
+    RBRACES         reduce using rule 30 (id_option -> assign .)
+    RBRACKETS       reduce using rule 30 (id_option -> assign .)
+
+
+state 75
+
+    (83) f_call -> LPARENTESIS . arguments RPARENTESIS
+    (84) arguments -> . expression argument_list
+    (85) arguments -> . empty
+    (41) expression -> . exp comparison
+    (88) empty -> .
+    (47) exp -> . term add_sub
+    (51) term -> . factor mult_div
+    (55) factor -> . grouping
+    (56) factor -> . unary_sign
+    (57) factor -> . cte
+    (58) factor -> . ID id_func_option
+    (61) grouping -> . LPARENTESIS expression RPARENTESIS
+    (62) unary_sign -> . PLUS value
+    (63) unary_sign -> . MINUS value
+    (66) cte -> . CTE_INT
+    (67) cte -> . CTE_FLOAT
+
+    RPARENTESIS     reduce using rule 88 (empty -> .)
+    ID              shift and go to state 66
+    LPARENTESIS     shift and go to state 67
+    PLUS            shift and go to state 68
+    MINUS           shift and go to state 69
+    CTE_INT         shift and go to state 70
+    CTE_FLOAT       shift and go to state 71
+
+    arguments                      shift and go to state 106
+    expression                     shift and go to state 107
+    empty                          shift and go to state 108
+    exp                            shift and go to state 60
+    term                           shift and go to state 61
+    factor                         shift and go to state 62
+    grouping                       shift and go to state 63
+    unary_sign                     shift and go to state 64
+    cte                            shift and go to state 65
+
+state 76
+
+    (36) assign -> EQUALS . expression SEMICOLON
+    (41) expression -> . exp comparison
+    (47) exp -> . term add_sub
+    (51) term -> . factor mult_div
+    (55) factor -> . grouping
+    (56) factor -> . unary_sign
+    (57) factor -> . cte
+    (58) factor -> . ID id_func_option
+    (61) grouping -> . LPARENTESIS expression RPARENTESIS
+    (62) unary_sign -> . PLUS value
+    (63) unary_sign -> . MINUS value
+    (66) cte -> . CTE_INT
+    (67) cte -> . CTE_FLOAT
+
+    ID              shift and go to state 66
+    LPARENTESIS     shift and go to state 67
+    PLUS            shift and go to state 68
+    MINUS           shift and go to state 69
+    CTE_INT         shift and go to state 70
+    CTE_FLOAT       shift and go to state 71
+
+    expression                     shift and go to state 109
+    exp                            shift and go to state 60
+    term                           shift and go to state 61
+    factor                         shift and go to state 62
+    grouping                       shift and go to state 63
+    unary_sign                     shift and go to state 64
+    cte                            shift and go to state 65
+
+state 77
+
+    (28) statement -> LBRACKETS statement_list . RBRACKETS
+
+    RBRACKETS       shift and go to state 110
+
+
+state 78
+
+    (31) print_func -> PRINT LPARENTESIS . print_element print_element_list RPARENTESIS SEMICOLON
+    (32) print_element -> . expression
+    (33) print_element -> . CTE_STRING
+    (41) expression -> . exp comparison
+    (47) exp -> . term add_sub
+    (51) term -> . factor mult_div
+    (55) factor -> . grouping
+    (56) factor -> . unary_sign
+    (57) factor -> . cte
+    (58) factor -> . ID id_func_option
+    (61) grouping -> . LPARENTESIS expression RPARENTESIS
+    (62) unary_sign -> . PLUS value
+    (63) unary_sign -> . MINUS value
+    (66) cte -> . CTE_INT
+    (67) cte -> . CTE_FLOAT
+
+    CTE_STRING      shift and go to state 113
+    ID              shift and go to state 66
+    LPARENTESIS     shift and go to state 67
+    PLUS            shift and go to state 68
+    MINUS           shift and go to state 69
+    CTE_INT         shift and go to state 70
+    CTE_FLOAT       shift and go to state 71
+
+    print_element                  shift and go to state 111
+    expression                     shift and go to state 112
+    exp                            shift and go to state 60
+    term                           shift and go to state 61
+    factor                         shift and go to state 62
+    grouping                       shift and go to state 63
+    unary_sign                     shift and go to state 64
+    cte                            shift and go to state 65
+
+state 79
+
+    (38) condition -> IF LPARENTESIS . expression RPARENTESIS body else_part SEMICOLON
+    (41) expression -> . exp comparison
+    (47) exp -> . term add_sub
+    (51) term -> . factor mult_div
+    (55) factor -> . grouping
+    (56) factor -> . unary_sign
+    (57) factor -> . cte
+    (58) factor -> . ID id_func_option
+    (61) grouping -> . LPARENTESIS expression RPARENTESIS
+    (62) unary_sign -> . PLUS value
+    (63) unary_sign -> . MINUS value
+    (66) cte -> . CTE_INT
+    (67) cte -> . CTE_FLOAT
+
+    ID              shift and go to state 66
+    LPARENTESIS     shift and go to state 67
+    PLUS            shift and go to state 68
+    MINUS           shift and go to state 69
+    CTE_INT         shift and go to state 70
+    CTE_FLOAT       shift and go to state 71
+
+    expression                     shift and go to state 114
+    exp                            shift and go to state 60
+    term                           shift and go to state 61
+    factor                         shift and go to state 62
+    grouping                       shift and go to state 63
+    unary_sign                     shift and go to state 64
+    cte                            shift and go to state 65
+
+state 80
+
+    (37) cycle -> WHILE LPARENTESIS . expression RPARENTESIS DO body SEMICOLON
+    (41) expression -> . exp comparison
+    (47) exp -> . term add_sub
+    (51) term -> . factor mult_div
+    (55) factor -> . grouping
+    (56) factor -> . unary_sign
+    (57) factor -> . cte
+    (58) factor -> . ID id_func_option
+    (61) grouping -> . LPARENTESIS expression RPARENTESIS
+    (62) unary_sign -> . PLUS value
+    (63) unary_sign -> . MINUS value
+    (66) cte -> . CTE_INT
+    (67) cte -> . CTE_FLOAT
+
+    ID              shift and go to state 66
+    LPARENTESIS     shift and go to state 67
+    PLUS            shift and go to state 68
+    MINUS           shift and go to state 69
+    CTE_INT         shift and go to state 70
+    CTE_FLOAT       shift and go to state 71
+
+    expression                     shift and go to state 115
+    exp                            shift and go to state 60
+    term                           shift and go to state 61
+    factor                         shift and go to state 62
+    grouping                       shift and go to state 63
+    unary_sign                     shift and go to state 64
+    cte                            shift and go to state 65
+
+state 81
+
+    (68) funcs -> prepare_new_func funcs_type add_current_type ID add_function . LPARENTESIS start_func_vars parameters RPARENTESIS LBRACES function_block RBRACES SEMICOLON end_func
+
+    LPARENTESIS     shift and go to state 116
+
+
+state 82
+
+    (12) identifier_list_tail -> COMMA ID add_to_var_table . identifier_list_tail
+    (12) identifier_list_tail -> . COMMA ID add_to_var_table identifier_list_tail
+    (13) identifier_list_tail -> . empty
+    (88) empty -> .
+
+    COMMA           shift and go to state 38
+    COLON           reduce using rule 88 (empty -> .)
+
+    identifier_list_tail           shift and go to state 117
+    empty                          shift and go to state 39
+
+state 83
+
+    (41) expression -> exp comparison .
+
+    RETURN          reduce using rule 41 (expression -> exp comparison .)
+    ID              reduce using rule 41 (expression -> exp comparison .)
+    LBRACKETS       reduce using rule 41 (expression -> exp comparison .)
+    PRINT           reduce using rule 41 (expression -> exp comparison .)
+    IF              reduce using rule 41 (expression -> exp comparison .)
+    WHILE           reduce using rule 41 (expression -> exp comparison .)
+    RBRACES         reduce using rule 41 (expression -> exp comparison .)
+    RBRACKETS       reduce using rule 41 (expression -> exp comparison .)
+    RPARENTESIS     reduce using rule 41 (expression -> exp comparison .)
+    COMMA           reduce using rule 41 (expression -> exp comparison .)
+    SEMICOLON       reduce using rule 41 (expression -> exp comparison .)
+
+
+state 84
+
+    (42) comparison -> GREATER . exp
+    (47) exp -> . term add_sub
+    (51) term -> . factor mult_div
+    (55) factor -> . grouping
+    (56) factor -> . unary_sign
+    (57) factor -> . cte
+    (58) factor -> . ID id_func_option
+    (61) grouping -> . LPARENTESIS expression RPARENTESIS
+    (62) unary_sign -> . PLUS value
+    (63) unary_sign -> . MINUS value
+    (66) cte -> . CTE_INT
+    (67) cte -> . CTE_FLOAT
+
+    ID              shift and go to state 66
+    LPARENTESIS     shift and go to state 67
+    PLUS            shift and go to state 68
+    MINUS           shift and go to state 69
+    CTE_INT         shift and go to state 70
+    CTE_FLOAT       shift and go to state 71
+
+    exp                            shift and go to state 118
+    term                           shift and go to state 61
+    factor                         shift and go to state 62
+    grouping                       shift and go to state 63
+    unary_sign                     shift and go to state 64
+    cte                            shift and go to state 65
+
+state 85
+
+    (43) comparison -> LESS . exp
+    (47) exp -> . term add_sub
+    (51) term -> . factor mult_div
+    (55) factor -> . grouping
+    (56) factor -> . unary_sign
+    (57) factor -> . cte
+    (58) factor -> . ID id_func_option
+    (61) grouping -> . LPARENTESIS expression RPARENTESIS
+    (62) unary_sign -> . PLUS value
+    (63) unary_sign -> . MINUS value
+    (66) cte -> . CTE_INT
+    (67) cte -> . CTE_FLOAT
+
+    ID              shift and go to state 66
+    LPARENTESIS     shift and go to state 67
+    PLUS            shift and go to state 68
+    MINUS           shift and go to state 69
+    CTE_INT         shift and go to state 70
+    CTE_FLOAT       shift and go to state 71
+
+    exp                            shift and go to state 119
+    term                           shift and go to state 61
+    factor                         shift and go to state 62
+    grouping                       shift and go to state 63
+    unary_sign                     shift and go to state 64
+    cte                            shift and go to state 65
+
+state 86
+
+    (44) comparison -> DIFFERENT . exp
+    (47) exp -> . term add_sub
+    (51) term -> . factor mult_div
+    (55) factor -> . grouping
+    (56) factor -> . unary_sign
+    (57) factor -> . cte
+    (58) factor -> . ID id_func_option
+    (61) grouping -> . LPARENTESIS expression RPARENTESIS
+    (62) unary_sign -> . PLUS value
+    (63) unary_sign -> . MINUS value
+    (66) cte -> . CTE_INT
+    (67) cte -> . CTE_FLOAT
+
+    ID              shift and go to state 66
+    LPARENTESIS     shift and go to state 67
+    PLUS            shift and go to state 68
+    MINUS           shift and go to state 69
+    CTE_INT         shift and go to state 70
+    CTE_FLOAT       shift and go to state 71
+
+    exp                            shift and go to state 120
+    term                           shift and go to state 61
+    factor                         shift and go to state 62
+    grouping                       shift and go to state 63
+    unary_sign                     shift and go to state 64
+    cte                            shift and go to state 65
+
+state 87
+
+    (45) comparison -> STRICT_EQUAL . exp
+    (47) exp -> . term add_sub
+    (51) term -> . factor mult_div
+    (55) factor -> . grouping
+    (56) factor -> . unary_sign
+    (57) factor -> . cte
+    (58) factor -> . ID id_func_option
+    (61) grouping -> . LPARENTESIS expression RPARENTESIS
+    (62) unary_sign -> . PLUS value
+    (63) unary_sign -> . MINUS value
+    (66) cte -> . CTE_INT
+    (67) cte -> . CTE_FLOAT
+
+    ID              shift and go to state 66
+    LPARENTESIS     shift and go to state 67
+    PLUS            shift and go to state 68
+    MINUS           shift and go to state 69
+    CTE_INT         shift and go to state 70
+    CTE_FLOAT       shift and go to state 71
+
+    exp                            shift and go to state 121
+    term                           shift and go to state 61
+    factor                         shift and go to state 62
+    grouping                       shift and go to state 63
+    unary_sign                     shift and go to state 64
+    cte                            shift and go to state 65
+
+state 88
+
+    (46) comparison -> empty .
+
+    RETURN          reduce using rule 46 (comparison -> empty .)
+    ID              reduce using rule 46 (comparison -> empty .)
+    LBRACKETS       reduce using rule 46 (comparison -> empty .)
+    PRINT           reduce using rule 46 (comparison -> empty .)
+    IF              reduce using rule 46 (comparison -> empty .)
+    WHILE           reduce using rule 46 (comparison -> empty .)
+    RBRACES         reduce using rule 46 (comparison -> empty .)
+    RBRACKETS       reduce using rule 46 (comparison -> empty .)
+    RPARENTESIS     reduce using rule 46 (comparison -> empty .)
+    COMMA           reduce using rule 46 (comparison -> empty .)
+    SEMICOLON       reduce using rule 46 (comparison -> empty .)
+
+
+state 89
+
+    (47) exp -> term add_sub .
+
+    GREATER         reduce using rule 47 (exp -> term add_sub .)
+    LESS            reduce using rule 47 (exp -> term add_sub .)
+    DIFFERENT       reduce using rule 47 (exp -> term add_sub .)
+    STRICT_EQUAL    reduce using rule 47 (exp -> term add_sub .)
+    RETURN          reduce using rule 47 (exp -> term add_sub .)
+    ID              reduce using rule 47 (exp -> term add_sub .)
+    LBRACKETS       reduce using rule 47 (exp -> term add_sub .)
+    PRINT           reduce using rule 47 (exp -> term add_sub .)
+    IF              reduce using rule 47 (exp -> term add_sub .)
+    WHILE           reduce using rule 47 (exp -> term add_sub .)
+    RBRACES         reduce using rule 47 (exp -> term add_sub .)
+    RBRACKETS       reduce using rule 47 (exp -> term add_sub .)
+    RPARENTESIS     reduce using rule 47 (exp -> term add_sub .)
+    COMMA           reduce using rule 47 (exp -> term add_sub .)
+    SEMICOLON       reduce using rule 47 (exp -> term add_sub .)
+
+
+state 90
+
+    (48) add_sub -> PLUS . term add_sub
+    (51) term -> . factor mult_div
+    (55) factor -> . grouping
+    (56) factor -> . unary_sign
+    (57) factor -> . cte
+    (58) factor -> . ID id_func_option
+    (61) grouping -> . LPARENTESIS expression RPARENTESIS
+    (62) unary_sign -> . PLUS value
+    (63) unary_sign -> . MINUS value
+    (66) cte -> . CTE_INT
+    (67) cte -> . CTE_FLOAT
+
+    ID              shift and go to state 66
+    LPARENTESIS     shift and go to state 67
+    PLUS            shift and go to state 68
+    MINUS           shift and go to state 69
+    CTE_INT         shift and go to state 70
+    CTE_FLOAT       shift and go to state 71
+
+    term                           shift and go to state 122
+    factor                         shift and go to state 62
+    grouping                       shift and go to state 63
+    unary_sign                     shift and go to state 64
+    cte                            shift and go to state 65
+
+state 91
+
+    (49) add_sub -> MINUS . term add_sub
+    (51) term -> . factor mult_div
+    (55) factor -> . grouping
+    (56) factor -> . unary_sign
+    (57) factor -> . cte
+    (58) factor -> . ID id_func_option
+    (61) grouping -> . LPARENTESIS expression RPARENTESIS
+    (62) unary_sign -> . PLUS value
+    (63) unary_sign -> . MINUS value
+    (66) cte -> . CTE_INT
+    (67) cte -> . CTE_FLOAT
+
+    ID              shift and go to state 66
+    LPARENTESIS     shift and go to state 67
+    PLUS            shift and go to state 68
+    MINUS           shift and go to state 69
+    CTE_INT         shift and go to state 70
+    CTE_FLOAT       shift and go to state 71
+
+    term                           shift and go to state 123
+    factor                         shift and go to state 62
+    grouping                       shift and go to state 63
+    unary_sign                     shift and go to state 64
+    cte                            shift and go to state 65
+
+state 92
+
+    (50) add_sub -> empty .
+
+    GREATER         reduce using rule 50 (add_sub -> empty .)
+    LESS            reduce using rule 50 (add_sub -> empty .)
+    DIFFERENT       reduce using rule 50 (add_sub -> empty .)
+    STRICT_EQUAL    reduce using rule 50 (add_sub -> empty .)
+    RETURN          reduce using rule 50 (add_sub -> empty .)
+    ID              reduce using rule 50 (add_sub -> empty .)
+    LBRACKETS       reduce using rule 50 (add_sub -> empty .)
+    PRINT           reduce using rule 50 (add_sub -> empty .)
+    IF              reduce using rule 50 (add_sub -> empty .)
+    WHILE           reduce using rule 50 (add_sub -> empty .)
+    RBRACES         reduce using rule 50 (add_sub -> empty .)
+    RBRACKETS       reduce using rule 50 (add_sub -> empty .)
+    RPARENTESIS     reduce using rule 50 (add_sub -> empty .)
+    COMMA           reduce using rule 50 (add_sub -> empty .)
+    SEMICOLON       reduce using rule 50 (add_sub -> empty .)
+
+
+state 93
+
+    (51) term -> factor mult_div .
+
+    PLUS            reduce using rule 51 (term -> factor mult_div .)
+    MINUS           reduce using rule 51 (term -> factor mult_div .)
+    GREATER         reduce using rule 51 (term -> factor mult_div .)
+    LESS            reduce using rule 51 (term -> factor mult_div .)
+    DIFFERENT       reduce using rule 51 (term -> factor mult_div .)
+    STRICT_EQUAL    reduce using rule 51 (term -> factor mult_div .)
+    RETURN          reduce using rule 51 (term -> factor mult_div .)
+    ID              reduce using rule 51 (term -> factor mult_div .)
+    LBRACKETS       reduce using rule 51 (term -> factor mult_div .)
+    PRINT           reduce using rule 51 (term -> factor mult_div .)
+    IF              reduce using rule 51 (term -> factor mult_div .)
+    WHILE           reduce using rule 51 (term -> factor mult_div .)
+    RBRACES         reduce using rule 51 (term -> factor mult_div .)
+    RBRACKETS       reduce using rule 51 (term -> factor mult_div .)
+    RPARENTESIS     reduce using rule 51 (term -> factor mult_div .)
+    COMMA           reduce using rule 51 (term -> factor mult_div .)
+    SEMICOLON       reduce using rule 51 (term -> factor mult_div .)
+
+
+state 94
+
+    (52) mult_div -> TIMES . factor mult_div
+    (55) factor -> . grouping
+    (56) factor -> . unary_sign
+    (57) factor -> . cte
+    (58) factor -> . ID id_func_option
+    (61) grouping -> . LPARENTESIS expression RPARENTESIS
+    (62) unary_sign -> . PLUS value
+    (63) unary_sign -> . MINUS value
+    (66) cte -> . CTE_INT
+    (67) cte -> . CTE_FLOAT
+
+    ID              shift and go to state 66
+    LPARENTESIS     shift and go to state 67
+    PLUS            shift and go to state 68
+    MINUS           shift and go to state 69
+    CTE_INT         shift and go to state 70
+    CTE_FLOAT       shift and go to state 71
+
+    factor                         shift and go to state 124
+    grouping                       shift and go to state 63
+    unary_sign                     shift and go to state 64
+    cte                            shift and go to state 65
+
+state 95
+
+    (53) mult_div -> DIVIDE . factor mult_div
+    (55) factor -> . grouping
+    (56) factor -> . unary_sign
+    (57) factor -> . cte
+    (58) factor -> . ID id_func_option
+    (61) grouping -> . LPARENTESIS expression RPARENTESIS
+    (62) unary_sign -> . PLUS value
+    (63) unary_sign -> . MINUS value
+    (66) cte -> . CTE_INT
+    (67) cte -> . CTE_FLOAT
+
+    ID              shift and go to state 66
+    LPARENTESIS     shift and go to state 67
+    PLUS            shift and go to state 68
+    MINUS           shift and go to state 69
+    CTE_INT         shift and go to state 70
+    CTE_FLOAT       shift and go to state 71
+
+    factor                         shift and go to state 125
+    grouping                       shift and go to state 63
+    unary_sign                     shift and go to state 64
+    cte                            shift and go to state 65
+
+state 96
+
+    (54) mult_div -> empty .
+
+    PLUS            reduce using rule 54 (mult_div -> empty .)
+    MINUS           reduce using rule 54 (mult_div -> empty .)
+    GREATER         reduce using rule 54 (mult_div -> empty .)
+    LESS            reduce using rule 54 (mult_div -> empty .)
+    DIFFERENT       reduce using rule 54 (mult_div -> empty .)
+    STRICT_EQUAL    reduce using rule 54 (mult_div -> empty .)
+    RETURN          reduce using rule 54 (mult_div -> empty .)
+    ID              reduce using rule 54 (mult_div -> empty .)
+    LBRACKETS       reduce using rule 54 (mult_div -> empty .)
+    PRINT           reduce using rule 54 (mult_div -> empty .)
+    IF              reduce using rule 54 (mult_div -> empty .)
+    WHILE           reduce using rule 54 (mult_div -> empty .)
+    RBRACES         reduce using rule 54 (mult_div -> empty .)
+    RBRACKETS       reduce using rule 54 (mult_div -> empty .)
+    RPARENTESIS     reduce using rule 54 (mult_div -> empty .)
+    COMMA           reduce using rule 54 (mult_div -> empty .)
+    SEMICOLON       reduce using rule 54 (mult_div -> empty .)
+
+
+state 97
+
+    (58) factor -> ID id_func_option .
+
+    TIMES           reduce using rule 58 (factor -> ID id_func_option .)
+    DIVIDE          reduce using rule 58 (factor -> ID id_func_option .)
+    PLUS            reduce using rule 58 (factor -> ID id_func_option .)
+    MINUS           reduce using rule 58 (factor -> ID id_func_option .)
+    GREATER         reduce using rule 58 (factor -> ID id_func_option .)
+    LESS            reduce using rule 58 (factor -> ID id_func_option .)
+    DIFFERENT       reduce using rule 58 (factor -> ID id_func_option .)
+    STRICT_EQUAL    reduce using rule 58 (factor -> ID id_func_option .)
+    RETURN          reduce using rule 58 (factor -> ID id_func_option .)
+    ID              reduce using rule 58 (factor -> ID id_func_option .)
+    LBRACKETS       reduce using rule 58 (factor -> ID id_func_option .)
+    PRINT           reduce using rule 58 (factor -> ID id_func_option .)
+    IF              reduce using rule 58 (factor -> ID id_func_option .)
+    WHILE           reduce using rule 58 (factor -> ID id_func_option .)
+    RBRACES         reduce using rule 58 (factor -> ID id_func_option .)
+    RBRACKETS       reduce using rule 58 (factor -> ID id_func_option .)
+    RPARENTESIS     reduce using rule 58 (factor -> ID id_func_option .)
+    COMMA           reduce using rule 58 (factor -> ID id_func_option .)
+    SEMICOLON       reduce using rule 58 (factor -> ID id_func_option .)
+
+
+state 98
+
+    (59) id_func_option -> f_call .
+
+    TIMES           reduce using rule 59 (id_func_option -> f_call .)
+    DIVIDE          reduce using rule 59 (id_func_option -> f_call .)
+    PLUS            reduce using rule 59 (id_func_option -> f_call .)
+    MINUS           reduce using rule 59 (id_func_option -> f_call .)
+    GREATER         reduce using rule 59 (id_func_option -> f_call .)
+    LESS            reduce using rule 59 (id_func_option -> f_call .)
+    DIFFERENT       reduce using rule 59 (id_func_option -> f_call .)
+    STRICT_EQUAL    reduce using rule 59 (id_func_option -> f_call .)
+    RETURN          reduce using rule 59 (id_func_option -> f_call .)
+    ID              reduce using rule 59 (id_func_option -> f_call .)
+    LBRACKETS       reduce using rule 59 (id_func_option -> f_call .)
+    PRINT           reduce using rule 59 (id_func_option -> f_call .)
+    IF              reduce using rule 59 (id_func_option -> f_call .)
+    WHILE           reduce using rule 59 (id_func_option -> f_call .)
+    RBRACES         reduce using rule 59 (id_func_option -> f_call .)
+    RBRACKETS       reduce using rule 59 (id_func_option -> f_call .)
+    RPARENTESIS     reduce using rule 59 (id_func_option -> f_call .)
+    COMMA           reduce using rule 59 (id_func_option -> f_call .)
+    SEMICOLON       reduce using rule 59 (id_func_option -> f_call .)
+
+
+state 99
+
+    (60) id_func_option -> empty .
+
+    TIMES           reduce using rule 60 (id_func_option -> empty .)
+    DIVIDE          reduce using rule 60 (id_func_option -> empty .)
+    PLUS            reduce using rule 60 (id_func_option -> empty .)
+    MINUS           reduce using rule 60 (id_func_option -> empty .)
+    GREATER         reduce using rule 60 (id_func_option -> empty .)
+    LESS            reduce using rule 60 (id_func_option -> empty .)
+    DIFFERENT       reduce using rule 60 (id_func_option -> empty .)
+    STRICT_EQUAL    reduce using rule 60 (id_func_option -> empty .)
+    RETURN          reduce using rule 60 (id_func_option -> empty .)
+    ID              reduce using rule 60 (id_func_option -> empty .)
+    LBRACKETS       reduce using rule 60 (id_func_option -> empty .)
+    PRINT           reduce using rule 60 (id_func_option -> empty .)
+    IF              reduce using rule 60 (id_func_option -> empty .)
+    WHILE           reduce using rule 60 (id_func_option -> empty .)
+    RBRACES         reduce using rule 60 (id_func_option -> empty .)
+    RBRACKETS       reduce using rule 60 (id_func_option -> empty .)
+    RPARENTESIS     reduce using rule 60 (id_func_option -> empty .)
+    COMMA           reduce using rule 60 (id_func_option -> empty .)
+    SEMICOLON       reduce using rule 60 (id_func_option -> empty .)
+
+
+state 100
+
+    (61) grouping -> LPARENTESIS expression . RPARENTESIS
+
+    RPARENTESIS     shift and go to state 126
+
+
+state 101
+
+    (62) unary_sign -> PLUS value .
+
+    TIMES           reduce using rule 62 (unary_sign -> PLUS value .)
+    DIVIDE          reduce using rule 62 (unary_sign -> PLUS value .)
+    PLUS            reduce using rule 62 (unary_sign -> PLUS value .)
+    MINUS           reduce using rule 62 (unary_sign -> PLUS value .)
+    GREATER         reduce using rule 62 (unary_sign -> PLUS value .)
+    LESS            reduce using rule 62 (unary_sign -> PLUS value .)
+    DIFFERENT       reduce using rule 62 (unary_sign -> PLUS value .)
+    STRICT_EQUAL    reduce using rule 62 (unary_sign -> PLUS value .)
+    RETURN          reduce using rule 62 (unary_sign -> PLUS value .)
+    ID              reduce using rule 62 (unary_sign -> PLUS value .)
+    LBRACKETS       reduce using rule 62 (unary_sign -> PLUS value .)
+    PRINT           reduce using rule 62 (unary_sign -> PLUS value .)
+    IF              reduce using rule 62 (unary_sign -> PLUS value .)
+    WHILE           reduce using rule 62 (unary_sign -> PLUS value .)
+    RBRACES         reduce using rule 62 (unary_sign -> PLUS value .)
+    RBRACKETS       reduce using rule 62 (unary_sign -> PLUS value .)
+    RPARENTESIS     reduce using rule 62 (unary_sign -> PLUS value .)
+    COMMA           reduce using rule 62 (unary_sign -> PLUS value .)
+    SEMICOLON       reduce using rule 62 (unary_sign -> PLUS value .)
+
+
+state 102
+
+    (64) value -> ID .
+
+    TIMES           reduce using rule 64 (value -> ID .)
+    DIVIDE          reduce using rule 64 (value -> ID .)
+    PLUS            reduce using rule 64 (value -> ID .)
+    MINUS           reduce using rule 64 (value -> ID .)
+    GREATER         reduce using rule 64 (value -> ID .)
+    LESS            reduce using rule 64 (value -> ID .)
+    DIFFERENT       reduce using rule 64 (value -> ID .)
+    STRICT_EQUAL    reduce using rule 64 (value -> ID .)
+    RETURN          reduce using rule 64 (value -> ID .)
+    ID              reduce using rule 64 (value -> ID .)
+    LBRACKETS       reduce using rule 64 (value -> ID .)
+    PRINT           reduce using rule 64 (value -> ID .)
+    IF              reduce using rule 64 (value -> ID .)
+    WHILE           reduce using rule 64 (value -> ID .)
+    RBRACES         reduce using rule 64 (value -> ID .)
+    RBRACKETS       reduce using rule 64 (value -> ID .)
+    RPARENTESIS     reduce using rule 64 (value -> ID .)
+    COMMA           reduce using rule 64 (value -> ID .)
+    SEMICOLON       reduce using rule 64 (value -> ID .)
+
+
+state 103
+
+    (65) value -> cte .
+
+    TIMES           reduce using rule 65 (value -> cte .)
+    DIVIDE          reduce using rule 65 (value -> cte .)
+    PLUS            reduce using rule 65 (value -> cte .)
+    MINUS           reduce using rule 65 (value -> cte .)
+    GREATER         reduce using rule 65 (value -> cte .)
+    LESS            reduce using rule 65 (value -> cte .)
+    DIFFERENT       reduce using rule 65 (value -> cte .)
+    STRICT_EQUAL    reduce using rule 65 (value -> cte .)
+    RETURN          reduce using rule 65 (value -> cte .)
+    ID              reduce using rule 65 (value -> cte .)
+    LBRACKETS       reduce using rule 65 (value -> cte .)
+    PRINT           reduce using rule 65 (value -> cte .)
+    IF              reduce using rule 65 (value -> cte .)
+    WHILE           reduce using rule 65 (value -> cte .)
+    RBRACES         reduce using rule 65 (value -> cte .)
+    RBRACKETS       reduce using rule 65 (value -> cte .)
+    RPARENTESIS     reduce using rule 65 (value -> cte .)
+    COMMA           reduce using rule 65 (value -> cte .)
+    SEMICOLON       reduce using rule 65 (value -> cte .)
+
+
+state 104
+
+    (63) unary_sign -> MINUS value .
+
+    TIMES           reduce using rule 63 (unary_sign -> MINUS value .)
+    DIVIDE          reduce using rule 63 (unary_sign -> MINUS value .)
+    PLUS            reduce using rule 63 (unary_sign -> MINUS value .)
+    MINUS           reduce using rule 63 (unary_sign -> MINUS value .)
+    GREATER         reduce using rule 63 (unary_sign -> MINUS value .)
+    LESS            reduce using rule 63 (unary_sign -> MINUS value .)
+    DIFFERENT       reduce using rule 63 (unary_sign -> MINUS value .)
+    STRICT_EQUAL    reduce using rule 63 (unary_sign -> MINUS value .)
+    RETURN          reduce using rule 63 (unary_sign -> MINUS value .)
+    ID              reduce using rule 63 (unary_sign -> MINUS value .)
+    LBRACKETS       reduce using rule 63 (unary_sign -> MINUS value .)
+    PRINT           reduce using rule 63 (unary_sign -> MINUS value .)
+    IF              reduce using rule 63 (unary_sign -> MINUS value .)
+    WHILE           reduce using rule 63 (unary_sign -> MINUS value .)
+    RBRACES         reduce using rule 63 (unary_sign -> MINUS value .)
+    RBRACKETS       reduce using rule 63 (unary_sign -> MINUS value .)
+    RPARENTESIS     reduce using rule 63 (unary_sign -> MINUS value .)
+    COMMA           reduce using rule 63 (unary_sign -> MINUS value .)
+    SEMICOLON       reduce using rule 63 (unary_sign -> MINUS value .)
+
+
+state 105
+
+    (29) id_option -> f_call SEMICOLON .
+
+    RETURN          reduce using rule 29 (id_option -> f_call SEMICOLON .)
+    ID              reduce using rule 29 (id_option -> f_call SEMICOLON .)
+    LBRACKETS       reduce using rule 29 (id_option -> f_call SEMICOLON .)
+    PRINT           reduce using rule 29 (id_option -> f_call SEMICOLON .)
+    IF              reduce using rule 29 (id_option -> f_call SEMICOLON .)
+    WHILE           reduce using rule 29 (id_option -> f_call SEMICOLON .)
+    RBRACES         reduce using rule 29 (id_option -> f_call SEMICOLON .)
+    RBRACKETS       reduce using rule 29 (id_option -> f_call SEMICOLON .)
+
+
+state 106
+
+    (83) f_call -> LPARENTESIS arguments . RPARENTESIS
+
+    RPARENTESIS     shift and go to state 127
+
+
+state 107
+
+    (84) arguments -> expression . argument_list
+    (86) argument_list -> . COMMA expression argument_list
+    (87) argument_list -> . empty
+    (88) empty -> .
+
+    COMMA           shift and go to state 129
+    RPARENTESIS     reduce using rule 88 (empty -> .)
+
+    argument_list                  shift and go to state 128
+    empty                          shift and go to state 130
+
+state 108
+
+    (85) arguments -> empty .
+
+    RPARENTESIS     reduce using rule 85 (arguments -> empty .)
+
+
+state 109
+
+    (36) assign -> EQUALS expression . SEMICOLON
+
+    SEMICOLON       shift and go to state 131
+
+
+state 110
+
+    (28) statement -> LBRACKETS statement_list RBRACKETS .
+
+    RETURN          reduce using rule 28 (statement -> LBRACKETS statement_list RBRACKETS .)
+    ID              reduce using rule 28 (statement -> LBRACKETS statement_list RBRACKETS .)
+    LBRACKETS       reduce using rule 28 (statement -> LBRACKETS statement_list RBRACKETS .)
+    PRINT           reduce using rule 28 (statement -> LBRACKETS statement_list RBRACKETS .)
+    IF              reduce using rule 28 (statement -> LBRACKETS statement_list RBRACKETS .)
+    WHILE           reduce using rule 28 (statement -> LBRACKETS statement_list RBRACKETS .)
+    RBRACES         reduce using rule 28 (statement -> LBRACKETS statement_list RBRACKETS .)
+    RBRACKETS       reduce using rule 28 (statement -> LBRACKETS statement_list RBRACKETS .)
+
+
+state 111
+
+    (31) print_func -> PRINT LPARENTESIS print_element . print_element_list RPARENTESIS SEMICOLON
+    (34) print_element_list -> . COMMA print_element print_element_list
+    (35) print_element_list -> . empty
+    (88) empty -> .
+
+    COMMA           shift and go to state 133
+    RPARENTESIS     reduce using rule 88 (empty -> .)
+
+    print_element_list             shift and go to state 132
+    empty                          shift and go to state 134
+
+state 112
+
+    (32) print_element -> expression .
+
+    COMMA           reduce using rule 32 (print_element -> expression .)
+    RPARENTESIS     reduce using rule 32 (print_element -> expression .)
+
+
+state 113
+
+    (33) print_element -> CTE_STRING .
+
+    COMMA           reduce using rule 33 (print_element -> CTE_STRING .)
+    RPARENTESIS     reduce using rule 33 (print_element -> CTE_STRING .)
+
+
+state 114
+
+    (38) condition -> IF LPARENTESIS expression . RPARENTESIS body else_part SEMICOLON
+
+    RPARENTESIS     shift and go to state 135
+
+
+state 115
+
+    (37) cycle -> WHILE LPARENTESIS expression . RPARENTESIS DO body SEMICOLON
+
+    RPARENTESIS     shift and go to state 136
+
+
+state 116
+
+    (68) funcs -> prepare_new_func funcs_type add_current_type ID add_function LPARENTESIS . start_func_vars parameters RPARENTESIS LBRACES function_block RBRACES SEMICOLON end_func
+    (74) start_func_vars -> .
+
+    ID              reduce using rule 74 (start_func_vars -> .)
+    RPARENTESIS     reduce using rule 74 (start_func_vars -> .)
+
+    start_func_vars                shift and go to state 137
+
+state 117
+
+    (12) identifier_list_tail -> COMMA ID add_to_var_table identifier_list_tail .
+
+    COLON           reduce using rule 12 (identifier_list_tail -> COMMA ID add_to_var_table identifier_list_tail .)
+
+
+state 118
+
+    (42) comparison -> GREATER exp .
+
+    RETURN          reduce using rule 42 (comparison -> GREATER exp .)
+    ID              reduce using rule 42 (comparison -> GREATER exp .)
+    LBRACKETS       reduce using rule 42 (comparison -> GREATER exp .)
+    PRINT           reduce using rule 42 (comparison -> GREATER exp .)
+    IF              reduce using rule 42 (comparison -> GREATER exp .)
+    WHILE           reduce using rule 42 (comparison -> GREATER exp .)
+    RBRACES         reduce using rule 42 (comparison -> GREATER exp .)
+    RBRACKETS       reduce using rule 42 (comparison -> GREATER exp .)
+    RPARENTESIS     reduce using rule 42 (comparison -> GREATER exp .)
+    COMMA           reduce using rule 42 (comparison -> GREATER exp .)
+    SEMICOLON       reduce using rule 42 (comparison -> GREATER exp .)
+
+
+state 119
+
+    (43) comparison -> LESS exp .
+
+    RETURN          reduce using rule 43 (comparison -> LESS exp .)
+    ID              reduce using rule 43 (comparison -> LESS exp .)
+    LBRACKETS       reduce using rule 43 (comparison -> LESS exp .)
+    PRINT           reduce using rule 43 (comparison -> LESS exp .)
+    IF              reduce using rule 43 (comparison -> LESS exp .)
+    WHILE           reduce using rule 43 (comparison -> LESS exp .)
+    RBRACES         reduce using rule 43 (comparison -> LESS exp .)
+    RBRACKETS       reduce using rule 43 (comparison -> LESS exp .)
+    RPARENTESIS     reduce using rule 43 (comparison -> LESS exp .)
+    COMMA           reduce using rule 43 (comparison -> LESS exp .)
+    SEMICOLON       reduce using rule 43 (comparison -> LESS exp .)
+
+
+state 120
+
+    (44) comparison -> DIFFERENT exp .
+
+    RETURN          reduce using rule 44 (comparison -> DIFFERENT exp .)
+    ID              reduce using rule 44 (comparison -> DIFFERENT exp .)
+    LBRACKETS       reduce using rule 44 (comparison -> DIFFERENT exp .)
+    PRINT           reduce using rule 44 (comparison -> DIFFERENT exp .)
+    IF              reduce using rule 44 (comparison -> DIFFERENT exp .)
+    WHILE           reduce using rule 44 (comparison -> DIFFERENT exp .)
+    RBRACES         reduce using rule 44 (comparison -> DIFFERENT exp .)
+    RBRACKETS       reduce using rule 44 (comparison -> DIFFERENT exp .)
+    RPARENTESIS     reduce using rule 44 (comparison -> DIFFERENT exp .)
+    COMMA           reduce using rule 44 (comparison -> DIFFERENT exp .)
+    SEMICOLON       reduce using rule 44 (comparison -> DIFFERENT exp .)
+
+
+state 121
+
+    (45) comparison -> STRICT_EQUAL exp .
+
+    RETURN          reduce using rule 45 (comparison -> STRICT_EQUAL exp .)
+    ID              reduce using rule 45 (comparison -> STRICT_EQUAL exp .)
+    LBRACKETS       reduce using rule 45 (comparison -> STRICT_EQUAL exp .)
+    PRINT           reduce using rule 45 (comparison -> STRICT_EQUAL exp .)
+    IF              reduce using rule 45 (comparison -> STRICT_EQUAL exp .)
+    WHILE           reduce using rule 45 (comparison -> STRICT_EQUAL exp .)
+    RBRACES         reduce using rule 45 (comparison -> STRICT_EQUAL exp .)
+    RBRACKETS       reduce using rule 45 (comparison -> STRICT_EQUAL exp .)
+    RPARENTESIS     reduce using rule 45 (comparison -> STRICT_EQUAL exp .)
+    COMMA           reduce using rule 45 (comparison -> STRICT_EQUAL exp .)
+    SEMICOLON       reduce using rule 45 (comparison -> STRICT_EQUAL exp .)
+
+
+state 122
+
+    (48) add_sub -> PLUS term . add_sub
+    (48) add_sub -> . PLUS term add_sub
+    (49) add_sub -> . MINUS term add_sub
+    (50) add_sub -> . empty
+    (88) empty -> .
+
+    PLUS            shift and go to state 90
+    MINUS           shift and go to state 91
+    GREATER         reduce using rule 88 (empty -> .)
+    LESS            reduce using rule 88 (empty -> .)
+    DIFFERENT       reduce using rule 88 (empty -> .)
+    STRICT_EQUAL    reduce using rule 88 (empty -> .)
+    RETURN          reduce using rule 88 (empty -> .)
+    ID              reduce using rule 88 (empty -> .)
+    LBRACKETS       reduce using rule 88 (empty -> .)
+    PRINT           reduce using rule 88 (empty -> .)
+    IF              reduce using rule 88 (empty -> .)
+    WHILE           reduce using rule 88 (empty -> .)
+    RBRACES         reduce using rule 88 (empty -> .)
+    RBRACKETS       reduce using rule 88 (empty -> .)
+    RPARENTESIS     reduce using rule 88 (empty -> .)
+    COMMA           reduce using rule 88 (empty -> .)
+    SEMICOLON       reduce using rule 88 (empty -> .)
+
+    add_sub                        shift and go to state 138
+    empty                          shift and go to state 92
+
+state 123
+
+    (49) add_sub -> MINUS term . add_sub
+    (48) add_sub -> . PLUS term add_sub
+    (49) add_sub -> . MINUS term add_sub
+    (50) add_sub -> . empty
+    (88) empty -> .
+
+    PLUS            shift and go to state 90
+    MINUS           shift and go to state 91
+    GREATER         reduce using rule 88 (empty -> .)
+    LESS            reduce using rule 88 (empty -> .)
+    DIFFERENT       reduce using rule 88 (empty -> .)
+    STRICT_EQUAL    reduce using rule 88 (empty -> .)
+    RETURN          reduce using rule 88 (empty -> .)
+    ID              reduce using rule 88 (empty -> .)
+    LBRACKETS       reduce using rule 88 (empty -> .)
+    PRINT           reduce using rule 88 (empty -> .)
+    IF              reduce using rule 88 (empty -> .)
+    WHILE           reduce using rule 88 (empty -> .)
+    RBRACES         reduce using rule 88 (empty -> .)
+    RBRACKETS       reduce using rule 88 (empty -> .)
+    RPARENTESIS     reduce using rule 88 (empty -> .)
+    COMMA           reduce using rule 88 (empty -> .)
+    SEMICOLON       reduce using rule 88 (empty -> .)
+
+    add_sub                        shift and go to state 139
+    empty                          shift and go to state 92
+
+state 124
+
+    (52) mult_div -> TIMES factor . mult_div
+    (52) mult_div -> . TIMES factor mult_div
+    (53) mult_div -> . DIVIDE factor mult_div
+    (54) mult_div -> . empty
+    (88) empty -> .
+
+    TIMES           shift and go to state 94
+    DIVIDE          shift and go to state 95
+    PLUS            reduce using rule 88 (empty -> .)
+    MINUS           reduce using rule 88 (empty -> .)
+    GREATER         reduce using rule 88 (empty -> .)
+    LESS            reduce using rule 88 (empty -> .)
+    DIFFERENT       reduce using rule 88 (empty -> .)
+    STRICT_EQUAL    reduce using rule 88 (empty -> .)
+    RETURN          reduce using rule 88 (empty -> .)
+    ID              reduce using rule 88 (empty -> .)
+    LBRACKETS       reduce using rule 88 (empty -> .)
+    PRINT           reduce using rule 88 (empty -> .)
+    IF              reduce using rule 88 (empty -> .)
+    WHILE           reduce using rule 88 (empty -> .)
+    RBRACES         reduce using rule 88 (empty -> .)
+    RBRACKETS       reduce using rule 88 (empty -> .)
+    RPARENTESIS     reduce using rule 88 (empty -> .)
+    COMMA           reduce using rule 88 (empty -> .)
+    SEMICOLON       reduce using rule 88 (empty -> .)
+
+    mult_div                       shift and go to state 140
+    empty                          shift and go to state 96
+
+state 125
+
+    (53) mult_div -> DIVIDE factor . mult_div
+    (52) mult_div -> . TIMES factor mult_div
+    (53) mult_div -> . DIVIDE factor mult_div
+    (54) mult_div -> . empty
+    (88) empty -> .
+
+    TIMES           shift and go to state 94
+    DIVIDE          shift and go to state 95
+    PLUS            reduce using rule 88 (empty -> .)
+    MINUS           reduce using rule 88 (empty -> .)
+    GREATER         reduce using rule 88 (empty -> .)
+    LESS            reduce using rule 88 (empty -> .)
+    DIFFERENT       reduce using rule 88 (empty -> .)
+    STRICT_EQUAL    reduce using rule 88 (empty -> .)
+    RETURN          reduce using rule 88 (empty -> .)
+    ID              reduce using rule 88 (empty -> .)
+    LBRACKETS       reduce using rule 88 (empty -> .)
+    PRINT           reduce using rule 88 (empty -> .)
+    IF              reduce using rule 88 (empty -> .)
+    WHILE           reduce using rule 88 (empty -> .)
+    RBRACES         reduce using rule 88 (empty -> .)
+    RBRACKETS       reduce using rule 88 (empty -> .)
+    RPARENTESIS     reduce using rule 88 (empty -> .)
+    COMMA           reduce using rule 88 (empty -> .)
+    SEMICOLON       reduce using rule 88 (empty -> .)
+
+    mult_div                       shift and go to state 141
+    empty                          shift and go to state 96
+
+state 126
+
+    (61) grouping -> LPARENTESIS expression RPARENTESIS .
+
+    TIMES           reduce using rule 61 (grouping -> LPARENTESIS expression RPARENTESIS .)
+    DIVIDE          reduce using rule 61 (grouping -> LPARENTESIS expression RPARENTESIS .)
+    PLUS            reduce using rule 61 (grouping -> LPARENTESIS expression RPARENTESIS .)
+    MINUS           reduce using rule 61 (grouping -> LPARENTESIS expression RPARENTESIS .)
+    GREATER         reduce using rule 61 (grouping -> LPARENTESIS expression RPARENTESIS .)
+    LESS            reduce using rule 61 (grouping -> LPARENTESIS expression RPARENTESIS .)
+    DIFFERENT       reduce using rule 61 (grouping -> LPARENTESIS expression RPARENTESIS .)
+    STRICT_EQUAL    reduce using rule 61 (grouping -> LPARENTESIS expression RPARENTESIS .)
+    RETURN          reduce using rule 61 (grouping -> LPARENTESIS expression RPARENTESIS .)
+    ID              reduce using rule 61 (grouping -> LPARENTESIS expression RPARENTESIS .)
+    LBRACKETS       reduce using rule 61 (grouping -> LPARENTESIS expression RPARENTESIS .)
+    PRINT           reduce using rule 61 (grouping -> LPARENTESIS expression RPARENTESIS .)
+    IF              reduce using rule 61 (grouping -> LPARENTESIS expression RPARENTESIS .)
+    WHILE           reduce using rule 61 (grouping -> LPARENTESIS expression RPARENTESIS .)
+    RBRACES         reduce using rule 61 (grouping -> LPARENTESIS expression RPARENTESIS .)
+    RBRACKETS       reduce using rule 61 (grouping -> LPARENTESIS expression RPARENTESIS .)
+    RPARENTESIS     reduce using rule 61 (grouping -> LPARENTESIS expression RPARENTESIS .)
+    COMMA           reduce using rule 61 (grouping -> LPARENTESIS expression RPARENTESIS .)
+    SEMICOLON       reduce using rule 61 (grouping -> LPARENTESIS expression RPARENTESIS .)
+
+
+state 127
+
+    (83) f_call -> LPARENTESIS arguments RPARENTESIS .
+
+    SEMICOLON       reduce using rule 83 (f_call -> LPARENTESIS arguments RPARENTESIS .)
+    TIMES           reduce using rule 83 (f_call -> LPARENTESIS arguments RPARENTESIS .)
+    DIVIDE          reduce using rule 83 (f_call -> LPARENTESIS arguments RPARENTESIS .)
+    PLUS            reduce using rule 83 (f_call -> LPARENTESIS arguments RPARENTESIS .)
+    MINUS           reduce using rule 83 (f_call -> LPARENTESIS arguments RPARENTESIS .)
+    GREATER         reduce using rule 83 (f_call -> LPARENTESIS arguments RPARENTESIS .)
+    LESS            reduce using rule 83 (f_call -> LPARENTESIS arguments RPARENTESIS .)
+    DIFFERENT       reduce using rule 83 (f_call -> LPARENTESIS arguments RPARENTESIS .)
+    STRICT_EQUAL    reduce using rule 83 (f_call -> LPARENTESIS arguments RPARENTESIS .)
+    RETURN          reduce using rule 83 (f_call -> LPARENTESIS arguments RPARENTESIS .)
+    ID              reduce using rule 83 (f_call -> LPARENTESIS arguments RPARENTESIS .)
+    LBRACKETS       reduce using rule 83 (f_call -> LPARENTESIS arguments RPARENTESIS .)
+    PRINT           reduce using rule 83 (f_call -> LPARENTESIS arguments RPARENTESIS .)
+    IF              reduce using rule 83 (f_call -> LPARENTESIS arguments RPARENTESIS .)
+    WHILE           reduce using rule 83 (f_call -> LPARENTESIS arguments RPARENTESIS .)
+    RBRACES         reduce using rule 83 (f_call -> LPARENTESIS arguments RPARENTESIS .)
+    RBRACKETS       reduce using rule 83 (f_call -> LPARENTESIS arguments RPARENTESIS .)
+    RPARENTESIS     reduce using rule 83 (f_call -> LPARENTESIS arguments RPARENTESIS .)
+    COMMA           reduce using rule 83 (f_call -> LPARENTESIS arguments RPARENTESIS .)
+
+
+state 128
+
+    (84) arguments -> expression argument_list .
+
+    RPARENTESIS     reduce using rule 84 (arguments -> expression argument_list .)
+
+
+state 129
+
+    (86) argument_list -> COMMA . expression argument_list
+    (41) expression -> . exp comparison
+    (47) exp -> . term add_sub
+    (51) term -> . factor mult_div
+    (55) factor -> . grouping
+    (56) factor -> . unary_sign
+    (57) factor -> . cte
+    (58) factor -> . ID id_func_option
+    (61) grouping -> . LPARENTESIS expression RPARENTESIS
+    (62) unary_sign -> . PLUS value
+    (63) unary_sign -> . MINUS value
+    (66) cte -> . CTE_INT
+    (67) cte -> . CTE_FLOAT
+
+    ID              shift and go to state 66
+    LPARENTESIS     shift and go to state 67
+    PLUS            shift and go to state 68
+    MINUS           shift and go to state 69
+    CTE_INT         shift and go to state 70
+    CTE_FLOAT       shift and go to state 71
+
+    expression                     shift and go to state 142
+    exp                            shift and go to state 60
+    term                           shift and go to state 61
+    factor                         shift and go to state 62
+    grouping                       shift and go to state 63
+    unary_sign                     shift and go to state 64
+    cte                            shift and go to state 65
+
+state 130
+
+    (87) argument_list -> empty .
+
+    RPARENTESIS     reduce using rule 87 (argument_list -> empty .)
+
+
+state 131
+
+    (36) assign -> EQUALS expression SEMICOLON .
+
+    RETURN          reduce using rule 36 (assign -> EQUALS expression SEMICOLON .)
+    ID              reduce using rule 36 (assign -> EQUALS expression SEMICOLON .)
+    LBRACKETS       reduce using rule 36 (assign -> EQUALS expression SEMICOLON .)
+    PRINT           reduce using rule 36 (assign -> EQUALS expression SEMICOLON .)
+    IF              reduce using rule 36 (assign -> EQUALS expression SEMICOLON .)
+    WHILE           reduce using rule 36 (assign -> EQUALS expression SEMICOLON .)
+    RBRACES         reduce using rule 36 (assign -> EQUALS expression SEMICOLON .)
+    RBRACKETS       reduce using rule 36 (assign -> EQUALS expression SEMICOLON .)
+
+
+state 132
+
+    (31) print_func -> PRINT LPARENTESIS print_element print_element_list . RPARENTESIS SEMICOLON
+
+    RPARENTESIS     shift and go to state 143
+
+
+state 133
+
+    (34) print_element_list -> COMMA . print_element print_element_list
+    (32) print_element -> . expression
+    (33) print_element -> . CTE_STRING
+    (41) expression -> . exp comparison
+    (47) exp -> . term add_sub
+    (51) term -> . factor mult_div
+    (55) factor -> . grouping
+    (56) factor -> . unary_sign
+    (57) factor -> . cte
+    (58) factor -> . ID id_func_option
+    (61) grouping -> . LPARENTESIS expression RPARENTESIS
+    (62) unary_sign -> . PLUS value
+    (63) unary_sign -> . MINUS value
+    (66) cte -> . CTE_INT
+    (67) cte -> . CTE_FLOAT
+
+    CTE_STRING      shift and go to state 113
+    ID              shift and go to state 66
+    LPARENTESIS     shift and go to state 67
+    PLUS            shift and go to state 68
+    MINUS           shift and go to state 69
+    CTE_INT         shift and go to state 70
+    CTE_FLOAT       shift and go to state 71
+
+    print_element                  shift and go to state 144
+    expression                     shift and go to state 112
+    exp                            shift and go to state 60
+    term                           shift and go to state 61
+    factor                         shift and go to state 62
+    grouping                       shift and go to state 63
+    unary_sign                     shift and go to state 64
+    cte                            shift and go to state 65
+
+state 134
+
+    (35) print_element_list -> empty .
+
+    RPARENTESIS     reduce using rule 35 (print_element_list -> empty .)
+
+
+state 135
+
+    (38) condition -> IF LPARENTESIS expression RPARENTESIS . body else_part SEMICOLON
+    (20) body -> . LBRACES statement_list RBRACES
+
+    LBRACES         shift and go to state 31
+
+    body                           shift and go to state 145
+
+state 136
+
+    (37) cycle -> WHILE LPARENTESIS expression RPARENTESIS . DO body SEMICOLON
+
+    DO              shift and go to state 146
+
+
+state 137
+
+    (68) funcs -> prepare_new_func funcs_type add_current_type ID add_function LPARENTESIS start_func_vars . parameters RPARENTESIS LBRACES function_block RBRACES SEMICOLON end_func
+    (76) parameters -> . parameter parameter_list
+    (77) parameters -> . empty
+    (78) parameter -> . ID COLON type
+    (88) empty -> .
+
+    ID              shift and go to state 147
+    RPARENTESIS     reduce using rule 88 (empty -> .)
+
+    parameters                     shift and go to state 148
+    parameter                      shift and go to state 149
+    empty                          shift and go to state 150
+
+state 138
+
+    (48) add_sub -> PLUS term add_sub .
+
+    GREATER         reduce using rule 48 (add_sub -> PLUS term add_sub .)
+    LESS            reduce using rule 48 (add_sub -> PLUS term add_sub .)
+    DIFFERENT       reduce using rule 48 (add_sub -> PLUS term add_sub .)
+    STRICT_EQUAL    reduce using rule 48 (add_sub -> PLUS term add_sub .)
+    RETURN          reduce using rule 48 (add_sub -> PLUS term add_sub .)
+    ID              reduce using rule 48 (add_sub -> PLUS term add_sub .)
+    LBRACKETS       reduce using rule 48 (add_sub -> PLUS term add_sub .)
+    PRINT           reduce using rule 48 (add_sub -> PLUS term add_sub .)
+    IF              reduce using rule 48 (add_sub -> PLUS term add_sub .)
+    WHILE           reduce using rule 48 (add_sub -> PLUS term add_sub .)
+    RBRACES         reduce using rule 48 (add_sub -> PLUS term add_sub .)
+    RBRACKETS       reduce using rule 48 (add_sub -> PLUS term add_sub .)
+    RPARENTESIS     reduce using rule 48 (add_sub -> PLUS term add_sub .)
+    COMMA           reduce using rule 48 (add_sub -> PLUS term add_sub .)
+    SEMICOLON       reduce using rule 48 (add_sub -> PLUS term add_sub .)
+
+
+state 139
+
+    (49) add_sub -> MINUS term add_sub .
+
+    GREATER         reduce using rule 49 (add_sub -> MINUS term add_sub .)
+    LESS            reduce using rule 49 (add_sub -> MINUS term add_sub .)
+    DIFFERENT       reduce using rule 49 (add_sub -> MINUS term add_sub .)
+    STRICT_EQUAL    reduce using rule 49 (add_sub -> MINUS term add_sub .)
+    RETURN          reduce using rule 49 (add_sub -> MINUS term add_sub .)
+    ID              reduce using rule 49 (add_sub -> MINUS term add_sub .)
+    LBRACKETS       reduce using rule 49 (add_sub -> MINUS term add_sub .)
+    PRINT           reduce using rule 49 (add_sub -> MINUS term add_sub .)
+    IF              reduce using rule 49 (add_sub -> MINUS term add_sub .)
+    WHILE           reduce using rule 49 (add_sub -> MINUS term add_sub .)
+    RBRACES         reduce using rule 49 (add_sub -> MINUS term add_sub .)
+    RBRACKETS       reduce using rule 49 (add_sub -> MINUS term add_sub .)
+    RPARENTESIS     reduce using rule 49 (add_sub -> MINUS term add_sub .)
+    COMMA           reduce using rule 49 (add_sub -> MINUS term add_sub .)
+    SEMICOLON       reduce using rule 49 (add_sub -> MINUS term add_sub .)
+
+
+state 140
+
+    (52) mult_div -> TIMES factor mult_div .
+
+    PLUS            reduce using rule 52 (mult_div -> TIMES factor mult_div .)
+    MINUS           reduce using rule 52 (mult_div -> TIMES factor mult_div .)
+    GREATER         reduce using rule 52 (mult_div -> TIMES factor mult_div .)
+    LESS            reduce using rule 52 (mult_div -> TIMES factor mult_div .)
+    DIFFERENT       reduce using rule 52 (mult_div -> TIMES factor mult_div .)
+    STRICT_EQUAL    reduce using rule 52 (mult_div -> TIMES factor mult_div .)
+    RETURN          reduce using rule 52 (mult_div -> TIMES factor mult_div .)
+    ID              reduce using rule 52 (mult_div -> TIMES factor mult_div .)
+    LBRACKETS       reduce using rule 52 (mult_div -> TIMES factor mult_div .)
+    PRINT           reduce using rule 52 (mult_div -> TIMES factor mult_div .)
+    IF              reduce using rule 52 (mult_div -> TIMES factor mult_div .)
+    WHILE           reduce using rule 52 (mult_div -> TIMES factor mult_div .)
+    RBRACES         reduce using rule 52 (mult_div -> TIMES factor mult_div .)
+    RBRACKETS       reduce using rule 52 (mult_div -> TIMES factor mult_div .)
+    RPARENTESIS     reduce using rule 52 (mult_div -> TIMES factor mult_div .)
+    COMMA           reduce using rule 52 (mult_div -> TIMES factor mult_div .)
+    SEMICOLON       reduce using rule 52 (mult_div -> TIMES factor mult_div .)
+
+
+state 141
+
+    (53) mult_div -> DIVIDE factor mult_div .
+
+    PLUS            reduce using rule 53 (mult_div -> DIVIDE factor mult_div .)
+    MINUS           reduce using rule 53 (mult_div -> DIVIDE factor mult_div .)
+    GREATER         reduce using rule 53 (mult_div -> DIVIDE factor mult_div .)
+    LESS            reduce using rule 53 (mult_div -> DIVIDE factor mult_div .)
+    DIFFERENT       reduce using rule 53 (mult_div -> DIVIDE factor mult_div .)
+    STRICT_EQUAL    reduce using rule 53 (mult_div -> DIVIDE factor mult_div .)
+    RETURN          reduce using rule 53 (mult_div -> DIVIDE factor mult_div .)
+    ID              reduce using rule 53 (mult_div -> DIVIDE factor mult_div .)
+    LBRACKETS       reduce using rule 53 (mult_div -> DIVIDE factor mult_div .)
+    PRINT           reduce using rule 53 (mult_div -> DIVIDE factor mult_div .)
+    IF              reduce using rule 53 (mult_div -> DIVIDE factor mult_div .)
+    WHILE           reduce using rule 53 (mult_div -> DIVIDE factor mult_div .)
+    RBRACES         reduce using rule 53 (mult_div -> DIVIDE factor mult_div .)
+    RBRACKETS       reduce using rule 53 (mult_div -> DIVIDE factor mult_div .)
+    RPARENTESIS     reduce using rule 53 (mult_div -> DIVIDE factor mult_div .)
+    COMMA           reduce using rule 53 (mult_div -> DIVIDE factor mult_div .)
+    SEMICOLON       reduce using rule 53 (mult_div -> DIVIDE factor mult_div .)
+
+
+state 142
+
+    (86) argument_list -> COMMA expression . argument_list
+    (86) argument_list -> . COMMA expression argument_list
+    (87) argument_list -> . empty
+    (88) empty -> .
+
+    COMMA           shift and go to state 129
+    RPARENTESIS     reduce using rule 88 (empty -> .)
+
+    argument_list                  shift and go to state 151
+    empty                          shift and go to state 130
+
+state 143
+
+    (31) print_func -> PRINT LPARENTESIS print_element print_element_list RPARENTESIS . SEMICOLON
+
+    SEMICOLON       shift and go to state 152
+
+
+state 144
+
+    (34) print_element_list -> COMMA print_element . print_element_list
+    (34) print_element_list -> . COMMA print_element print_element_list
+    (35) print_element_list -> . empty
+    (88) empty -> .
+
+    COMMA           shift and go to state 133
+    RPARENTESIS     reduce using rule 88 (empty -> .)
+
+    print_element_list             shift and go to state 153
+    empty                          shift and go to state 134
+
+state 145
+
+    (38) condition -> IF LPARENTESIS expression RPARENTESIS body . else_part SEMICOLON
+    (39) else_part -> . ELSE body
+    (40) else_part -> . empty
+    (88) empty -> .
+
+    ELSE            shift and go to state 155
+    SEMICOLON       reduce using rule 88 (empty -> .)
+
+    else_part                      shift and go to state 154
+    empty                          shift and go to state 156
+
+state 146
+
+    (37) cycle -> WHILE LPARENTESIS expression RPARENTESIS DO . body SEMICOLON
+    (20) body -> . LBRACES statement_list RBRACES
+
+    LBRACES         shift and go to state 31
+
+    body                           shift and go to state 157
+
+state 147
+
+    (78) parameter -> ID . COLON type
+
+    COLON           shift and go to state 158
+
+
+state 148
+
+    (68) funcs -> prepare_new_func funcs_type add_current_type ID add_function LPARENTESIS start_func_vars parameters . RPARENTESIS LBRACES function_block RBRACES SEMICOLON end_func
+
+    RPARENTESIS     shift and go to state 159
+
+
+state 149
+
+    (76) parameters -> parameter . parameter_list
+    (79) parameter_list -> . COMMA parameter parameter_list
+    (80) parameter_list -> . empty
+    (88) empty -> .
+
+    COMMA           shift and go to state 161
+    RPARENTESIS     reduce using rule 88 (empty -> .)
+
+    parameter_list                 shift and go to state 160
+    empty                          shift and go to state 162
+
+state 150
+
+    (77) parameters -> empty .
+
+    RPARENTESIS     reduce using rule 77 (parameters -> empty .)
+
+
+state 151
+
+    (86) argument_list -> COMMA expression argument_list .
+
+    RPARENTESIS     reduce using rule 86 (argument_list -> COMMA expression argument_list .)
+
+
+state 152
+
+    (31) print_func -> PRINT LPARENTESIS print_element print_element_list RPARENTESIS SEMICOLON .
+
+    RETURN          reduce using rule 31 (print_func -> PRINT LPARENTESIS print_element print_element_list RPARENTESIS SEMICOLON .)
+    ID              reduce using rule 31 (print_func -> PRINT LPARENTESIS print_element print_element_list RPARENTESIS SEMICOLON .)
+    LBRACKETS       reduce using rule 31 (print_func -> PRINT LPARENTESIS print_element print_element_list RPARENTESIS SEMICOLON .)
+    PRINT           reduce using rule 31 (print_func -> PRINT LPARENTESIS print_element print_element_list RPARENTESIS SEMICOLON .)
+    IF              reduce using rule 31 (print_func -> PRINT LPARENTESIS print_element print_element_list RPARENTESIS SEMICOLON .)
+    WHILE           reduce using rule 31 (print_func -> PRINT LPARENTESIS print_element print_element_list RPARENTESIS SEMICOLON .)
+    RBRACES         reduce using rule 31 (print_func -> PRINT LPARENTESIS print_element print_element_list RPARENTESIS SEMICOLON .)
+    RBRACKETS       reduce using rule 31 (print_func -> PRINT LPARENTESIS print_element print_element_list RPARENTESIS SEMICOLON .)
+
+
+state 153
+
+    (34) print_element_list -> COMMA print_element print_element_list .
+
+    RPARENTESIS     reduce using rule 34 (print_element_list -> COMMA print_element print_element_list .)
+
+
+state 154
+
+    (38) condition -> IF LPARENTESIS expression RPARENTESIS body else_part . SEMICOLON
+
+    SEMICOLON       shift and go to state 163
+
+
+state 155
+
+    (39) else_part -> ELSE . body
+    (20) body -> . LBRACES statement_list RBRACES
+
+    LBRACES         shift and go to state 31
+
+    body                           shift and go to state 164
+
+state 156
+
+    (40) else_part -> empty .
+
+    SEMICOLON       reduce using rule 40 (else_part -> empty .)
+
+
+state 157
+
+    (37) cycle -> WHILE LPARENTESIS expression RPARENTESIS DO body . SEMICOLON
+
+    SEMICOLON       shift and go to state 165
+
+
+state 158
+
+    (78) parameter -> ID COLON . type
+    (17) type -> . INT_TYPE current_type
+    (18) type -> . FLOAT_TYPE current_type
+
+    INT_TYPE        shift and go to state 23
+    FLOAT_TYPE      shift and go to state 24
+
+    type                           shift and go to state 166
+
+state 159
+
+    (68) funcs -> prepare_new_func funcs_type add_current_type ID add_function LPARENTESIS start_func_vars parameters RPARENTESIS . LBRACES function_block RBRACES SEMICOLON end_func
+
+    LBRACES         shift and go to state 167
+
+
+state 160
+
+    (76) parameters -> parameter parameter_list .
+
+    RPARENTESIS     reduce using rule 76 (parameters -> parameter parameter_list .)
+
+
+state 161
+
+    (79) parameter_list -> COMMA . parameter parameter_list
+    (78) parameter -> . ID COLON type
+
+    ID              shift and go to state 147
+
+    parameter                      shift and go to state 168
+
+state 162
+
+    (80) parameter_list -> empty .
+
+    RPARENTESIS     reduce using rule 80 (parameter_list -> empty .)
+
+
+state 163
+
+    (38) condition -> IF LPARENTESIS expression RPARENTESIS body else_part SEMICOLON .
+
+    RETURN          reduce using rule 38 (condition -> IF LPARENTESIS expression RPARENTESIS body else_part SEMICOLON .)
+    ID              reduce using rule 38 (condition -> IF LPARENTESIS expression RPARENTESIS body else_part SEMICOLON .)
+    LBRACKETS       reduce using rule 38 (condition -> IF LPARENTESIS expression RPARENTESIS body else_part SEMICOLON .)
+    PRINT           reduce using rule 38 (condition -> IF LPARENTESIS expression RPARENTESIS body else_part SEMICOLON .)
+    IF              reduce using rule 38 (condition -> IF LPARENTESIS expression RPARENTESIS body else_part SEMICOLON .)
+    WHILE           reduce using rule 38 (condition -> IF LPARENTESIS expression RPARENTESIS body else_part SEMICOLON .)
+    RBRACES         reduce using rule 38 (condition -> IF LPARENTESIS expression RPARENTESIS body else_part SEMICOLON .)
+    RBRACKETS       reduce using rule 38 (condition -> IF LPARENTESIS expression RPARENTESIS body else_part SEMICOLON .)
+
+
+state 164
+
+    (39) else_part -> ELSE body .
+
+    SEMICOLON       reduce using rule 39 (else_part -> ELSE body .)
+
+
+state 165
+
+    (37) cycle -> WHILE LPARENTESIS expression RPARENTESIS DO body SEMICOLON .
+
+    RETURN          reduce using rule 37 (cycle -> WHILE LPARENTESIS expression RPARENTESIS DO body SEMICOLON .)
+    ID              reduce using rule 37 (cycle -> WHILE LPARENTESIS expression RPARENTESIS DO body SEMICOLON .)
+    LBRACKETS       reduce using rule 37 (cycle -> WHILE LPARENTESIS expression RPARENTESIS DO body SEMICOLON .)
+    PRINT           reduce using rule 37 (cycle -> WHILE LPARENTESIS expression RPARENTESIS DO body SEMICOLON .)
+    IF              reduce using rule 37 (cycle -> WHILE LPARENTESIS expression RPARENTESIS DO body SEMICOLON .)
+    WHILE           reduce using rule 37 (cycle -> WHILE LPARENTESIS expression RPARENTESIS DO body SEMICOLON .)
+    RBRACES         reduce using rule 37 (cycle -> WHILE LPARENTESIS expression RPARENTESIS DO body SEMICOLON .)
+    RBRACKETS       reduce using rule 37 (cycle -> WHILE LPARENTESIS expression RPARENTESIS DO body SEMICOLON .)
+
+
+state 166
+
+    (78) parameter -> ID COLON type .
+
+    COMMA           reduce using rule 78 (parameter -> ID COLON type .)
+    RPARENTESIS     reduce using rule 78 (parameter -> ID COLON type .)
+
+
+state 167
+
+    (68) funcs -> prepare_new_func funcs_type add_current_type ID add_function LPARENTESIS start_func_vars parameters RPARENTESIS LBRACES . function_block RBRACES SEMICOLON end_func
+    (81) function_block -> . vars body
+    (82) function_block -> . body
+    (9) vars -> . VAR var_declaration var_declaration_list
+    (20) body -> . LBRACES statement_list RBRACES
+
+    VAR             shift and go to state 10
+    LBRACES         shift and go to state 31
+
+    function_block                 shift and go to state 169
+    vars                           shift and go to state 170
+    body                           shift and go to state 171
+
+state 168
+
+    (79) parameter_list -> COMMA parameter . parameter_list
+    (79) parameter_list -> . COMMA parameter parameter_list
+    (80) parameter_list -> . empty
+    (88) empty -> .
+
+    COMMA           shift and go to state 161
+    RPARENTESIS     reduce using rule 88 (empty -> .)
+
+    parameter_list                 shift and go to state 172
+    empty                          shift and go to state 162
+
+state 169
+
+    (68) funcs -> prepare_new_func funcs_type add_current_type ID add_function LPARENTESIS start_func_vars parameters RPARENTESIS LBRACES function_block . RBRACES SEMICOLON end_func
+
+    RBRACES         shift and go to state 173
+
+
+state 170
+
+    (81) function_block -> vars . body
+    (20) body -> . LBRACES statement_list RBRACES
+
+    LBRACES         shift and go to state 31
+
+    body                           shift and go to state 174
+
+state 171
+
+    (82) function_block -> body .
+
+    RBRACES         reduce using rule 82 (function_block -> body .)
+
+
+state 172
+
+    (79) parameter_list -> COMMA parameter parameter_list .
+
+    RPARENTESIS     reduce using rule 79 (parameter_list -> COMMA parameter parameter_list .)
+
+
+state 173
+
+    (68) funcs -> prepare_new_func funcs_type add_current_type ID add_function LPARENTESIS start_func_vars parameters RPARENTESIS LBRACES function_block RBRACES . SEMICOLON end_func
+
+    SEMICOLON       shift and go to state 175
+
+
+state 174
+
+    (81) function_block -> vars body .
+
+    RBRACES         reduce using rule 81 (function_block -> vars body .)
+
+
+state 175
+
+    (68) funcs -> prepare_new_func funcs_type add_current_type ID add_function LPARENTESIS start_func_vars parameters RPARENTESIS LBRACES function_block RBRACES SEMICOLON . end_func
+    (75) end_func -> .
+
+    VOID            reduce using rule 75 (end_func -> .)
+    INT_TYPE        reduce using rule 75 (end_func -> .)
+    FLOAT_TYPE      reduce using rule 75 (end_func -> .)
+    MAIN            reduce using rule 75 (end_func -> .)
+
+    end_func                       shift and go to state 176
+
+state 176
+
+    (68) funcs -> prepare_new_func funcs_type add_current_type ID add_function LPARENTESIS start_func_vars parameters RPARENTESIS LBRACES function_block RBRACES SEMICOLON end_func .
+
+    VOID            reduce using rule 68 (funcs -> prepare_new_func funcs_type add_current_type ID add_function LPARENTESIS start_func_vars parameters RPARENTESIS LBRACES function_block RBRACES SEMICOLON end_func .)
+    INT_TYPE        reduce using rule 68 (funcs -> prepare_new_func funcs_type add_current_type ID add_function LPARENTESIS start_func_vars parameters RPARENTESIS LBRACES function_block RBRACES SEMICOLON end_func .)
+    FLOAT_TYPE      reduce using rule 68 (funcs -> prepare_new_func funcs_type add_current_type ID add_function LPARENTESIS start_func_vars parameters RPARENTESIS LBRACES function_block RBRACES SEMICOLON end_func .)
+    MAIN            reduce using rule 68 (funcs -> prepare_new_func funcs_type add_current_type ID add_function LPARENTESIS start_func_vars parameters RPARENTESIS LBRACES function_block RBRACES SEMICOLON end_func .)
+
