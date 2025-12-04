@@ -1,0 +1,10 @@
+Para correr el compilador
+
+1. Entrar a Test.py
+2. Elegir alguno de los test ya cargados o implementar el tuyo. 
+(Lo agregas en la linea de test_input en “main”) 
+3. corres el programa.
+4. Con esto ya habrás generado automáticamente el json.
+5. Entras a vmtest.py, corres el programa y deberias de ver los resultados en tu terminal.
+
+Nit: Al correr Test.py vas a ver los cuádruplos generados, los puedes ignorar.
